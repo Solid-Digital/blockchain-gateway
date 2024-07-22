@@ -1,0 +1,33 @@
+# debug = true
+
+logLevel = "INFO"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  # [entryPoints.http.redirect]
+  # entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "docker.local"
+watch = true
+exposedByDefault = false
+swarmmode = true
+
+#
+# [acme]
+# email = "thatcher@unchain.io"
+# storage = "/opt/traefik-acme-data/acme.json"
+# onDemand = true
+# # caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+# entryPoint = "https"
+#
+# [acme.httpChallenge]
+# entryPoint = "http"

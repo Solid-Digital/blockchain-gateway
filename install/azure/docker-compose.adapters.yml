@@ -1,0 +1,47 @@
+version: '3.3'
+
+networks:
+  proxy:
+    external: true
+
+services:
+  # nginx:
+  #   image: nginx:1.13
+  #   networks:
+  #   - proxy
+  #   deploy:
+  #     replicas: 2
+  #     labels:
+  #     - traefik.frontend.rule=Host:nginx.a1.aws.unchain.io
+  #     - traefik.docker.network=proxy
+  #     - traefik.port=80
+  #     - traefik.enable=true
+  #     # - traefik.webapps.domain=nginx.a1.aws.unchain.io
+  #
+  apache:
+    image: httpd:2.4
+    networks:
+    - proxy
+    deploy:
+      replicas: 2
+      labels:
+      # - traefik.frontend.rule=Host:apache.${HOSTNAME}
+      - traefik.frontend.rule=PathPrefixStrip:/adapter
+      - traefik.docker.network=proxy
+      - traefik.port=80
+      - traefik.enable=true
+      # - traefik.adapters.domain=apache.18.194.105.234.xip.io
+  #
+  # caddy:
+  #   image: abiosoft/caddy:0.10.7
+  #   networks:
+  #   - proxy
+  #   deploy:
+  #     replicas: 2
+  #     labels:
+  #     - traefik.frontend.rule=Host:caddy.a1.aws.unchain.io
+  #     # - traefik.frontend.rule=PathPrefixStrip:/caddy
+  #     - traefik.docker.network=proxy
+  #     - traefik.port=2015
+  #     - traefik.enable=true
+  #     - traefik.webapps.domain=caddy.a1.aws.unchain.io
