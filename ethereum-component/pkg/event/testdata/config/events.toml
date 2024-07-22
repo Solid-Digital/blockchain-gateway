@@ -1,0 +1,23 @@
+[ethereum]
+	host = "ws://example.com:8545"
+
+[[contracts]]
+	address = "0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad"
+	abi = '[{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"}]'
+
+[[contracts]]
+	address = "0xc67206229c1f20ce80f3e13fbc9199e329dea1e1"
+	abi = '[{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"}]'
+
+[[events]]
+    contractAddress = "0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad"
+    name = "Transfer"
+    filters = []
+
+[[events]]
+    contractAddress = "0xc67206229c1f20ce80f3e13fbc9199e329dea1e1"
+    name = "Transfer"
+    filters = [
+        ["0x57b675c9d3751e94bec2d943e6f47b2dfba73a2d", "0x507d5f3241a9d9cc618473cd706670b45ca3a9ac"]
+    ]
+

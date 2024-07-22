@@ -1,0 +1,17 @@
+[ethereum]
+host = "http://localhost:8546"
+
+[[accounts]]
+address = "0xfdfa8d41f986c80904bf4825402e788f3121e7af"
+privateKey = "0x5b3a720780cdf4288877eff96b5e4be01f5bddf4fb77f304e12f5a00f17220cc"
+
+[[accounts]]
+address = "0x69091d42c8307d9a24a47b2d92d4506604ae44b9"
+privateKey = "0x95206d4239e755291d12b7bbc778b388fb765317cd115f8a72e27827629edc72"
+
+[[accounts]]
+address = "0xfe6cca44dec3726aff6d44c39974e821f6d7510e"
+privateKey = "0x11cce58ced3fce5e69f475418e346c516abc59c32104a398c6e2c409949d30e7"
+
+[redis]
+host = "localhost:6379"

@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  ganache_with_blocktime:
+    restart: "unless-stopped"
+    image: trufflesuite/ganache-cli:v6.6.0
+    ports:
+      - 8546:8545
+    command: ["--seed=foo", "--blockTime=5"]
+  ganache:
+    restart: "unless-stopped"
+    image: trufflesuite/ganache-cli:v6.6.0
+    ports:
+      - 8545:8545
+    command: ["--seed=foo"]
+  redis:
+    restart: unless-stopped
+    image: redis
+    ports:
+      - 6379:6379

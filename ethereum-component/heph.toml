@@ -1,0 +1,23 @@
+[components]
+  [components.ethereum-action]
+    type = "action"
+    description = "The Ethereum action allows you to make transactions to an Ethereum network."
+    version = "v0.4.1-alpha.0"
+    exampleConfig = ""
+    exampleConfigPath = "./cmd/action/example_config.toml"
+    inputSchema = ["from", "to", "function", "params", "nonce", "solidity", "constructorParams", "type"]
+    outputSchema = ["contractCallOutput", "contractTransactionOutput", "deployContractOutput"]
+    srcPath = "./cmd/action/main.go"
+    binPath = "./bin/action.so"
+    readme = ""
+    readmePath = "./cmd/action/README.md"
+  [components.ethereum-trigger]
+    type = "trigger"
+    description = "The Ethereum trigger allows you to listen to events from an Ethereum network."
+    version = "v0.0.4-alpha.0"
+    exampleConfig = ""
+    exampleConfigPath = "./cmd/trigger/example_config.toml"
+    srcPath = "./cmd/trigger/"
+    binPath = "./bin/trigger.so"
+    readme = ""
+    readmePath = "./cmd/trigger/REAMDE.md"

@@ -1,0 +1,13 @@
+[ethereum]
+	host = "ws://localhost:8545"
+
+[[contracts]]
+	address = "%s"
+	abi = '%s'
+
+[[events]]
+    contractAddress = "%s"
+    name = "Set"
+    filters = [
+        ["0xfdfa8d41f986c80904bf4825402e788f3121e7af", "10"]
+    ]

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+
+message LogRequest {
+    string message = 1;
+}
+
+message LogResponse {}
+
+service StubHelper {
+    rpc Printf(LogRequest) returns (LogResponse);
+    rpc Fatalf(LogRequest) returns (LogResponse);
+    rpc Panicf(LogRequest) returns (LogResponse);
+    rpc Debugf(LogRequest) returns (LogResponse);
+    rpc Warnf(LogRequest)  returns (LogResponse);
+    rpc Errorf(LogRequest) returns (LogResponse);
+}

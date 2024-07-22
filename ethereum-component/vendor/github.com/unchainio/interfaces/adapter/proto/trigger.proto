@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+//import "message.proto";
+
+package proto;
+
+message InitTriggerRequest {
+    uint32 stub_server = 1;
+    bytes config = 2;
+}
+
+message InitTriggerResponse {}
+
+message TriggerRequest {
+}
+
+message TriggerResponse {
+    string tag = 1;
+    bytes message = 2;
+}
+
+message RespondRequest {
+    string tag = 1;
+    bytes response = 2;
+    string error = 3;
+}
+
+message RespondResponse {}
+
+message CloseRequest {
+}
+
+message CloseResponse {}
+
+service Trigger {
+    rpc Init (InitTriggerRequest) returns (InitTriggerResponse);
+    rpc Trigger (TriggerRequest) returns (TriggerResponse);
+    rpc Respond (RespondRequest) returns (RespondResponse);
+    rpc Close (CloseRequest) returns (CloseResponse);
+}

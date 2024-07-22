@@ -1,0 +1,21 @@
+# [ethereum]
+# host = "http://example.com:8545"
+# synchronousMode = false
+
+## one or more accounts
+# [[accounts]]
+# address = "0x..your_address_1"
+# privateKey = "your_private_key_1"
+
+## One or more contracts
+# [[contracts]]
+# address = "0x.." # a valid contract address
+# abi = '''
+# [{"valid": "json"}]
+# '''
+
+## Configure redis for nonce management
+# [redis]
+# host = "localhost:6379"
+# password = "secret"
+# db = 0

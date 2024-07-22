@@ -1,0 +1,23 @@
+[ethereum]
+
+[[contracts]]
+	address = "0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad"
+	abi = '[{"constant":true,"inputs":[{"name":"s","type":"string"}],"name":"getString","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"pure","type":"function"}]'
+
+[[contracts]]
+	address = "0xc67206229c1f20ce80f3e13fbc9199e329dea1e1"
+	abi = '[{"constant":false,"inputs":[{"name":"s","type":"string"}],"name":"setString","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]'
+
+[[events]]
+    contractAddress = "0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad"
+    name = "Transfer"
+    filters = []
+
+[[events]]
+    contractAddress = "0xc67206229c1f20ce80f3e13fbc9199e329dea1e1"
+    name = "Transfer"
+    filters = [
+        ["0x57b675c9d3751e94bec2d943e6f47b2dfba73a2d",
+         "0x507d5f3241a9d9cc618473cd706670b45ca3a9ac"]
+    ]
+

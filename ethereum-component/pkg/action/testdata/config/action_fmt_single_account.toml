@@ -1,0 +1,10 @@
+[ethereum]
+	host = "http://localhost:8545"
+
+[[accounts]]
+    address = "0xfdfa8d41f986c80904bf4825402e788f3121e7af"
+    privateKey = "0x5b3a720780cdf4288877eff96b5e4be01f5bddf4fb77f304e12f5a00f17220cc"
+
+[[contracts]]
+    address = "%s"
+    abi = '%s'
