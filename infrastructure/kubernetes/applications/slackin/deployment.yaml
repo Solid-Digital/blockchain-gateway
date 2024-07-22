@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slackin
+spec:
+  # because of websocket connections and sessions, cannot be deployed HA
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slackin
+  template:
+    metadata:
+      labels:
+        app: slackin
+    spec:
+      containers:
+      - name: slackin
+        image: unchain/slackin:slow
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+          - name: SLACK_API_TOKEN
+            value: "xoxp-229493736869-369532092978-718829218391-9f0e4ebe2782f2917332c18520902a8e"
+          - name: GOOGLE_CAPTCHA_SECRET
+            value: "6LdB1k8UAAAAAPr8v_e-F0g9_2uKMOggdZj4LCuH"
+          - name: GOOGLE_CAPTCHA_SITEKEY
+            value: 6LdB1k8UAAAAAHqh50d2EkUeti5qKjYaPWvsY8FU
+          - name: SLACK_SUBDOMAIN
+            value: unchainio
+          - name: SLACK_INTERVAL
+            value: "300000"
+
+          
+

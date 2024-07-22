@@ -1,0 +1,121 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: prometheus
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/component: server
+spec:
+  selector:
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/component: server
+  ports:
+  - protocol: TCP
+    port: 9090
+    targetPort: default
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prometheus
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/component: server
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/component: server
+  replicas: 2
+  serviceName: prometheus
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prometheus
+        app.kubernetes.io/component: server
+    spec:
+      serviceAccountName: prometheus
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      affinity:
+        podAntiAffinity: # Don't schedule pods on the same node if posssible.
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: prometheus
+                  app.kubernetes.io/component: server
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v2.22.2
+        args:
+          - --config.file=/etc/prometheus/prometheus.yml
+          - --storage.tsdb.path=/data
+          - --storage.tsdb.retention.time=180d  # TODO increase?
+          - --web.external-url=$(EXTERNAL_URL)
+          - --web.listen-address=0.0.0.0:9090
+          - --web.route-prefix=/
+        ports:
+        - containerPort: 9090
+          name: default
+        envFrom:
+          - configMapRef:
+              name: prometheus.env-m97h5k9g69
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/prometheus
+        - name: rule-files-volume
+          mountPath: /etc/prometheus/rules
+        - name: data
+          mountPath: /data
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 30
+          failureThreshold: 3
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 30
+          failureThreshold: 3
+          successThreshold: 1
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: 1
+          limits:
+            memory: 3Gi
+            cpu: 2
+      volumes:
+      - name: config-volume
+        configMap:
+          name: prometheus-config-h86dfg92hg
+      - name: rule-files-volume
+        configMap:
+          name: prometheus-rule-files-k828f249dm
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "do-block-storage"
+        resources:
+          requests:
+            storage: 157Gi

@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vault
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  rules:
+    - host: vault.tools.dgo.unchain.io
+      http:
+        paths:
+          - backend:
+              serviceName: vault
+              servicePort: 8200
+  tls:
+    - hosts:
+        - vault.tools.dgo.unchain.io
+      secretName: vault-tools-unchain-io
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vault-tools-unchain-io
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  rules:
+    - host: vault.tools.unchain.io
+      http:
+        paths:
+          - backend:
+              serviceName: vault
+              servicePort: 8200
+  tls:
+    - hosts:
+        - vault.tools.unchain.io
+      secretName: vault.tools.unchain.io

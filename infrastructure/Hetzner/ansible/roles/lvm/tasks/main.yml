@@ -1,0 +1,20 @@
+# ---
+# file: roles/lvm/tasks/main.yml
+
+- name: Setup lv_data
+  include_tasks: setup.yml
+  when: lvm_config == 'setup'
+  tags:
+    - lvm
+
+- name: Remove all lvm pvs, pgs and lvs
+  include_tasks: reset.yml
+  when: lvm_config == 'delete_all'
+  tags:
+    - lvm
+
+- name: Delete {{ lvm_delete_lv | default('-') }} lv
+  include_tasks: delete_lv.yml
+  when: lvm_config == 'delete_lv'
+  tags:
+    - lvm

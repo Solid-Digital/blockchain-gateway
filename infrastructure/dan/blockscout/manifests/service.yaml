@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    fullName: blockscout
+    organization: dan
+  name: blockscout
+  namespace: blockscout-dan2
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4000
+    protocol: TCP
+    targetPort: 4000
+  selector:
+    fullName: blockscout

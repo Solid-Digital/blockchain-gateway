@@ -1,0 +1,9 @@
+# ---
+# file: delete_all_lvm.yml
+
+- name: Reset besu container and block storage
+  hosts:
+    - all
+  roles:
+    - role: lvm
+      lvm_config: delete_all

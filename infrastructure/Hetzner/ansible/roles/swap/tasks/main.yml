@@ -1,0 +1,55 @@
+# ---
+# file: roles/swap/tasks/main.yml
+
+- name: Ensure swapfile is created ({{ swap_fraction_memory }} memory)
+  command:
+    cmd: "dd if=/dev/zero of={{ swap_path }} bs=1M count={{ (ansible_memory_mb.real.total * swap_fraction_memory) | int }}"
+    creates: "{{ swap_path }}"
+  register: write_swapfile
+  tags:
+    - swap
+
+- name: Ensure swapfile permissions are set
+  file:
+    path: "{{ swap_path }}"
+    owner: root
+    group: root
+    mode: 0600
+  when: write_swapfile.changed
+  tags:
+    - swap
+
+- name: Ensure swapfile is built
+  command: "mkswap {{ swap_path }}"
+  register: create_swapfile
+  when: write_swapfile.changed
+  tags:
+    - swap
+
+- name: Ensure swapfile is enabled
+  command: "swapon {{ swap_path }}"
+  when: create_swapfile.changed
+  tags:
+    - swap
+
+- name: Ensure swapfile is mounted
+  mount:
+    name: swap
+    state: present
+    src: "{{ swap_path }}"
+    fstype: swap
+    opts: sw
+    passno: '0'
+    dump: '0'
+  tags:
+    - swap
+
+- name: Ensure swappiness is set to 10
+  sysctl:
+    sysctl_set: yes
+    name: "vm.swappiness"
+    value: '10'
+    state: present
+    ignoreerrors: yes
+  tags:
+    - swap

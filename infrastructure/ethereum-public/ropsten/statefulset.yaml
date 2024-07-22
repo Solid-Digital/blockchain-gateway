@@ -1,0 +1,113 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: synced-ropsten
+  labels:
+    app: synced-ropsten
+  namespace: ropsten-nodes-fullsync
+
+spec:
+  serviceName: synced-ropsten
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synced-ropsten
+  template:
+    metadata:
+      labels:
+        app: synced-ropsten
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9545"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+        - name: synced-ropsten
+          image: hyperledger/besu:1.4.4
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 1
+              memory: 2Gi
+            limits:
+              cpu: 7
+              memory: 12Gi
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NODES_HTTP_CORS_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: besu-configmap
+                  key: nodesHttpCorsOrigins
+            - name: NODES_HOST_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  name: besu-configmap
+                  key: nodesHostWhitelist
+          ports:
+            - containerPort: 8545
+              name: http
+              protocol: TCP
+            - containerPort: 8546
+              name: ws
+              protocol: TCP
+            - containerPort: 30303
+              name: dev-p2p-tcp
+              protocol: TCP
+            - containerPort: 30303
+              name: dev-p2p-udp
+              protocol: UDP
+          volumeMounts:
+            - name: synced-ropsten
+              mountPath: /opt/besu/data
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              exec /opt/besu/bin/besu \
+                --network=ropsten \
+                --data-path=/opt/besu/data \
+                --sync-mode=FULL \
+                --rpc-http-enabled \
+                --rpc-http-host=0.0.0.0 \
+                --rpc-http-port=8545 \
+                --rpc-http-cors-origins=${NODES_HTTP_CORS_ORIGINS} \
+                --rpc-ws-enabled \
+                --rpc-ws-host=0.0.0.0 \
+                --rpc-ws-port=8546 \
+                --host-whitelist=${NODES_HOST_WHITELIST} \
+                --metrics-enabled=true \
+                --metrics-host=0.0.0.0 \
+                --metrics-port=9545 \
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 8545
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 100
+          readinessProbe:
+            httpGet:
+              path: /liveness
+              port: 8545
+            initialDelaySeconds: 10
+            failureThreshold: 100
+            periodSeconds: 10
+
+  volumeClaimTemplates:
+    - metadata:
+        name: synced-ropsten
+      spec:
+        dataSource:
+          name: synced-ropsten
+          kind: VolumeSnapshot
+          apiGroup: snapshot.storage.k8s.io
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1400Gi

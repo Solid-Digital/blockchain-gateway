@@ -1,0 +1,92 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "19"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: corda
+  name: corda
+  namespace: corda
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-corda-corda-zulu
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-corda-corda-zulu
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - prod-worker-1a-m1
+      initContainers:
+        - name: s3-cordapp-loader
+          image: garland/docker-s3cmd
+          command:
+            - s3cmd
+            - get
+            - s3://cordapps-klm/*
+            - /opt/cordapps/
+          volumeMounts:
+            - mountPath: /opt/cordapps/
+              name: cordapps
+              readOnly: false
+      containers:
+        - image: corda/corda-zulu-4.0
+          imagePullPolicy: Always
+          name: corda
+          ports:
+            - containerPort: 10200
+              name: 10200tcp30200
+              protocol: TCP
+            - containerPort: 10201
+              name: 10201tcp30201
+              protocol: TCP
+            - containerPort: 10202
+              name: 10202tcp30202
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          volumeMounts:
+            - mountPath: /etc/corda/
+              name: config
+            - mountPath: /opt/corda/certificates/
+              name: certificates
+            - mountPath: /opt/corda/cordapps/
+              name: cordapps
+              readOnly: false
+      volumes:
+        - configMap:
+            defaultMode: 292
+            name: config
+            optional: false
+          name: config
+        - configMap:
+            defaultMode: 292
+            name: certificates
+            optional: false
+          name: certificates
+        - name: cordapps
+          emptyDir:
+            sizeLimit: "512M"

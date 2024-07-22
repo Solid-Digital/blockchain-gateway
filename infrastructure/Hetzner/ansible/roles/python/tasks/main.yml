@@ -1,0 +1,12 @@
+# ---
+# file:  roles/python/tasks/main.yml
+
+- name: Ensure python packages are {{ apt_state }}
+  apt:
+    state: "{{ apt_state }}"
+    update_cache: true
+    name:
+      - python3
+      - python3-pip
+  tags:
+    - docker

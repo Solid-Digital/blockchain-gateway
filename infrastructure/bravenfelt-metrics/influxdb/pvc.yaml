@@ -1,0 +1,12 @@
+apiVersion: v1  
+kind: PersistentVolumeClaim  
+metadata:  
+  name: influxdb-data  
+  namespace: bravenfelt-metrics
+spec:  
+  storageClassName: "do-block-storage-retain"
+  accessModes:  
+  - ReadWriteOnce  
+  resources:  
+    requests:  
+      storage: 2Gi

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: bravenfelt-metrics
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - envFrom:
+        - secretRef:
+            name: grafana-creds
+        image: grafana/grafana:5.4.3
+        name: grafana
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 200m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /etc/grafana/provisioning/datasources/influxdb-datasource.yml
+          name: grafana-config
+          readOnly: true
+          subPath: influxdb-datasource.yml
+        - mountPath: /etc/grafana/provisioning/dashboards/grafana-dashboard-provider.yml
+          name: grafana-config
+          readOnly: true
+          subPath: grafana-dashboard-provider.yml
+        - mountPath: /var/lib/grafana/dashboards/analysis-server.json
+          name: grafana-config
+          readOnly: true
+          subPath: analysis-server.json
+      restartPolicy: Always
+      volumes:
+      - name: grafana-config
+        configMap:
+          name: grafana-config

@@ -1,0 +1,13 @@
+# ---
+# file: roles/ssh/tasks/main.yml
+
+- name: Ensure ssh keys are present in authorized_keys
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item }}"
+  with_items:
+    - "{{ ssh_keys }}"
+  tags:
+    - ssh
+  

@@ -1,0 +1,62 @@
+---
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: geth-mainnet-default
+      labels:
+        app: geth-mainnet-default
+      namespace: mainnet-nodes
+
+    spec:
+      serviceName: geth-mainnet-default
+      replicas: 1
+      selector:
+        matchLabels:
+          app: geth-mainnet-default
+      template:
+        metadata:
+          labels:
+            app: geth-mainnet-default
+        spec:
+          containers:
+            - name: geth-mainnet-default
+              image: ethereum/client-go
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: 1
+                  memory: 1Gi
+                limits:
+                  cpu: 5
+                  memory: 12Gi
+              ports:
+                - containerPort: 8545
+                  name: http
+                  protocol: TCP
+                - containerPort: 8546
+                  name: ws
+                  protocol: TCP
+                - containerPort: 30303
+                  name: dev-p2p-tcp
+                  protocol: TCP
+                - containerPort: 30303
+                  name: dev-p2p-udp
+                  protocol: UDP
+              volumeMounts:
+                - name: geth-mainnet-default
+                  mountPath: /root/.ethereum
+              args: 
+                - --rpc
+                - --ws
+      volumeClaimTemplates:
+        - metadata:
+            name: geth-mainnet-default
+          spec:
+            dataSource:
+              name: geth-mainnet-default
+              kind: VolumeSnapshot
+              apiGroup: snapshot.storage.k8s.io
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 300Gi

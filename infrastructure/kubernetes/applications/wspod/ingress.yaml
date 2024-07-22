@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    field.cattle.io/publicEndpoints: '[{"addresses":["\u003cnil\u003e"],"port":443,"protocol":"HTTPS","serviceName":"adapters:undeveloped-listenertrp-165a89","ingressName":"adapters:undeveloped-listenertrp-165a89","hostname":"undeveloped.eu-central-1.adapter.unchain.io","path":"/listenertrp","allNodes":true}]'
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  creationTimestamp: null
+  generation: 1
+  name: undeveloped-listenertrp-165a89
+  selfLink: /apis/extensions/v1beta1/namespaces/adapters/ingresses/undeveloped-listenertrp-165a89
+spec:
+  rules:
+    - host: undeveloped.eu-central-1.adapter.unchain.io
+      http:
+        paths:
+          - backend:
+              serviceName: undeveloped-listenertrp-165a89
+              servicePort: 80
+            path: /listenertrp/?(.*)
+  tls:
+    - hosts:
+        - undeveloped.eu-central-1.adapter.unchain.io
+      secretName: undeveloped.eu-central-1.adapter.unchain.io
+status:
+  loadBalancer: {}

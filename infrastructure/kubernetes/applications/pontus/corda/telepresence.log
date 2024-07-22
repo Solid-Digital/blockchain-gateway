@@ -1,0 +1,859 @@
+   0.0 TEL | Telepresence 0.96 launched at Tue Mar 19 07:27:56 2019
+   0.0 TEL |   /usr/local/bin/telepresence --new-deployment trp
+   0.0 TEL | Platform: darwin
+   0.0 TEL | Python 3.7.2 (default, Jan 13 2019, 12:50:15)
+   0.0 TEL | [Clang 10.0.0 (clang-1000.11.45.5)]
+   0.0 TEL | [1] Running: uname -a
+   0.0   1 | Darwin Oatcake.local 18.0.0 Darwin Kernel Version 18.0.0: Wed Aug 22 20:13:40 PDT 2018; root:xnu-4903.201.2~1/RELEASE_X86_64 x86_64
+   0.0 TEL | BEGIN SPAN main.py:47(main)
+   0.0 TEL | BEGIN SPAN startup.py:71(__init__)
+   0.0 TEL | Found kubectl -> /usr/local/bin/kubectl
+   0.0 TEL | Found oc -> /usr/local/sbin/oc
+   0.0 TEL | [2] Capturing: kubectl version --short
+   0.6 TEL | [3] Capturing: kubectl config current-context
+   0.7 TEL | [4] Capturing: kubectl config view -o json
+   0.8 TEL | [5] Capturing: kubectl --context adapters-aws-frankfurt get ns thatchers
+   1.5 TEL | Command: kubectl 1.12.3
+   1.5 TEL | Context: adapters-aws-frankfurt, namespace: thatchers, version: 1.11.3
+   1.5 TEL | END SPAN startup.py:71(__init__)    1.5s
+   1.5 TEL | Found ssh -> /usr/bin/ssh
+   1.5 TEL | [6] Capturing: ssh -V
+   1.5 TEL | Found bash -> /bin/bash
+   1.5 TEL | Found sshuttle-telepresence -> /usr/local/Cellar/telepresence/0.96/libexec/sshuttle-telepresence
+   1.5 TEL | Found pfctl -> /sbin/pfctl
+   1.5 TEL | Found sudo -> /usr/bin/sudo
+   1.5 TEL | [7] Running: sudo -n echo -n
+   1.7   7 | sudo: a password is required
+   1.7 TEL | [7] exit 1 in 0.16 secs.
+   1.7 >>> | Invoking sudo. Please enter your sudo password.
+   1.7 TEL | [8] Running: sudo echo -n
+   1.7   8 | Sorry, try again.
+   8.7   8 | Sorry, try again.
+  20.5 TEL | [8] ran in 18.78 secs.
+  20.5 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+  20.5 TEL | Found sshfs -> /usr/local/bin/sshfs
+  20.5 TEL | Found umount -> /sbin/umount
+  20.5 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+  20.5 TEL | [9] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pods telepresence-connectivity-check --ignore-not-found
+  21.5 TEL | Scout info: {'latest_version': '0.97', 'application': 'telepresence', 'notices': []}
+  21.5 TEL | BEGIN SPAN deployment.py:57(create_new_deployment)
+  21.5 TEL | [10] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers delete --ignore-not-found svc,deploy --selector=telepresence=f80f4408ffa84fbbbcaf5881e8036348
+  22.1 TEL | [11] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers run --restart=Always --limits=cpu=100m,memory=256Mi --requests=cpu=25m,memory=64Mi trp --image=datawire/telepresence-k8s:0.96 --labels=telepresence=f80f4408ffa84fbbbcaf5881e8036348
+  22.6  11 | kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.
+  22.7  11 | deployment.apps/trp created
+  22.7 TEL | END SPAN deployment.py:57(create_new_deployment)    1.2s
+  22.7 TEL | BEGIN SPAN remote.py:154(get_remote_info)
+  22.7 TEL | BEGIN SPAN remote.py:78(get_deployment_json)
+  22.7 TEL | [12] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get deployment -o json --export --selector=telepresence=f80f4408ffa84fbbbcaf5881e8036348
+  23.2 TEL | END SPAN remote.py:78(get_deployment_json)    0.5s
+  23.2 TEL | Searching for Telepresence pod:
+  23.2 TEL |   with name trp-*
+  23.2 TEL |   with labels {'telepresence': 'f80f4408ffa84fbbbcaf5881e8036348'}
+  23.2 TEL | [13] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod -o json --export --selector=telepresence=f80f4408ffa84fbbbcaf5881e8036348
+  23.7 TEL | Checking trp-5655969844-9v8cm
+  23.7 TEL | Looks like we've found our pod!
+  23.7 TEL | BEGIN SPAN remote.py:116(wait_for_pod)
+  23.7 TEL | [14] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  24.5 TEL | [15] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  25.3 TEL | [16] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  26.2 TEL | [17] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  27.1 TEL | [18] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  27.9 TEL | [19] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  28.6 TEL | [20] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  29.5 TEL | [21] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-5655969844-9v8cm -o json
+  30.1 TEL | END SPAN remote.py:116(wait_for_pod)    6.4s
+  30.1 TEL | END SPAN remote.py:154(get_remote_info)    7.4s
+  30.1 TEL | BEGIN SPAN connect.py:36(connect)
+  30.1 TEL | [22] Launching kubectl logs: kubectl --context adapters-aws-frankfurt --namespace thatchers logs -f trp-5655969844-9v8cm --container trp --tail=10
+  30.1 TEL | [23] Launching kubectl port-forward: kubectl --context adapters-aws-frankfurt --namespace thatchers port-forward trp-5655969844-9v8cm 53482:8022
+  30.1 TEL | [24] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 53482 telepresence@127.0.0.1 /bin/true
+  30.1 TEL | [24] exit 255 in 0.02 secs.
+  30.4 TEL | [25] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 53482 telepresence@127.0.0.1 /bin/true
+  30.4 TEL | [25] exit 255 in 0.05 secs.
+  30.7 TEL | [26] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 53482 telepresence@127.0.0.1 /bin/true
+  30.7 TEL | [26] exit 255 in 0.03 secs.
+  31.0  23 | Forwarding from 127.0.0.1:53482 -> 8022
+  31.0 TEL | [27] Running: ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 53482 telepresence@127.0.0.1 /bin/true
+  31.0  23 | Forwarding from [::1]:53482 -> 8022
+  31.0  23 | Handling connection for 53482
+  31.9 >>> | 
+  31.9 >>> | No traffic is being forwarded from the remote Deployment to your local machine. You can use the --expose option to specify which ports you want to forward.
+  31.9 >>> | 
+  31.9 TEL | Launching Web server for proxy poll
+  31.9 TEL | [28] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -p 53482 telepresence@127.0.0.1 -L127.0.0.1:53494:127.0.0.1:9050 -R9055:127.0.0.1:53495
+  31.9 TEL | END SPAN connect.py:36(connect)    1.8s
+  31.9 TEL | BEGIN SPAN remote_env.py:28(get_remote_env)
+  31.9 TEL | [29] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers exec trp-5655969844-9v8cm --container trp -- python3 podinfo.py
+  31.9  23 | Handling connection for 53482
+  33.7 TEL | [29] captured in 1.80 secs.
+  33.7 TEL | END SPAN remote_env.py:28(get_remote_env)    1.8s
+  33.7 TEL | BEGIN SPAN mount.py:32(mount_remote_volumes)
+  33.7 TEL | [30] Capturing: sshfs -p 53482 -F /dev/null -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-97xdksbg/fs
+  33.8  23 | Handling connection for 53482
+  34.7 TEL | END SPAN mount.py:32(mount_remote_volumes)    1.0s
+  34.7 TEL | BEGIN SPAN vpn.py:231(connect_sshuttle)
+  34.7 TEL | BEGIN SPAN vpn.py:75(get_proxy_cidrs)
+  34.7 TEL | [31] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get nodes -o json
+  35.3 TEL | [32] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get services -o json
+  35.8 TEL | [33] Running: kubectl --context adapters-aws-frankfurt --namespace thatchers create service clusterip telepresence-1552976912-3655832-15408 --tcp=3000
+  36.0  22 | Listening...
+  36.0  22 | 2019-03-19T06:28:32+0000 [-] Loading ./forwarder.py...
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] /etc/resolv.conf changed, reparsing
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] Resolver added ('10.43.0.10', 53) to server list
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] SOCKSv5Factory starting on 9050
+  36.0  22 | 2019-03-19T06:28:33+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7f853a64ca58>
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] DNSDatagramProtocol starting on 9053
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f853a64ce10>
+  36.0  22 | 2019-03-19T06:28:33+0000 [-] Loaded.
+  36.0  22 | 2019-03-19T06:28:33+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 18.9.0 (/usr/bin/python3.6 3.6.5) starting up.
+  36.0  22 | 2019-03-19T06:28:33+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+  36.3  33 | service/telepresence-1552976912-3655832-15408 created
+  36.3 TEL | [34] Running: kubectl --context adapters-aws-frankfurt --namespace thatchers create service clusterip telepresence-1552976912-863699-15408 --tcp=3000
+  36.8  34 | service/telepresence-1552976912-863699-15408 created
+  36.8 TEL | [35] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers get services -o json
+  37.4 TEL | [36] Running: kubectl --context adapters-aws-frankfurt --namespace thatchers delete service telepresence-1552976912-3655832-15408
+  42.9  36 | service "telepresence-1552976912-3655832-15408" deleted
+  42.9 TEL | [36] ran in 5.51 secs.
+  42.9 TEL | [37] Running: kubectl --context adapters-aws-frankfurt --namespace thatchers delete service telepresence-1552976912-863699-15408
+  43.5  37 | service "telepresence-1552976912-863699-15408" deleted
+  43.5 >>> | Guessing that Services IP range is 10.43.0.0/16. Services started after this point will be inaccessible if are outside this range; restart telepresence if you can't access a new Service.
+  43.5 TEL | END SPAN vpn.py:75(get_proxy_cidrs)    8.8s
+  43.5 TEL | [38] Launching sshuttle: sshuttle-telepresence -v --dns --method auto -e 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -F /dev/null' --to-ns 127.0.0.1:9053 -r telepresence@127.0.0.1:53482 10.42.2.0/24 10.42.0.0/24 10.42.4.0/24 10.43.0.0/16 10.42.3.0/24 10.42.5.0/24
+  43.5 TEL | BEGIN SPAN vpn.py:266(connect_sshuttle,sshuttle-wait)
+  43.5 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+  43.6 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+  43.7 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+  43.8 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  43.9 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+  44.0 TEL | Wait for vpn-tcp connection: hellotelepresence-5
+  44.1 TEL | Wait for vpn-tcp connection: hellotelepresence-6
+  44.2  38 | Starting sshuttle proxy.
+  44.2 TEL | Wait for vpn-tcp connection: hellotelepresence-7
+  44.3 TEL | Wait for vpn-tcp connection: hellotelepresence-8
+  44.4 TEL | Wait for vpn-tcp connection: hellotelepresence-9
+  44.6 TEL | Wait for vpn-tcp connection: hellotelepresence-10
+  44.7  38 | firewall manager: Starting firewall with Python version 3.7.2
+  44.7 TEL | Wait for vpn-tcp connection: hellotelepresence-11
+  44.7  38 | firewall manager: ready method name pf.
+  44.7  38 | IPv6 enabled: True
+  44.7  38 | UDP enabled: False
+  44.7  38 | DNS enabled: True
+  44.7  38 | TCP redirector listening on ('::1', 12300, 0, 0).
+  44.7  38 | TCP redirector listening on ('127.0.0.1', 12300).
+  44.7  38 | DNS listening on ('::1', 12300, 0, 0).
+  44.7  38 | DNS listening on ('127.0.0.1', 12300).
+  44.7  38 | Starting client with Python version 3.7.2
+  44.7  38 | c : connecting to server...
+  44.7  23 | Handling connection for 53482
+  44.8 TEL | Wait for vpn-tcp connection: hellotelepresence-12
+  44.8  38 | Warning: Permanently added '[127.0.0.1]:53482' (ECDSA) to the list of known hosts.
+  44.9 TEL | Wait for vpn-tcp connection: hellotelepresence-13
+  45.0 TEL | Wait for vpn-tcp connection: hellotelepresence-14
+  45.1 TEL | Wait for vpn-tcp connection: hellotelepresence-15
+  45.2 TEL | Wait for vpn-tcp connection: hellotelepresence-16
+  45.3 TEL | Wait for vpn-tcp connection: hellotelepresence-17
+  45.4 TEL | Wait for vpn-tcp connection: hellotelepresence-18
+  45.5 TEL | Wait for vpn-tcp connection: hellotelepresence-19
+  45.6 TEL | Wait for vpn-tcp connection: hellotelepresence-20
+  45.6  38 | Starting server with Python version 3.6.5
+  45.6  38 |  s: latency control setting = True
+  45.6  38 |  s: available routes:
+  45.6  38 |  s:   2/10.42.0.0/16
+  45.6  38 |  s:   2/10.42.3.0/24
+  45.6  38 | c : Connected.
+  45.6  38 | firewall manager: setting up.
+  45.6  38 | >> pfctl -s Interfaces -i lo -v
+  45.6  38 | >> pfctl -s all
+  45.6  38 | >> pfctl -a sshuttle6-12300 -f /dev/stdin
+  45.6  38 | >> pfctl -E
+  45.6  38 | >> pfctl -s Interfaces -i lo -v
+  45.6  38 | >> pfctl -s all
+  45.6  38 | >> pfctl -a sshuttle-12300 -f /dev/stdin
+  45.7  38 | >> pfctl -E
+  45.7 TEL | Wait for vpn-tcp connection: hellotelepresence-21
+  45.7  38 | c : DNS request from ('192.168.1.103', 64195) to None: 43 bytes
+  45.8 TEL | Resolved hellotelepresence-21. 2 more...
+  45.8  38 | c : DNS request from ('192.168.1.103', 55056) to None: 62 bytes
+  45.8  22 | 2019-03-19T06:28:43+0000 [stdout#info] Set DNS suffix we filter out to: [(b'home',)]
+  45.8  22 | 2019-03-19T06:28:43+0000 [stdout#info] Result for b'hellotelepresence-21.home' is ['127.0.0.1']
+  45.8  22 | 2019-03-19T06:28:43+0000 [stdout#info] A query: b'x-hellotelepresence-21.probe.to.check.sanity'
+  45.9 TEL | Wait for vpn-tcp connection: hellotelepresence-22
+  45.9  38 | c : DNS request from ('192.168.1.103', 59331) to None: 43 bytes
+  45.9 TEL | Resolved hellotelepresence-22. 1 more...
+  45.9  38 | c : DNS request from ('192.168.1.103', 53783) to None: 62 bytes
+  46.0  22 | 2019-03-19T06:28:43+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+  46.0  22 | 2019-03-19T06:28:43+0000 [stdout#info] Result for b'hellotelepresence-22.home' is ['127.0.0.1']
+  46.0  22 | 2019-03-19T06:28:43+0000 [stdout#info] A query: b'x-hellotelepresence-22.probe.to.check.sanity'
+  46.1 TEL | Wait for vpn-tcp connection: hellotelepresence-23
+  46.1  38 | c : DNS request from ('192.168.1.103', 53653) to None: 43 bytes
+  46.1 TEL | Resolved hellotelepresence-23. 0 more...
+  46.1 TEL | END SPAN vpn.py:266(connect_sshuttle,sshuttle-wait)    2.6s
+  46.1 TEL | END SPAN vpn.py:231(connect_sshuttle)   11.4s
+  46.2  38 | c : Accept TCP: 192.168.1.103:53545 -> 10.42.2.66:8200.
+  46.2  22 | 2019-03-19T06:28:43+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+  46.2  22 | 2019-03-19T06:28:43+0000 [stdout#info] Result for b'hellotelepresence-23.home' is ['127.0.0.1']
+  46.4  38 | c : Accept TCP: 192.168.1.103:53546 -> 10.42.2.66:8200.
+  46.5  38 | c : Accept TCP: 192.168.1.103:53542 -> 10.42.2.80:8200.
+  46.5  38 |  s: SW#9:10.42.2.80:8200: uwrite: got EPIPE
+  48.5  38 | c : Accept TCP: 192.168.1.103:53529 -> 10.42.5.69:8200.
+  48.5  38 | c : Accept TCP: 192.168.1.103:53528 -> 10.42.5.69:8200.
+  48.5 TEL | Everything launched. Waiting to exit...
+  48.5 TEL | BEGIN SPAN runner.py:509(wait_for_exit)
+  48.7  38 | c : Accept TCP: 192.168.1.103:53547 -> 10.42.3.62:8200.
+  48.7  38 | c : Accept TCP: 192.168.1.103:53548 -> 10.42.3.62:8200.
+  48.7  38 | c : SW'unknown':Mux#8: deleting (13 remain)
+  48.7  38 | c : SW#-1:192.168.1.103:53542: deleting (12 remain)
+  48.8  38 |  s: warning: closed channel 11 got cmd=TCP_DATA len=557
+  48.8  38 |  s: warning: closed channel 12 got cmd=TCP_DATA len=469
+  49.2  38 |  s: SW#7:10.42.2.66:8200: uwrite: got EPIPE
+  49.2  38 |  s: SW#-1:10.42.2.80:8200: deleting (13 remain)
+  49.2  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  49.2  38 |  s: SW'unknown':Mux#8: deleting (12 remain)
+  49.2  38 |  s: SW#-1:10.42.3.62:8200: deleting (11 remain)
+  49.2  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  49.2  38 |  s: SW'unknown':Mux#11: deleting (10 remain)
+  49.2  38 | c : warning: closed channel 6 got cmd=TCP_STOP_SENDING len=0
+  49.3  38 |  s: warning: closed channel 6 got cmd=TCP_EOF len=0
+  49.4  38 | c : Accept TCP: 192.168.1.103:53481 -> 10.42.5.83:8200.
+  49.4  38 | c : Accept TCP: 192.168.1.103:53480 -> 10.42.5.83:8200.
+  49.4  38 | c : SW#10:192.168.1.103:53545: deleting (15 remain)
+  49.4  38 | c : SW'unknown':Mux#6: deleting (14 remain)
+  49.4  38 | c : SW#12:192.168.1.103:53546: deleting (13 remain)
+  49.4  38 | c : SW'unknown':Mux#7: deleting (12 remain)
+  50.5 TEL | [39] Running: sudo -n echo -n
+  51.5  38 |  s: SW#10:10.42.5.69:8200: uwrite: got EPIPE
+  51.5  38 |  s: SW#11:10.42.5.69:8200: uwrite: got EPIPE
+  51.5  38 | c : Accept TCP: 192.168.1.103:53549 -> 10.42.5.69:8200.
+  51.6  38 |  s: warning: closed channel 9 got cmd=TCP_EOF len=0
+  51.6  38 | c : warning: closed channel 9 got cmd=TCP_STOP_SENDING len=0
+  51.6  38 | c : Accept TCP: 192.168.1.103:53550 -> 10.42.5.69:8200.
+  52.7  38 | c : Accept TCP: 192.168.1.103:53551 -> 10.42.3.46:8200.
+  52.7  38 | c : Accept TCP: 192.168.1.103:53552 -> 10.42.3.46:8200.
+  54.5  38 | c : DNS request from ('192.168.1.103', 28329) to None: 28 bytes
+  54.5  38 | c : Accept TCP: 192.168.1.103:53553 -> 10.43.99.154:8200.
+  54.5  38 | c : Accept TCP: 192.168.1.103:53554 -> 10.43.99.154:8200.
+  54.5  38 | c : SW#-1:192.168.1.103:53547: deleting (23 remain)
+  54.5  38 | c : SW'unknown':Mux#9: deleting (22 remain)
+  54.5  38 | c : SW#14:192.168.1.103:53529: deleting (21 remain)
+  54.5  38 | c : SW'unknown':Mux#10: deleting (20 remain)
+  54.5  38 | c : SW#15:192.168.1.103:53528: deleting (19 remain)
+  54.5  38 | c : SW'unknown':Mux#11: deleting (18 remain)
+  54.5  38 | c : SW'unknown':Mux#12: deleting (17 remain)
+  54.5  38 | c : SW#17:192.168.1.103:53548: deleting (16 remain)
+  54.5  38 |  s: SW#14:10.42.5.69:8200: uwrite: got EPIPE
+  54.5  38 |  s: SW#15:10.42.5.69:8200: uwrite: got EPIPE
+  54.5  38 | c : warning: closed channel 15 got cmd=TCP_STOP_SENDING len=0
+  54.5  38 |  s: SW#-1:10.42.5.69:8200: deleting (22 remain)
+  54.5  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  54.5  38 |  s: SW'unknown':Mux#15: deleting (21 remain)
+  54.5  38 |  s: SW#-1:10.42.5.69:8200: deleting (20 remain)
+  54.5  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  54.5  38 |  s: SW'unknown':Mux#16: deleting (19 remain)
+  54.5  38 | c : Accept TCP: 192.168.1.103:53555 -> 10.43.99.154:8200.
+  54.5  38 |  s: warning: closed channel 15 got cmd=TCP_EOF len=0
+  54.6  22 | 2019-03-19T06:28:52+0000 [stdout#info] Updated query of type 1 from b'vault.home' to b'vault'
+  54.6  22 | 2019-03-19T06:28:52+0000 [stdout#info] A query: b'vault'
+  54.6  22 | 2019-03-19T06:28:52+0000 [stdout#info] Result for b'vault.home' is ['10.43.99.154']
+  54.6  38 | c : SW#10:192.168.1.103:53549: deleting (17 remain)
+  54.6  38 | c : SW'unknown':Mux#15: deleting (16 remain)
+  54.6  38 | c : SW#12:192.168.1.103:53550: deleting (15 remain)
+  54.6  38 | c : SW'unknown':Mux#16: deleting (14 remain)
+  55.7  38 | c : Accept TCP: 192.168.1.103:53556 -> 10.42.2.80:8200.
+  55.7  38 | c : Accept TCP: 192.168.1.103:53557 -> 10.42.2.80:8200.
+  55.7  38 |  s: SW#19:10.42.2.80:8200: uwrite: got EPIPE
+  55.8  38 |  s: SW#16:10.42.3.46:8200: uwrite: got EPIPE
+  55.8  38 |  s: SW#17:10.42.3.46:8200: uwrite: got EPIPE
+  55.8  38 |  s: SW#20:10.42.2.80:8200: uwrite: got EPIPE
+  57.1  38 | c : Accept TCP: 192.168.1.103:53558 -> 10.42.2.66:8200.
+  57.1  38 | c : Accept TCP: 192.168.1.103:53559 -> 10.42.2.66:8200.
+  57.1  38 | c : SW'unknown':Mux#23: deleting (21 remain)
+  57.1  38 | c : SW#-1:192.168.1.103:53556: deleting (20 remain)
+  57.1  38 | c : SW'unknown':Mux#24: deleting (19 remain)
+  57.1  38 | c : SW#-1:192.168.1.103:53557: deleting (18 remain)
+  57.1  38 | c : SW#19:192.168.1.103:53551: deleting (17 remain)
+  57.1  38 | c : SW'unknown':Mux#17: deleting (16 remain)
+  57.1  38 | c : SW#20:192.168.1.103:53552: deleting (15 remain)
+  57.1  38 | c : SW'unknown':Mux#18: deleting (14 remain)
+  60.1  38 |  s: SW#21:10.42.2.66:8200: uwrite: got EPIPE
+  60.1  38 |  s: SW#22:10.42.2.66:8200: uwrite: got EPIPE
+  60.8  38 | c : Accept TCP: 192.168.1.103:53560 -> 10.42.3.62:8200.
+  60.8  38 | c : Accept TCP: 192.168.1.103:53561 -> 10.42.3.62:8200.
+  60.8  38 |  s: warning: closed channel 27 got cmd=TCP_DATA len=557
+  60.8  38 |  s: SW#24:10.42.3.62:8200: uwrite: got EPIPE
+  60.9  38 |  s: warning: closed channel 28 got cmd=TCP_EOF len=0
+  60.9  38 | c : warning: closed channel 28 got cmd=TCP_STOP_SENDING len=0
+  61.3  38 | c : SW'unknown':Mux#27: deleting (17 remain)
+  61.3  38 | c : SW#-1:192.168.1.103:53560: deleting (16 remain)
+  61.3  38 | c : SW'unknown':Mux#28: deleting (15 remain)
+  61.3  38 | c : SW#-1:192.168.1.103:53561: deleting (14 remain)
+  61.3  38 | c : SW#15:192.168.1.103:53558: deleting (13 remain)
+  61.3  38 | c : SW'unknown':Mux#25: deleting (12 remain)
+  61.3  38 | c : SW#16:192.168.1.103:53559: deleting (11 remain)
+  61.3  38 | c : SW'unknown':Mux#26: deleting (10 remain)
+  62.3  38 | c : Accept TCP: 192.168.1.103:53379 -> 10.42.2.80:8200.
+  62.3  38 |  s: SW#-1:10.42.2.66:8200: deleting (37 remain)
+  62.3  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  62.3  38 |  s: SW'unknown':Mux#25: deleting (36 remain)
+  62.3  38 |  s: SW#-1:10.42.2.66:8200: deleting (35 remain)
+  62.3  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  62.3  38 |  s: SW'unknown':Mux#26: deleting (34 remain)
+  62.3  38 |  s: SW#-1:10.42.3.62:8200: deleting (33 remain)
+  62.3  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  62.3  38 |  s: SW'unknown':Mux#27: deleting (32 remain)
+  62.3  38 |  s: SW#-1:10.42.3.62:8200: deleting (31 remain)
+  62.3  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  62.3  38 |  s: SW'unknown':Mux#28: deleting (30 remain)
+  64.3  38 | c : Accept TCP: 192.168.1.103:53384 -> 10.42.5.83:8200.
+  64.9  38 | c : Accept TCP: 192.168.1.103:53562 -> 10.42.5.69:8200.
+  64.9  38 | c : Accept TCP: 192.168.1.103:53563 -> 10.42.5.69:8200.
+  65.0  38 | c : SW'unknown':Mux#29: deleting (17 remain)
+  65.0  38 | c : SW#-1:192.168.1.103:53379: deleting (16 remain)
+  65.9  38 | c : Accept TCP: 192.168.1.103:53565 -> 10.42.2.80:8200.
+  65.9  38 | c : Accept TCP: 192.168.1.103:53566 -> 10.42.2.80:8200.
+  66.0 TEL | (proxy checking local liveness)
+  66.0  38 |  s: SW#24:10.42.2.80:8200: uwrite: got EPIPE
+  66.0  38 |  s: SW#26:10.42.2.80:8200: uwrite: got EPIPE
+  66.2  22 | 2019-03-19T06:29:03+0000 [Poll#info] Checkpoint
+  66.2  38 | c : Accept TCP: 192.168.1.103:53567 -> 10.42.2.80:8200.
+  66.3  38 | c : Accept TCP: 192.168.1.103:53568 -> 10.42.2.80:8200.
+  66.3  38 |  s: SW#-1:10.42.2.80:8200: deleting (43 remain)
+  66.3  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  66.3  38 |  s: SW'unknown':Mux#33: deleting (42 remain)
+  66.3  38 |  s: SW#-1:10.42.2.80:8200: deleting (41 remain)
+  66.3  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  66.3  38 |  s: SW'unknown':Mux#34: deleting (40 remain)
+  66.3  38 |  s: SW#27:10.42.2.80:8200: uwrite: got EPIPE
+  66.3  38 | c : Accept TCP: 192.168.1.103:53569 -> 10.42.3.46:8200.
+  66.3  38 | c : Accept TCP: 192.168.1.103:53570 -> 10.42.3.46:8200.
+  66.3  38 | c : SW'unknown':Mux#35: deleting (27 remain)
+  66.3  38 | c : SW#-1:192.168.1.103:53567: deleting (26 remain)
+  66.3  38 | c : SW#10:192.168.1.103:53565: deleting (25 remain)
+  66.3  38 | c : SW'unknown':Mux#33: deleting (24 remain)
+  66.3  38 | c : SW#17:192.168.1.103:53566: deleting (23 remain)
+  66.3  38 | c : SW'unknown':Mux#34: deleting (22 remain)
+  68.0  38 |  s: SW#22:10.42.5.69:8200: uwrite: got EPIPE
+  68.0  38 |  s: SW#23:10.42.5.69:8200: uwrite: got EPIPE
+  68.0  38 | c : warning: closed channel 31 got cmd=TCP_STOP_SENDING len=0
+  68.1  38 |  s: warning: closed channel 31 got cmd=TCP_EOF len=0
+  69.0  38 | c : Accept TCP: 192.168.1.103:53571 -> 10.42.2.80:8200.
+  69.0  38 | c : Accept TCP: 192.168.1.103:53572 -> 10.42.2.80:8200.
+  69.0  38 |  s: SW#29:10.42.2.80:8200: uwrite: got EPIPE
+  69.0  38 | c : SW#20:192.168.1.103:53568: deleting (25 remain)
+  69.0  38 | c : SW'unknown':Mux#36: deleting (24 remain)
+  69.0  38 | c : SW#15:192.168.1.103:53562: deleting (23 remain)
+  69.0  38 | c : SW'unknown':Mux#31: deleting (22 remain)
+  69.0  38 | c : SW#16:192.168.1.103:53563: deleting (21 remain)
+  69.0  38 | c : SW'unknown':Mux#32: deleting (20 remain)
+  69.0  38 | c : warning: closed channel 39 got cmd=TCP_STOP_SENDING len=0
+  69.1  38 |  s: warning: closed channel 39 got cmd=TCP_EOF len=0
+  69.1  38 |  s: SW#-1:10.42.2.80:8200: deleting (47 remain)
+  69.1  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  69.1  38 |  s: SW'unknown':Mux#39: deleting (46 remain)
+  69.4  38 |  s: SW#24:10.42.3.46:8200: uwrite: got EPIPE
+  69.4  38 |  s: SW#26:10.42.3.46:8200: uwrite: got EPIPE
+  70.4  38 | c : Accept TCP: 192.168.1.103:53401 -> 10.42.3.62:8200.
+  70.9  38 | c : Accept TCP: 192.168.1.103:53573 -> 10.42.2.66:8200.
+  70.9  38 | c : Accept TCP: 192.168.1.103:53574 -> 10.42.2.66:8200.
+  70.9  38 | c : SW'unknown':Mux#41: deleting (25 remain)
+  70.9  38 | c : SW#-1:192.168.1.103:53401: deleting (24 remain)
+  70.9  38 | c : SW#10:192.168.1.103:53571: deleting (23 remain)
+  70.9  38 | c : SW'unknown':Mux#39: deleting (22 remain)
+  70.9  38 | c : SW#17:192.168.1.103:53572: deleting (21 remain)
+  70.9  38 | c : SW'unknown':Mux#40: deleting (20 remain)
+  70.9  38 | c : SW#24:192.168.1.103:53570: deleting (19 remain)
+  70.9  38 | c : SW'unknown':Mux#38: deleting (18 remain)
+  70.9  38 | c : SW#23:192.168.1.103:53569: deleting (17 remain)
+  70.9  38 | c : SW'unknown':Mux#37: deleting (16 remain)
+  70.9  38 | c : Accept TCP: 192.168.1.103:53575 -> 10.42.3.62:8200.
+  70.9  38 | c : Accept TCP: 192.168.1.103:53576 -> 10.42.3.62:8200.
+  70.9  38 |  s: SW#33:10.42.3.62:8200: uwrite: got EPIPE
+  70.9  38 |  s: SW#34:10.42.3.62:8200: uwrite: got EPIPE
+  71.1  38 | c : Accept TCP: 192.168.1.103:53577 -> 10.42.2.80:8200.
+  71.1  38 | c : Accept TCP: 192.168.1.103:53578 -> 10.42.2.80:8200.
+  71.1  38 |  s: SW#-1:10.42.3.62:8200: deleting (57 remain)
+  71.1  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  71.1  38 |  s: SW'unknown':Mux#41: deleting (56 remain)
+  71.1  38 |  s: SW#-1:10.42.3.62:8200: deleting (55 remain)
+  71.1  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  71.1  38 |  s: SW'unknown':Mux#44: deleting (54 remain)
+  71.2  38 |  s: SW#-1:10.42.3.62:8200: deleting (53 remain)
+  71.2  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  71.2  38 |  s: SW'unknown':Mux#45: deleting (52 remain)
+  71.2  38 |  s: SW#35:10.42.2.80:8200: uwrite: got EPIPE
+  71.2  38 | c : SW'unknown':Mux#44: deleting (23 remain)
+  71.2  38 | c : SW#-1:192.168.1.103:53575: deleting (22 remain)
+  71.2  38 | c : SW'unknown':Mux#45: deleting (21 remain)
+  71.2  38 | c : SW#-1:192.168.1.103:53576: deleting (20 remain)
+  73.9  38 |  s: SW#31:10.42.2.66:8200: uwrite: got EPIPE
+  73.9  38 |  s: SW#32:10.42.2.66:8200: uwrite: got EPIPE
+  74.0  38 |  s: warning: closed channel 43 got cmd=TCP_EOF len=0
+  74.0  38 | c : warning: closed channel 43 got cmd=TCP_STOP_SENDING len=0
+  75.9  38 | c : SW#17:192.168.1.103:53577: deleting (19 remain)
+  75.9  38 | c : SW'unknown':Mux#46: deleting (18 remain)
+  75.9  38 | c : SW#20:192.168.1.103:53578: deleting (17 remain)
+  75.9  38 | c : SW'unknown':Mux#47: deleting (16 remain)
+  75.9  38 | c : SW#19:192.168.1.103:53574: deleting (15 remain)
+  75.9  38 | c : SW'unknown':Mux#43: deleting (14 remain)
+  75.9  38 | c : SW#16:192.168.1.103:53573: deleting (13 remain)
+  75.9  38 | c : SW'unknown':Mux#42: deleting (12 remain)
+  75.9  38 | c : SW#12:192.168.1.103:53384: deleting (11 remain)
+  75.9  38 | c : SW'unknown':Mux#30: deleting (10 remain)
+  76.1  38 |  s: SW#-1:10.42.2.80:8200: deleting (53 remain)
+  76.1  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  76.1  38 |  s: SW'unknown':Mux#47: deleting (52 remain)
+  76.1  38 |  s: SW'unknown':Mux#30: deleting (51 remain)
+  76.1  38 |  s: SW#21:10.42.5.83:8200: deleting (50 remain)
+  77.3  38 | c : Accept TCP: 192.168.1.103:53579 -> 10.42.2.80:8200.
+  77.3  38 | c : Accept TCP: 192.168.1.103:53580 -> 10.42.2.80:8200.
+  77.4  38 |  s: SW#21:10.42.2.80:8200: uwrite: got EPIPE
+  77.4  38 |  s: SW#29:10.42.2.80:8200: uwrite: got EPIPE
+  77.9  38 | c : DNS request from ('192.168.1.103', 57790) to None: 40 bytes
+  78.0  22 | 2019-03-19T06:29:15+0000 [stdout#info] A query: b'az764295.vo.msecnd.net'
+  78.2  22 | 2019-03-19T06:29:15+0000 [stdout#info] Result for b'az764295.vo.msecnd.net' is ['152.199.19.160']
+  78.2  38 | c : DNS request from ('192.168.1.103', 64832) to None: 31 bytes
+  78.4  22 | 2019-03-19T06:29:15+0000 [stdout#info] A query: b'www.figma.com'
+  78.4  38 | c : SW'unknown':Mux#48: deleting (13 remain)
+  78.4  38 | c : SW#-1:192.168.1.103:53579: deleting (12 remain)
+  78.4  38 | c : SW'unknown':Mux#49: deleting (11 remain)
+  78.4  38 | c : SW#-1:192.168.1.103:53580: deleting (10 remain)
+  78.6  22 | 2019-03-19T06:29:15+0000 [stdout#info] Result for b'www.figma.com' is ['54.186.116.77', '34.218.100.83']
+  79.3  38 | c : Accept TCP: 192.168.1.103:53585 -> 10.42.5.69:8200.
+  79.3  38 | c : Accept TCP: 192.168.1.103:53586 -> 10.42.5.69:8200.
+  80.7 TEL | [40] Running: sudo -n echo -n
+  80.7  38 | c : Accept TCP: 192.168.1.103:53587 -> 10.42.3.46:8200.
+  80.7  38 | c : Accept TCP: 192.168.1.103:53588 -> 10.42.3.46:8200.
+  82.3  38 | c : Accept TCP: 192.168.1.103:53589 -> 10.42.3.62:8200.
+  82.3  38 | c : Accept TCP: 192.168.1.103:53590 -> 10.42.3.62:8200.
+  82.3  38 |  s: SW#34:10.42.5.69:8200: uwrite: got EPIPE
+  82.3  38 |  s: SW#36:10.42.5.69:8200: uwrite: got EPIPE
+  82.4  38 |  s: warning: closed channel 52 got cmd=TCP_EOF len=0
+  82.4  38 | c : warning: closed channel 52 got cmd=TCP_STOP_SENDING len=0
+  82.4  38 |  s: SW#-1:10.42.2.80:8200: deleting (65 remain)
+  82.4  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  82.4  38 |  s: SW'unknown':Mux#48: deleting (64 remain)
+  82.4  38 |  s: SW#-1:10.42.2.80:8200: deleting (63 remain)
+  82.4  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  82.4  38 |  s: SW'unknown':Mux#49: deleting (62 remain)
+  82.4  38 |  s: SW#-1:10.42.5.69:8200: deleting (61 remain)
+  82.4  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  82.4  38 |  s: SW'unknown':Mux#52: deleting (60 remain)
+  82.4  38 |  s: SW#-1:10.42.5.69:8200: deleting (59 remain)
+  82.4  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  82.4  38 |  s: SW'unknown':Mux#53: deleting (58 remain)
+  82.4  38 |  s: SW#39:10.42.3.62:8200: uwrite: got EPIPE
+  82.4  38 |  s: SW#40:10.42.3.62:8200: uwrite: got EPIPE
+  82.4  38 | c : warning: closed channel 53 got cmd=TCP_STOP_SENDING len=0
+  82.4  38 | c : SW#10:192.168.1.103:53585: deleting (21 remain)
+  82.4  38 | c : SW'unknown':Mux#52: deleting (20 remain)
+  82.4  38 | c : SW#12:192.168.1.103:53586: deleting (19 remain)
+  82.4  38 | c : SW'unknown':Mux#53: deleting (18 remain)
+  82.4  38 |  s: warning: closed channel 53 got cmd=TCP_EOF len=0
+  83.8  38 |  s: SW#37:10.42.3.46:8200: uwrite: got EPIPE
+  83.8  38 |  s: SW#38:10.42.3.46:8200: uwrite: got EPIPE
+  85.4  38 | c : Accept TCP: 192.168.1.103:53591 -> 10.42.2.66:8200.
+  85.4  38 | c : Accept TCP: 192.168.1.103:53592 -> 10.42.2.66:8200.
+  87.2  38 | c : SW#17:192.168.1.103:53589: deleting (21 remain)
+  87.2  38 | c : SW'unknown':Mux#56: deleting (20 remain)
+  87.2  38 | c : SW#16:192.168.1.103:53588: deleting (19 remain)
+  87.2  38 | c : SW'unknown':Mux#55: deleting (18 remain)
+  87.2  38 | c : SW#15:192.168.1.103:53587: deleting (17 remain)
+  87.2  38 | c : SW'unknown':Mux#54: deleting (16 remain)
+  87.6  38 | c : DNS request from ('192.168.1.103', 52265) to None: 51 bytes
+  87.8  22 | 2019-03-19T06:29:25+0000 [stdout#info] A query: b'gsp64-ssl.ls-apple.com.akadns.net'
+  87.8  22 | 2019-03-19T06:29:25+0000 [stdout#info] Result for b'gsp64-ssl.ls-apple.com.akadns.net' is ['17.167.192.225', '17.167.194.230', '17.167.194.224', '17.167.192.231']
+  88.0  38 | c : Accept TCP: 192.168.1.103:53594 -> 10.42.2.80:8200.
+  88.0  38 | c : Accept TCP: 192.168.1.103:53595 -> 10.42.2.80:8200.
+  88.0  38 |  s: SW#18:10.42.2.80:8200: uwrite: got EPIPE
+  88.0  38 |  s: SW#34:10.42.2.80:8200: uwrite: got EPIPE
+  88.5  38 |  s: SW#21:10.42.2.66:8200: uwrite: got EPIPE
+  88.5  38 |  s: SW#29:10.42.2.66:8200: uwrite: got EPIPE
+  88.5  38 | c : warning: closed channel 59 got cmd=TCP_STOP_SENDING len=0
+  88.5  38 |  s: warning: closed channel 59 got cmd=TCP_EOF len=0
+  92.4  38 | c : Accept TCP: 192.168.1.103:53597 -> 10.42.3.62:8200.
+  92.4  38 | c : Accept TCP: 192.168.1.103:53598 -> 10.42.3.62:8200.
+  92.4  38 | c : Accept TCP: 192.168.1.103:53599 -> 10.42.3.62:8200.
+  92.6  38 | c : Accept TCP: 192.168.1.103:53600 -> 10.42.3.62:8200.
+  92.6  38 | c : SW'unknown':Mux#63: deleting (27 remain)
+  92.6  38 | c : SW#-1:192.168.1.103:53597: deleting (26 remain)
+  92.6  38 | c : SW#15:192.168.1.103:53594: deleting (25 remain)
+  92.6  38 | c : SW'unknown':Mux#61: deleting (24 remain)
+  92.6  38 | c : SW#16:192.168.1.103:53595: deleting (23 remain)
+  92.6  38 | c : SW'unknown':Mux#62: deleting (22 remain)
+  92.6  38 | c : SW#12:192.168.1.103:53592: deleting (21 remain)
+  92.6  38 | c : SW'unknown':Mux#59: deleting (20 remain)
+  92.6  38 | c : SW#10:192.168.1.103:53591: deleting (19 remain)
+  92.6  38 | c : SW'unknown':Mux#58: deleting (18 remain)
+  92.6  38 | c : Accept TCP: 192.168.1.103:53601 -> 10.42.3.62:8200.
+  92.6  38 |  s: warning: closed channel 63 got cmd=TCP_DATA len=478
+  92.6  38 |  s: SW#41:10.42.3.62:8200: uwrite: got EPIPE
+  92.6  38 |  s: SW#42:10.42.3.62:8200: uwrite: got EPIPE
+  92.6  38 |  s: SW'unknown':Mux#7: deleting (71 remain)
+  92.6  38 |  s: SW#8:10.42.2.66:8200: deleting (70 remain)
+  92.6  38 |  s: SW#8:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 |  s: SW'unknown':Mux#9: deleting (69 remain)
+  92.6  38 |  s: SW#10:10.42.5.69:8200: deleting (68 remain)
+  92.6  38 |  s: SW#10:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 |  s: SW'unknown':Mux#10: deleting (67 remain)
+  92.6  38 |  s: SW#11:10.42.5.69:8200: deleting (66 remain)
+  92.6  38 |  s: SW#11:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 |  s: SW'unknown':Mux#6: deleting (65 remain)
+  92.6  38 |  s: SW#7:10.42.2.66:8200: deleting (64 remain)
+  92.6  38 |  s: SW#7:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 |  s: SW'unknown':Mux#12: deleting (63 remain)
+  92.6  38 |  s: SW#13:10.42.3.62:8200: deleting (62 remain)
+  92.6  38 |  s: SW#13:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.6  38 |  s: SW'unknown':Mux#17: deleting (61 remain)
+  92.6  38 |  s: SW#16:10.42.3.46:8200: deleting (60 remain)
+  92.6  38 |  s: SW#16:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 |  s: SW'unknown':Mux#18: deleting (59 remain)
+  92.6  38 |  s: SW#17:10.42.3.46:8200: deleting (58 remain)
+  92.6  38 |  s: SW#17:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.6  38 | c : warning: closed channel 64 got cmd=TCP_STOP_SENDING len=0
+  92.7  38 |  s: SW'unknown':Mux#24: deleting (57 remain)
+  92.7  38 |  s: SW#20:10.42.2.80:8200: deleting (56 remain)
+  92.7  38 |  s: SW#20:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#23: deleting (55 remain)
+  92.7  38 |  s: SW#19:10.42.2.80:8200: deleting (54 remain)
+  92.7  38 |  s: SW#19:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#29: deleting (53 remain)
+  92.7  38 |  s: SW#25:10.42.2.80:8200: deleting (52 remain)
+  92.7  38 |  s: SW#25:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#31: deleting (51 remain)
+  92.7  38 |  s: SW#22:10.42.5.69:8200: deleting (50 remain)
+  92.7  38 |  s: SW#22:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#32: deleting (49 remain)
+  92.7  38 |  s: SW#23:10.42.5.69:8200: deleting (48 remain)
+  92.7  38 |  s: SW#23:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#35: deleting (47 remain)
+  92.7  38 |  s: SW#27:10.42.2.80:8200: deleting (46 remain)
+  92.7  38 |  s: SW#27:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#36: deleting (45 remain)
+  92.7  38 |  s: SW#28:10.42.2.80:8200: deleting (44 remain)
+  92.7  38 |  s: SW#28:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#37: deleting (43 remain)
+  92.7  38 |  s: SW#24:10.42.3.46:8200: deleting (42 remain)
+  92.7  38 |  s: SW#24:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#38: deleting (41 remain)
+  92.7  38 |  s: SW#26:10.42.3.46:8200: deleting (40 remain)
+  92.7  38 |  s: SW#26:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#40: deleting (39 remain)
+  92.7  38 |  s: SW#30:10.42.2.80:8200: deleting (38 remain)
+  92.7  38 |  s: SW#30:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#42: deleting (37 remain)
+  92.7  38 |  s: SW#31:10.42.2.66:8200: deleting (36 remain)
+  92.7  38 |  s: SW#31:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#43: deleting (35 remain)
+  92.7  38 |  s: SW#32:10.42.2.66:8200: deleting (34 remain)
+  92.7  38 |  s: SW#32:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#46: deleting (33 remain)
+  92.7  38 |  s: SW#35:10.42.2.80:8200: deleting (32 remain)
+  92.7  38 |  s: SW#35:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#54: deleting (31 remain)
+  92.7  38 |  s: SW#37:10.42.3.46:8200: deleting (30 remain)
+  92.7  38 |  s: SW#37:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#55: deleting (29 remain)
+  92.7  38 |  s: SW#38:10.42.3.46:8200: deleting (28 remain)
+  92.7  38 |  s: SW#38:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#56: deleting (27 remain)
+  92.7  38 |  s: SW#39:10.42.3.62:8200: deleting (26 remain)
+  92.7  38 |  s: SW#39:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#57: deleting (25 remain)
+  92.7  38 |  s: SW#40:10.42.3.62:8200: deleting (24 remain)
+  92.7  38 |  s: SW#40:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#58: deleting (23 remain)
+  92.7  38 |  s: SW#21:10.42.2.66:8200: deleting (22 remain)
+  92.7  38 |  s: SW#21:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW'unknown':Mux#59: deleting (21 remain)
+  92.7  38 |  s: SW#29:10.42.2.66:8200: deleting (20 remain)
+  92.7  38 |  s: SW#29:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+  92.7  38 |  s: SW#-1:10.42.2.80:8200: deleting (19 remain)
+  92.7  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#61: deleting (18 remain)
+  92.7  38 |  s: SW#-1:10.42.2.80:8200: deleting (17 remain)
+  92.7  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+  92.7  38 |  s: SW'unknown':Mux#62: deleting (16 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: deleting (15 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.8  38 |  s: SW'unknown':Mux#63: deleting (14 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: deleting (13 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.8  38 |  s: SW'unknown':Mux#64: deleting (12 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: deleting (11 remain)
+  92.8  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  92.8  38 |  s: SW'unknown':Mux#65: deleting (10 remain)
+  92.8  38 |  s: warning: closed channel 64 got cmd=TCP_EOF len=0
+  92.8  38 |  s: warning: closed channel 65 got cmd=TCP_EOF len=0
+  92.8  38 |  s: warning: closed channel 66 got cmd=TCP_DATA len=478
+  92.8  38 | c : warning: closed channel 65 got cmd=TCP_STOP_SENDING len=0
+  92.9  38 | c : Accept TCP: 192.168.1.103:53602 -> 10.42.5.69:8200.
+  92.9  38 | c : SW#23:192.168.1.103:53599: deleting (21 remain)
+  92.9  38 | c : SW'unknown':Mux#65: deleting (20 remain)
+  92.9  38 | c : Accept TCP: 192.168.1.103:53603 -> 10.42.5.69:8200.
+  93.0  38 | c : SW'unknown':Mux#67: deleting (21 remain)
+  93.0  38 | c : SW#-1:192.168.1.103:53601: deleting (20 remain)
+  93.0  38 | c : SW#20:192.168.1.103:53598: deleting (19 remain)
+  93.0  38 | c : SW'unknown':Mux#64: deleting (18 remain)
+  93.0  38 | c : SW#24:192.168.1.103:53600: deleting (17 remain)
+  93.0  38 | c : SW'unknown':Mux#66: deleting (16 remain)
+  94.4  38 | c : Accept TCP: 192.168.1.103:53604 -> 10.42.3.46:8200.
+  94.4  38 | c : Accept TCP: 192.168.1.103:53605 -> 10.42.3.46:8200.
+  95.9 TEL | (proxy checking local liveness)
+  96.0  38 |  s: SW#10:10.42.5.69:8200: uwrite: got EPIPE
+  96.0  38 |  s: SW#11:10.42.5.69:8200: uwrite: got EPIPE
+  96.0  38 |  s: SW#-1:10.42.3.62:8200: deleting (21 remain)
+  96.0  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  96.0  38 |  s: SW'unknown':Mux#66: deleting (20 remain)
+  96.0  38 |  s: SW#-1:10.42.3.62:8200: deleting (19 remain)
+  96.0  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  96.0  38 |  s: SW'unknown':Mux#67: deleting (18 remain)
+  96.0  22 | 2019-03-19T06:29:33+0000 [Poll#info] Checkpoint
+  96.0  38 |  s: SW#-1:10.42.5.69:8200: deleting (17 remain)
+  96.0  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  96.0  38 |  s: SW'unknown':Mux#68: deleting (16 remain)
+  96.0  38 |  s: SW#-1:10.42.5.69:8200: deleting (15 remain)
+  96.0  38 |  s: SW#-1:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+  96.0  38 |  s: SW'unknown':Mux#69: deleting (14 remain)
+  96.0  38 | c : warning: closed channel 69 got cmd=TCP_STOP_SENDING len=0
+  96.0  38 |  s: warning: closed channel 69 got cmd=TCP_EOF len=0
+  97.4  38 |  s: SW#13:10.42.3.46:8200: uwrite: got EPIPE
+  97.4  38 |  s: SW#16:10.42.3.46:8200: uwrite: got EPIPE
+  97.8  38 | c : Accept TCP: 192.168.1.103:53607 -> 10.42.3.62:8200.
+  97.8  38 | c : SW'unknown':Mux#70: deleting (21 remain)
+  97.8  38 | c : SW#-1:192.168.1.103:53604: deleting (20 remain)
+  97.8  38 | c : SW'unknown':Mux#71: deleting (19 remain)
+  97.8  38 | c : SW#-1:192.168.1.103:53605: deleting (18 remain)
+  97.8  38 | c : SW#15:192.168.1.103:53603: deleting (17 remain)
+  97.8  38 | c : SW'unknown':Mux#69: deleting (16 remain)
+  97.8  38 | c : SW#12:192.168.1.103:53602: deleting (15 remain)
+  97.8  38 | c : SW'unknown':Mux#68: deleting (14 remain)
+  97.8  38 | c : Accept TCP: 192.168.1.103:53608 -> 10.42.3.62:8200.
+  97.8  38 |  s: warning: closed channel 72 got cmd=TCP_DATA len=478
+  99.2  38 | c : Accept TCP: 192.168.1.103:53609 -> 10.42.2.80:8200.
+  99.2  38 | c : Accept TCP: 192.168.1.103:53610 -> 10.42.2.80:8200.
+  99.2  38 | c : SW'unknown':Mux#73: deleting (19 remain)
+  99.2  38 | c : SW#-1:192.168.1.103:53608: deleting (18 remain)
+  99.2  38 | c : SW#17:192.168.1.103:53607: deleting (17 remain)
+  99.2  38 | c : SW'unknown':Mux#72: deleting (16 remain)
+  99.3  38 |  s: SW#-1:10.42.3.62:8200: deleting (19 remain)
+  99.3  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  99.3  38 |  s: SW'unknown':Mux#72: deleting (18 remain)
+  99.3  38 |  s: SW#-1:10.42.3.62:8200: deleting (17 remain)
+  99.3  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+  99.3  38 |  s: SW'unknown':Mux#73: deleting (16 remain)
+  99.3  38 |  s: SW#10:10.42.2.80:8200: uwrite: got EPIPE
+  99.3  38 |  s: SW#7:10.42.2.80:8200: uwrite: got EPIPE
+  99.3  38 | c : Accept TCP: 192.168.1.103:53611 -> 10.42.2.66:8200.
+  99.3  38 | c : Accept TCP: 192.168.1.103:53612 -> 10.42.2.66:8200.
+ 101.6  38 | c : DNS request from ('192.168.1.103', 60455) to None: 42 bytes
+ 101.6  38 | c : DNS request from ('192.168.1.103', 64430) to None: 42 bytes
+ 101.7  38 | c : SW#12:192.168.1.103:53609: deleting (19 remain)
+ 101.7  38 | c : SW'unknown':Mux#74: deleting (18 remain)
+ 101.7  38 | c : SW#15:192.168.1.103:53610: deleting (17 remain)
+ 101.7  38 | c : SW'unknown':Mux#75: deleting (16 remain)
+ 101.7  38 | c : DNS request from ('192.168.1.103', 62087) to None: 44 bytes
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] A query: b'skydrive.wns.windows.com'
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] AAAA query, sending back A instead: b'skydrive.wns.windows.com'
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] A query: b'skydrive.wns.windows.com'
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] Result for b'skydrive.wns.windows.com' is ['40.67.253.249']
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] Result for b'skydrive.wns.windows.com' is ['40.67.253.249']
+ 101.8  22 | 2019-03-19T06:29:39+0000 [stdout#info] 12 query: b'249.253.67.40.in-addr.arpa'
+ 101.8  22 | 2019-03-19T06:29:39+0000 [DNSDatagramProtocol (UDP)] DNSDatagramProtocol starting on 6785
+ 101.8  22 | 2019-03-19T06:29:39+0000 [DNSDatagramProtocol (UDP)] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f853a5b47f0>
+ 101.8  22 | 2019-03-19T06:29:39+0000 [-] (UDP Port 6785 Closed)
+ 101.8  22 | 2019-03-19T06:29:39+0000 [-] Stopping protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f853a5b47f0>
+ 101.9  38 | c : DNS request from ('192.168.1.103', 62714) to None: 35 bytes
+ 102.0  22 | 2019-03-19T06:29:39+0000 [stdout#info] A query: b'login.windows.net'
+ 102.2  22 | 2019-03-19T06:29:39+0000 [stdout#info] Result for b'login.windows.net' is ['40.126.1.130', '20.190.129.160', '40.126.1.166']
+ 102.3  38 |  s: SW#8:10.42.2.66:8200: uwrite: got EPIPE
+ 102.3  38 |  s: SW#11:10.42.2.66:8200: uwrite: got EPIPE
+ 102.3  38 | c : DNS request from ('192.168.1.103', 51132) to None: 77 bytes
+ 102.4  38 |  s: warning: closed channel 77 got cmd=TCP_EOF len=0
+ 102.4  38 | c : warning: closed channel 77 got cmd=TCP_STOP_SENDING len=0
+ 102.4  22 | 2019-03-19T06:29:39+0000 [stdout#info] A query: b'prodnet11278-11299edgea0000.sharepointonline.com.akadns.net'
+ 102.5  38 |  s: SW#-1:10.42.2.66:8200: deleting (21 remain)
+ 102.5  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+ 102.5  38 |  s: SW'unknown':Mux#76: deleting (20 remain)
+ 102.5  38 |  s: SW#-1:10.42.2.66:8200: deleting (19 remain)
+ 102.5  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+ 102.5  38 |  s: SW'unknown':Mux#77: deleting (18 remain)
+ 102.6  22 | 2019-03-19T06:29:40+0000 [stdout#info] Result for b'prodnet11278-11299edgea0000.sharepointonline.com.akadns.net' is ['13.107.136.9']
+ 102.6  38 | c : Accept TCP: 192.168.1.103:53617 -> 10.42.3.62:80.
+ 102.6  38 | c : SW#10:192.168.1.103:53611: deleting (17 remain)
+ 102.6  38 | c : SW'unknown':Mux#76: deleting (16 remain)
+ 102.6  38 | c : SW#16:192.168.1.103:53612: deleting (15 remain)
+ 102.6  38 | c : SW'unknown':Mux#77: deleting (14 remain)
+ 102.6  38 |  s: SW#8:10.42.3.62:80: uwrite: got EPIPE
+ 107.3  38 | c : Accept TCP: 192.168.1.103:53618 -> 10.42.5.69:8200.
+ 107.3  38 | c : Accept TCP: 192.168.1.103:53619 -> 10.42.5.69:8200.
+ 107.5  38 | c : Accept TCP: 192.168.1.103:53620 -> 10.42.3.46:8200.
+ 107.5  38 | c : Accept TCP: 192.168.1.103:53621 -> 10.42.3.46:8200.
+ 107.5  38 | c : SW#12:192.168.1.103:53617: deleting (21 remain)
+ 107.5  38 | c : SW'unknown':Mux#83: deleting (20 remain)
+ 108.3  38 | c : Accept TCP: 192.168.1.103:53622 -> 10.42.3.62:8200.
+ 108.3  38 |  s: SW#20:10.42.3.62:8200: uwrite: got EPIPE
+ 108.6  38 | c : DNS request from ('192.168.1.103', 29335) to None: 47 bytes
+ 108.8  22 | 2019-03-19T06:29:46+0000 [stdout#info] A query: b'clientservices.googleapis.com'
+ 108.8  22 | 2019-03-19T06:29:46+0000 [stdout#info] Result for b'clientservices.googleapis.com' is ['216.58.205.227']
+ 110.3  38 |  s: SW#11:10.42.5.69:8200: uwrite: got EPIPE
+ 110.3  38 |  s: SW#17:10.42.5.69:8200: uwrite: got EPIPE
+ 110.4  38 |  s: SW#-1:10.42.3.62:80: deleting (29 remain)
+ 110.4  38 |  s: SW#-1:10.42.3.62:80: error was: [Errno 111] Connection refused
+ 110.4  38 |  s: SW'unknown':Mux#83: deleting (28 remain)
+ 110.4  38 |  s: SW#-1:10.42.3.62:8200: deleting (27 remain)
+ 110.4  38 |  s: SW#-1:10.42.3.62:8200: error was: [Errno 111] Connection refused
+ 110.4  38 |  s: SW'unknown':Mux#88: deleting (26 remain)
+ 110.4  38 | c : SW'unknown':Mux#88: deleting (21 remain)
+ 110.4  38 | c : SW#-1:192.168.1.103:53622: deleting (20 remain)
+ 110.4  38 | c : SW#10:192.168.1.103:53618: deleting (19 remain)
+ 110.4  38 | c : SW'unknown':Mux#84: deleting (18 remain)
+ 110.4  38 | c : warning: closed channel 85 got cmd=TCP_STOP_SENDING len=0
+ 110.4  38 |  s: warning: closed channel 85 got cmd=TCP_EOF len=0
+ 110.4  38 | c : Accept TCP: 192.168.1.103:53623 -> 10.42.2.80:8200.
+ 110.4  38 | c : Accept TCP: 192.168.1.103:53624 -> 10.42.2.80:8200.
+ 110.4  38 | c : SW'unknown':Mux#85: deleting (21 remain)
+ 110.4  38 | c : SW#15:192.168.1.103:53619: deleting (20 remain)
+ 110.4  38 |  s: warning: closed channel 90 got cmd=TCP_DATA len=557
+ 110.4  38 |  s: warning: closed channel 91 got cmd=TCP_DATA len=469
+ 110.5  38 |  s: SW#-1:10.42.2.80:8200: deleting (29 remain)
+ 110.5  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+ 110.5  38 |  s: SW'unknown':Mux#90: deleting (28 remain)
+ 110.5  38 |  s: SW#-1:10.42.2.80:8200: deleting (27 remain)
+ 110.5  38 |  s: SW#-1:10.42.2.80:8200: error was: [Errno 111] Connection refused
+ 110.5  38 |  s: SW'unknown':Mux#91: deleting (26 remain)
+ 110.6  38 |  s: SW#18:10.42.3.46:8200: uwrite: got EPIPE
+ 110.6  38 |  s: SW#19:10.42.3.46:8200: uwrite: got EPIPE
+ 110.6  38 | c : SW#10:192.168.1.103:53623: deleting (19 remain)
+ 110.6  38 | c : SW'unknown':Mux#90: deleting (18 remain)
+ 110.6  38 | c : SW#12:192.168.1.103:53624: deleting (17 remain)
+ 110.6  38 | c : SW'unknown':Mux#91: deleting (16 remain)
+ 110.8 TEL | [41] Running: sudo -n echo -n
+ 113.1  38 | c : Accept TCP: 192.168.1.103:53625 -> 10.42.2.66:8200.
+ 113.1  38 | c : Accept TCP: 192.168.1.103:53626 -> 10.42.2.66:8200.
+ 116.2  38 |  s: SW#8:10.42.2.66:8200: uwrite: got EPIPE
+ 116.2  38 |  s: SW#20:10.42.2.66:8200: uwrite: got EPIPE
+ 116.2  38 | c : warning: closed channel 93 got cmd=TCP_STOP_SENDING len=0
+ 116.2  38 |  s: warning: closed channel 93 got cmd=TCP_EOF len=0
+ 116.2 TEL | END SPAN runner.py:509(wait_for_exit)   67.7s
+ 116.2 TEL | Main process (bash --norc)
+ 116.2 TEL |  exited with code 1.
+ 116.2 TEL | EXITING successful session.
+ 116.2 >>> | Exit cleanup in progress
+ 116.2 TEL | (Cleanup) Terminate local process
+ 116.2 TEL | (Cleanup) Kill BG process [38] sshuttle
+ 116.2  38 | >> pfctl -a sshuttle6-12300 -F all
+ 116.2 TEL | (Cleanup) Unmount remote filesystem
+ 116.2 TEL | [42] Capturing: umount -f /tmp/tel-97xdksbg/fs
+ 116.2  38 | >> pfctl -X 10334745792581780587
+ 116.2  38 | >> pfctl -a sshuttle-12300 -F all
+ 116.2  38 |  s: SW'unknown':Mux#13: deleting (29 remain)
+ 116.2  38 |  s: SW#9:10.42.5.83:8200: deleting (28 remain)
+ 116.2  38 |  s: SW'unknown':Mux#14: deleting (27 remain)
+ 116.2  38 |  s: SW#12:10.42.5.83:8200: deleting (26 remain)
+ 116.2  38 |  s: SW'unknown':Mux#21: deleting (25 remain)
+ 116.2  38 |  s: SW#14:10.43.99.154:8200: deleting (24 remain)
+ 116.2  38 |  s: SW'unknown':Mux#22: deleting (23 remain)
+ 116.2  38 |  s: SW#15:10.43.99.154:8200: deleting (22 remain)
+ 116.2  38 |  s: SW'unknown':Mux#20: deleting (21 remain)
+ 116.2  38 |  s: SW#6:10.43.99.154:8200: deleting (20 remain)
+ 116.2  38 |  s: SW#-1:10.42.2.66:8200: deleting (19 remain)
+ 116.2  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#92: deleting (18 remain)
+ 116.2  38 |  s: SW#-1:10.42.2.66:8200: deleting (17 remain)
+ 116.2  38 |  s: SW#-1:10.42.2.66:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#93: deleting (16 remain)
+ 116.2  38 |  s: SW'unknown':Mux#70: deleting (15 remain)
+ 116.2  38 |  s: SW#13:10.42.3.46:8200: deleting (14 remain)
+ 116.2  38 | >> pfctl -X 10334745792581783467
+ 116.2  38 |  s: SW#13:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#71: deleting (13 remain)
+ 116.2  38 |  s: SW#16:10.42.3.46:8200: deleting (12 remain)
+ 116.2  38 |  s: SW#16:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#74: deleting (11 remain)
+ 116.2  38 |  s: SW#10:10.42.2.80:8200: deleting (10 remain)
+ 116.2  38 |  s: SW#10:10.42.2.80:8200: error was: [Errno 111] Connection refused
+ 116.2  38 |  s: SW'unknown':Mux#75: deleting (9 remain)
+ 116.2  38 |  s: SW#7:10.42.2.80:8200: deleting (8 remain)
+ 116.2  38 |  s: SW#7:10.42.2.80:8200: error was: [Errno 111] Connection refused
+ 116.2  38 |  s: SW'unknown':Mux#86: deleting (7 remain)
+ 116.2  38 |  s: SW#18:10.42.3.46:8200: deleting (6 remain)
+ 116.2  38 |  s: SW#18:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#87: deleting (5 remain)
+ 116.2  38 |  s: SW#19:10.42.3.46:8200: deleting (4 remain)
+ 116.2  38 |  s: SW#19:10.42.3.46:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#85: deleting (3 remain)
+ 116.2  38 |  s: SW#17:10.42.5.69:8200: deleting (2 remain)
+ 116.2  38 |  s: SW#17:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+ 116.2  38 |  s: SW'unknown':Mux#84: deleting (1 remain)
+ 116.2  38 |  s: SW#11:10.42.5.69:8200: deleting (0 remain)
+ 116.2  38 |  s: SW#11:10.42.5.69:8200: error was: [Errno 113] Host is unreachable
+ 116.3 TEL | [38] exit -15
+ 116.3 TEL | (Cleanup) Kill BG process [28] SSH port forward (socks and proxy poll)
+ 116.3 TEL | [28] exit 0
+ 116.3 TEL | (Cleanup) Kill Web server for proxy poll
+ 116.5 TEL | (Cleanup) Kill BG process [23] kubectl port-forward
+ 116.5 TEL | [23] exit -15
+ 116.5 TEL | (Cleanup) Kill BG process [22] kubectl logs
+ 116.5 TEL | [22] exit -15
+ 116.5 TEL | (Cleanup) Delete new deployment
+ 116.5 TEL | [43] Capturing: kubectl --context adapters-aws-frankfurt --namespace thatchers delete --ignore-not-found svc,deploy --selector=telepresence=f80f4408ffa84fbbbcaf5881e8036348
+ 117.3 TEL | (Cleanup) Show version notice
+ 117.3 >>> | 
+ 117.3 >>> | Telepresence 0.97 is available (you're running 0.96). https://www.telepresence.io/reference/changelog
+ 117.3 TEL | (Cleanup) Kill sudo privileges holder
+ 117.3 TEL | (Cleanup) Stop time tracking
+ 117.3 TEL | END SPAN main.py:47(main)  117.3s
+ 117.3 TEL | SPAN SUMMARY:
+ 117.3 TEL |  117.3s main.py:47(main)
+ 117.3 TEL |    1.5s   startup.py:71(__init__)
+ 117.3 TEL |    0.5s     2 kubectl version --short
+ 117.3 TEL |    0.1s     3 kubectl config current-context
+ 117.3 TEL |    0.1s     4 kubectl config view -o json
+ 117.3 TEL |    0.5s     5 kubectl --context adapters-aws-frankfurt get ns thatchers
+ 117.3 TEL |    0.0s   6 ssh -V
+ 117.3 TEL |    0.2s   7 sudo -n echo -n
+ 117.3 TEL |   18.8s   8 sudo echo -n
+ 117.3 TEL |    0.6s   9 kubectl --context adapters-aws-frankfurt --namespace thatchers get pods telepr
+ 117.3 TEL |    1.2s   deployment.py:57(create_new_deployment)
+ 117.3 TEL |    0.6s     10 kubectl --context adapters-aws-frankfurt --namespace thatchers delete --ignor
+ 117.3 TEL |    0.6s     11 kubectl --context adapters-aws-frankfurt --namespace thatchers run --restart=
+ 117.3 TEL |    7.4s   remote.py:154(get_remote_info)
+ 117.3 TEL |    0.5s     remote.py:78(get_deployment_json)
+ 117.3 TEL |    0.5s       12 kubectl --context adapters-aws-frankfurt --namespace thatchers get deployment
+ 117.3 TEL |    0.5s     13 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod -o jso
+ 117.3 TEL |    6.4s     remote.py:116(wait_for_pod)
+ 117.3 TEL |    0.5s       14 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       15 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       16 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       17 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       18 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       19 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.5s       20 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    0.6s       21 kubectl --context adapters-aws-frankfurt --namespace thatchers get pod trp-56
+ 117.3 TEL |    1.8s   connect.py:36(connect)
+ 117.3 TEL |    0.0s     24 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+ 117.3 TEL |    0.1s     25 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+ 117.3 TEL |    0.0s     26 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+ 117.3 TEL |    0.9s     27 ssh -F /dev/null -q -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null
+ 117.3 TEL |    1.8s   remote_env.py:28(get_remote_env)
+ 117.3 TEL |    1.8s     29 kubectl --context adapters-aws-frankfurt --namespace thatchers exec trp-56559
+ 117.3 TEL |    1.0s   mount.py:32(mount_remote_volumes)
+ 117.3 TEL |    1.0s     30 sshfs -p 53482 -F /dev/null -o StrictHostKeyChecking=no -o UserKnownHostsFile
+ 117.3 TEL |   11.4s   vpn.py:231(connect_sshuttle)
+ 117.3 TEL |    8.8s     vpn.py:75(get_proxy_cidrs)
+ 117.3 TEL |    0.6s       31 kubectl --context adapters-aws-frankfurt --namespace thatchers get nodes -o j
+ 117.3 TEL |    0.5s       32 kubectl --context adapters-aws-frankfurt --namespace thatchers get services -
+ 117.3 TEL |    0.5s       33 kubectl --context adapters-aws-frankfurt --namespace thatchers create service
+ 117.3 TEL |    0.5s       34 kubectl --context adapters-aws-frankfurt --namespace thatchers create service
+ 117.3 TEL |    0.6s       35 kubectl --context adapters-aws-frankfurt --namespace thatchers get services -
+ 117.3 TEL |    5.5s       36 kubectl --context adapters-aws-frankfurt --namespace thatchers delete service
+ 117.3 TEL |    0.6s       37 kubectl --context adapters-aws-frankfurt --namespace thatchers delete service
+ 117.3 TEL |    2.6s     vpn.py:266(connect_sshuttle,sshuttle-wait)
+ 117.3 TEL |   67.7s   runner.py:509(wait_for_exit)
+ 117.3 TEL |    0.1s     39 sudo -n echo -n
+ 117.3 TEL |    0.0s     40 sudo -n echo -n
+ 117.3 TEL |    0.1s     41 sudo -n echo -n
+ 117.3 TEL |    0.1s   42 umount -f /tmp/tel-97xdksbg/fs
+ 117.3 TEL |    0.8s   43 kubectl --context adapters-aws-frankfurt --namespace thatchers delete --ignor
+ 117.3 TEL | (Cleanup) Remove temporary directory
+ 117.5 TEL | (Cleanup) Save caches
+ 117.9 TEL | (sudo privileges holder thread exiting)

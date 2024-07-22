@@ -1,0 +1,9 @@
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  namespace: mainnet-nodes
+  name: besu-mainnet-fast-prune
+spec:
+  source:
+    name: besu-mainnet-fast-prune
+    kind: PersistentVolumeClaim

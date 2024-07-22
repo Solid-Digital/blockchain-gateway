@@ -1,0 +1,84 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/name: oauth2-proxy
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: oauth2-proxy
+  namespace: kustomize-managed
+spec:
+  rules:
+  - host: monitoring.unchain.io
+    http:
+      paths:
+      - backend:
+          serviceName: oauth2-proxy
+          servicePort: 4180
+        path: /oauth2
+  tls:
+    - hosts:
+        - monitoring.unchain.io
+      secretName: letsencrypt-monitoring-unchain-io
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/app-root: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+  name: alertmanager-ing
+  namespace: kustomize-managed
+spec:
+  rules:
+  - host: monitoring.unchain.io
+    http:
+      paths:
+      - path: /alertmanager(/|$)(.*)
+        backend:
+          serviceName: alertmanager
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/app-root: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+  name: grafana-ing
+  namespace: kustomize-managed
+spec:
+  rules:
+  - host: monitoring.unchain.io
+    http:
+      paths:
+      - path: /grafana(/|$)(.*)
+        backend:
+          serviceName: grafana
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/app-root: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+  name: prometheus-ing
+  namespace: kustomize-managed
+spec:
+  rules:
+  - host: monitoring.unchain.io
+    http:
+      paths:
+      - path: /prometheus(/|$)(.*)
+        backend:
+          serviceName: prometheus
+          servicePort: 9090

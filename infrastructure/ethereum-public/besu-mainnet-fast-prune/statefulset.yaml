@@ -1,0 +1,126 @@
+---
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: besu-mainnet-fast-prune
+      labels:
+        app: besu-mainnet-fast-prune
+      namespace: mainnet-nodes
+
+    spec:
+      serviceName: besu-mainnet-fast-prune
+      replicas: 1
+      selector:
+        matchLabels:
+          app: besu-mainnet-fast-prune
+      template:
+        metadata:
+          labels:
+            app: besu-mainnet-fast-prune
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "9545"
+            prometheus.io/path: "/metrics"
+        spec:
+          containers:
+            - name: besu-mainnet-fast-prune
+              image: hyperledger/besu:develop
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: 3
+                  memory: 6Gi
+                limits:
+                  cpu: 8
+                  memory: 12Gi
+              env:
+                - name: POD_IP
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: status.podIP
+                - name: NODES_HTTP_CORS_ORIGINS
+                  valueFrom:
+                    configMapKeyRef:
+                      name: besu-mainnet-fast-prune
+                      key: nodesHttpCorsOrigins
+                - name: NODES_HOST_WHITELIST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: besu-mainnet-fast-prune
+                      key: nodesHostWhitelist
+              ports:
+                - containerPort: 8545
+                  name: http
+                  protocol: TCP
+                - containerPort: 8546
+                  name: ws
+                  protocol: TCP
+                - containerPort: 30303
+                  name: dev-p2p-tcp
+                  protocol: TCP
+                - containerPort: 30303
+                  name: dev-p2p-udp
+                  protocol: UDP
+              volumeMounts:
+                - name: besu-mainnet-fast-prune
+                  mountPath: /opt/besu/data
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  exec /opt/besu/bin/besu \
+                    --network=mainnet \
+                    --data-path=/opt/besu/data \
+                    --sync-mode=FAST \
+                    --pruning-enabled \
+                    --rpc-http-enabled \
+                    --rpc-http-host=0.0.0.0 \
+                    --rpc-http-port=8545 \
+                    --rpc-http-cors-origins=${NODES_HTTP_CORS_ORIGINS} \
+                    --rpc-ws-enabled \
+                    --rpc-ws-host=0.0.0.0 \
+                    --rpc-ws-port=8546 \
+                    --host-whitelist=${NODES_HOST_WHITELIST} \
+                    --metrics-enabled=true \
+                    --metrics-host=0.0.0.0 \
+                    --metrics-port=9545 \
+              
+              livenessProbe:
+                httpGet:
+                  path: /liveness
+                  port: 8545
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                failureThreshold: 100
+              readinessProbe:
+                httpGet:
+                  path: /liveness
+                  port: 8545
+                initialDelaySeconds: 10
+                failureThreshold: 100
+                periodSeconds: 10
+              # livenessProbe:
+              #   httpGet:
+              #     path: /liveness
+              #     port: 8545
+              #   initialDelaySeconds: 3600
+              #   periodSeconds: 5
+              # readinessProbe:
+              #   httpGet:
+              #     path: /readiness
+              #     port: 8545
+              #   initialDelaySeconds: 3600
+              #   periodSeconds: 5
+      volumeClaimTemplates:
+        - metadata:
+            name: besu-mainnet-fast-prune
+          spec:
+            dataSource:
+              name: besu-mainnet-fast-prune
+              kind: VolumeSnapshot
+              apiGroup: snapshot.storage.k8s.io
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 400Gi

@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    field.cattle.io/publicEndpoints: '[{"addresses":["\u003cnil\u003e"],"port":80,"protocol":"HTTP","serviceName":"prometheus:prometheus-grafana","ingressName":"prometheus:prometheus-grafana","hostname":"grafana.pontus.unchain.io","allNodes":true}]'
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: grafana
+    chart: grafana-0.0.31
+    heritage: Tiller
+    io.cattle.field/appId: prometheus
+    release: prometheus
+  name: prometheus-grafana
+  selfLink: /apis/extensions/v1beta1/namespaces/prometheus/ingresses/prometheus-grafana
+spec:
+  rules:
+    - host: grafana.pontus.unchain.io
+      http:
+        paths:
+          - backend:
+              serviceName: prometheus-grafana
+              servicePort: 80
+  tls:
+    - hosts:
+        - grafana.pontus.unchain.io
+      secretName: grafana-pontus-unchain-io

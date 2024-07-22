@@ -1,0 +1,27 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: tbg-nodes-runner
+  namespace: actions-runner-system
+spec:
+  template:
+    spec:
+      image: {{DOCKER_IMAGE}}
+      dockerdWithinRunnerContainer: true
+      repository: unchain/tbg-nodes
+      env: []
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: tbg-nodes-runner-autoscaler
+  namespace: actions-runner-system
+spec:
+  scaleTargetRef:
+    name: tbg-nodes-runner
+  minReplicas: 2
+  maxReplicas: 3
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - unchain/tbg-nodes

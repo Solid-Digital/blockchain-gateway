@@ -1,0 +1,10 @@
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  namespace: mainnet-nodes
+  name: geth-mainnet-default
+spec:
+  source:
+    name: geth-mainnet-default
+    kind: PersistentVolumeClaim
+

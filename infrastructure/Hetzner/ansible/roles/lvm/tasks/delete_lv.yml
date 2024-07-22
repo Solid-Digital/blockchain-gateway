@@ -1,0 +1,25 @@
+# ---
+# file: roles/lvm/tasks/reset.yml
+
+- name: Ensure logical volume is unmounted
+  mount:
+    path: "{{ lvm_lvs[lvm_delete_lv].lv_mountpoint }}"
+    state: unmounted
+  tags:
+    - lvm
+
+- name: Ensure logical volume isn't in fstab
+  mount:
+    path: "{{ lvm_lvs[lvm_delete_lv].lv_mountpoint }}"
+    state: absent
+  tags:
+    - lvm
+
+- name: Ensure logical volume doesn't exist
+  lvol:
+    vg: vg1
+    lv: "{{ lvm_delete_lv }}"
+    state: absent
+    force: true
+  tags:
+    - lvm

@@ -1,0 +1,18 @@
+# --
+# file: setup.yaml
+
+- name: Setup besu node archiving
+  hosts:
+    all
+  roles:
+    - python
+    - role: lvm
+      lvm_config: 'setup'
+    - docker
+    - besu
+    - monitoring
+    - security
+    - swap
+    - backup
+    - ssh
+    - nginx

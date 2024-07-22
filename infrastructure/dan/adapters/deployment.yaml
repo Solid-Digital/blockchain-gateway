@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    fullName: adapter-prod
+    organization: adapter-prod
+  name: adapter-prod
+  namespace: dan2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fullName: adapter-prod
+  template:
+    metadata:
+      labels:
+        fullName: adapter-prod
+        organization: dan
+      annotations:
+        revision: "8"
+    spec:
+      containers:
+      - name: adapter
+        image: registry.unchain.io/unchain-staging/dan:34
+        envFrom:
+        - secretRef:
+            name: adapter-prod
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/opt/unchain/
+          name: config
+          readOnly: true
+      imagePullSecrets:
+      - name: registry-unchain-io
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: adapter-prod
+        name: config

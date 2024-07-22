@@ -1,0 +1,57 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mongodb-backup-cronjob
+  namespace: mongodb
+  labels:
+    name: mongodb-backup
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - workingDir: /var/backups
+              args:
+                - sh
+                - -c
+                - echo "making backup" && 
+                  mongodump 
+                  -h mongodb.mongodb.svc.cluster.local 
+                  -u root 
+                  -p $MONGODB_PASSWORD
+                  --authenticationDatabase admin 
+                  --forceTableScan
+                  --out `date +%F` && 
+                  echo "OK, now compressing:" &&
+                  tar -cvzf `date +%F`.tgz `date +%F` &&
+                  echo "OK, Uploading:" &&
+                  aws s3 cp `date +%F`.tgz s3://unchain-backups/mongodb-prod/ &&
+                  du -h --max-depth=1 /var/backups/ &&
+                  echo "OK, All done"
+              env:
+                - name: MONGODB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: mongodb-root-password
+                      name: mongodb
+                      optional: false
+              image: registry.unchain.io/unchain/mongodb-backup
+              imagePullPolicy: Always
+              name: mongodb-backupjob
+              resources: {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities: {}
+                privileged: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: false
+          imagePullSecrets:
+            - name: registry-unchain-io
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          terminationGracePeriodSeconds: 30
+              
+

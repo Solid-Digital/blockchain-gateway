@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/component: alerting
+  name: alertmanager
+  namespace: kustomize-managed
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: web
+    - name: gossip
+      port: 6783
+      protocol: TCP
+      targetPort: gossip
+  selector:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/component: alerting
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/part-of: prometheus
+    app.kubernetes.io/component: alerting
+  name: alertmanager
+  namespace: kustomize-managed
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: alertmanager
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: alertmanager
+        app.kubernetes.io/part-of: prometheus
+        app.kubernetes.io/component: alerting
+    spec:
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      affinity:
+        podAntiAffinity: # Don't schedule pods on the same node if posssible.
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: alertmanager
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: prometheus-alertmanager
+          image: prom/alertmanager:v0.21.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+          envFrom:
+            - configMapRef:
+                name: alertmanager.env
+          args:
+            - --cluster.advertise-address=$(POD_IP):6783
+            - --cluster.listen-address=0.0.0.0:6783
+            - --cluster.peer=alertmanager:6783
+            - --config.file=/etc/config/alertmanager.yaml
+            - --web.external-url=$(EXTERNAL_URL)
+            - --web.listen-address=0.0.0.0:9093
+            - --web.route-prefix=/
+          ports:
+            - name: web
+              containerPort: 9093
+            - name: gossip
+              containerPort: 6783
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: 9093
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.25"
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+      volumes:
+        - name: config-volume
+          secret:
+            secretName: prometheus-alertmanager
+            items:
+              - key: alertmanager.secret.yaml
+                path: alertmanager.yaml

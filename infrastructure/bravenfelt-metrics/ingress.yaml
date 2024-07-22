@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  name: bravenfelt-metrics
+  namespace: bravenfelt-metrics
+spec:
+  rules:
+  - host: bravenfelt.grafana.unchain.io
+    http:
+      paths:
+      - backend:
+          serviceName: grafana-service
+          servicePort: 3000
+        path: /
+  - host: bravenfelt.influxdb.unchain.io
+    http:
+      paths:
+      - backend:
+          serviceName: influxdb-service
+          servicePort: 8086
+        path: /
+  tls:
+  - hosts:
+    - bravenfelt.grafana.unchain.io
+    - bravenfelt.influxdb.unchain.io
+    secretName: bravenfelt-metrics

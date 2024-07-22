@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  labels:
+    fullName: blockscout
+    organization: dan
+  name: blockscout-ing
+  namespace: blockscout-dan2
+spec:
+  rules:
+  - host: blockscout.dan2.nodes.unchain.io
+    http:
+      paths:
+      - backend:
+          serviceName: blockscout
+          servicePort: 4000
+        path: /
+  tls:
+  - hosts:
+    - blockscout.dan2.nodes.unchain.io
+    secretName: blockscout.dan2.nodes.unchain.io

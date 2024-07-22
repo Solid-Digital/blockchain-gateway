@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: mainnet-nodes
+  name: geth-mainnet-default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+spec:
+  tls:
+    - secretName: "geth-mainnet-default.dgo.unchain.io"
+      hosts:
+        - "geth-mainnet-default.dgo.unchain.io"
+  rules:
+    - host: "geth-mainnet-default.dgo.unchain.io"
+      http:
+        paths:
+          - path: "/http/?(.*)"
+            backend:
+              serviceName: geth-mainnet-default
+              servicePort: 8545
+          - path: "/ws/?(.*)"
+            backend:
+              serviceName: geth-mainnet-default
+              servicePort: 8546
+          - path: "/node/?(.*)"
+            backend:
+              serviceName: geth-mainnet-default
+              servicePort: 30303

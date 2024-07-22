@@ -1,0 +1,199 @@
+groups:
+  - name: k8s.rules
+    rules:
+    - expr: sum(rate(container_cpu_usage_seconds_total{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}[5m])) by (namespace)
+      record: namespace:container_cpu_usage_seconds_total:sum_rate
+    - expr: |-
+        sum by (cluster, namespace, pod, container) (
+          rate(container_cpu_usage_seconds_total{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}[5m])
+        ) * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+          1, max by(cluster, namespace, pod, node) (kube_pod_info{node!=""})
+        )
+      record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate
+    - expr: |-
+        container_memory_working_set_bytes{job="kubernetes-nodes-cadvisor", image!=""}
+        * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
+          max by(namespace, pod, node) (kube_pod_info{node!=""})
+        )
+      record: node_namespace_pod_container:container_memory_working_set_bytes
+    - expr: |-
+        container_memory_rss{job="kubernetes-nodes-cadvisor", image!=""}
+        * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
+          max by(namespace, pod, node) (kube_pod_info{node!=""})
+        )
+      record: node_namespace_pod_container:container_memory_rss
+    - expr: |-
+        container_memory_cache{job="kubernetes-nodes-cadvisor", image!=""}
+        * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
+          max by(namespace, pod, node) (kube_pod_info{node!=""})
+        )
+      record: node_namespace_pod_container:container_memory_cache
+    - expr: |-
+        container_memory_swap{job="kubernetes-nodes-cadvisor", image!=""}
+        * on (namespace, pod) group_left(node) topk by(namespace, pod) (1,
+          max by(namespace, pod, node) (kube_pod_info{node!=""})
+        )
+      record: node_namespace_pod_container:container_memory_swap
+    - expr: sum(container_memory_usage_bytes{job="kubernetes-nodes-cadvisor", image!="", container!="POD"}) by (namespace)
+      record: namespace:container_memory_usage_bytes:sum
+    - expr: |-
+        sum by (namespace) (
+            sum by (namespace, pod) (
+                max by (namespace, pod, container) (
+                    kube_pod_container_resource_requests_memory_bytes{kubernetes_name="kube-state-metrics"}
+                ) * on(namespace, pod) group_left() max by (namespace, pod) (
+                    kube_pod_status_phase{phase=~"Pending|Running"} == 1
+                )
+            )
+        )
+      record: namespace:kube_pod_container_resource_requests_memory_bytes:sum
+    - expr: |-
+        sum by (namespace) (
+            sum by (namespace, pod) (
+                max by (namespace, pod, container) (
+                    kube_pod_container_resource_requests_cpu_cores{kubernetes_name="kube-state-metrics"}
+                ) * on(namespace, pod) group_left() max by (namespace, pod) (
+                  kube_pod_status_phase{phase=~"Pending|Running"} == 1
+                )
+            )
+        )
+      record: namespace:kube_pod_container_resource_requests_cpu_cores:sum
+    - expr: |-
+        max by (cluster, namespace, workload, pod) (
+          label_replace(
+            label_replace(
+              kube_pod_owner{kubernetes_name="kube-state-metrics", owner_kind="ReplicaSet"},
+              "replicaset", "$1", "owner_name", "(.*)"
+            ) * on(replicaset, namespace) group_left(owner_name) topk by(replicaset, namespace) (
+              1, max by (replicaset, namespace, owner_name) (
+                kube_replicaset_owner{kubernetes_name="kube-state-metrics"}
+              )
+            ),
+            "workload", "$1", "owner_name", "(.*)"
+          )
+        )
+      labels:
+        workload_type: deployment
+      record: namespace_workload_pod:kube_pod_owner:relabel
+    - expr: |-
+        max by (cluster, namespace, workload, pod) (
+          label_replace(
+            kube_pod_owner{kubernetes_name="kube-state-metrics", owner_kind="DaemonSet"},
+            "workload", "$1", "owner_name", "(.*)"
+          )
+        )
+      labels:
+        workload_type: daemonset
+      record: namespace_workload_pod:kube_pod_owner:relabel
+    - expr: |-
+        max by (cluster, namespace, workload, pod) (
+          label_replace(
+            kube_pod_owner{kubernetes_name="kube-state-metrics", owner_kind="StatefulSet"},
+            "workload", "$1", "owner_name", "(.*)"
+          )
+        )
+      labels:
+        workload_type: statefulset
+      record: namespace_workload_pod:kube_pod_owner:relabel
+  - name: kubernetes-resources
+    rules:
+    - alert: KubeCPUOvercommit
+      annotations:
+        description: Cluster has overcommitted CPU resource requests for Pods and cannot tolerate node failure.
+        summary: Cluster has overcommitted CPU resource requests.
+      expr: |-
+        sum(namespace:kube_pod_container_resource_requests_cpu_cores:sum{})
+          /
+        sum(kube_node_status_allocatable_cpu_cores)
+          >
+        (count(kube_node_status_allocatable_cpu_cores)-1) / count(kube_node_status_allocatable_cpu_cores)
+      for: 5m
+      labels:
+        severity: warning
+    - alert: KubeMemoryOvercommit
+      annotations:
+        description: Cluster has overcommitted memory resource requests for Pods and cannot tolerate node failure.
+        summary: Cluster has overcommitted memory resource requests.
+      expr: |-
+        sum(namespace:kube_pod_container_resource_requests_memory_bytes:sum{})
+          /
+        sum(kube_node_status_allocatable_memory_bytes)
+          >
+        (count(kube_node_status_allocatable_memory_bytes)-1)
+          /
+        count(kube_node_status_allocatable_memory_bytes)
+      for: 5m
+      labels:
+        severity: warning
+    - alert: KubeCPUQuotaOvercommit
+      annotations:
+        description: Cluster has overcommitted CPU resource requests for Namespaces.
+        summary: Cluster has overcommitted CPU resource requests.
+      expr: |-
+        sum(kube_resourcequota{kubernetes_name="kube-state-metrics", type="hard", resource="cpu"})
+          /
+        sum(kube_node_status_allocatable_cpu_cores)
+          > 1.5
+      for: 5m
+      labels:
+        severity: warning
+    - alert: KubeMemoryQuotaOvercommit
+      annotations:
+        description: Cluster has overcommitted memory resource requests for Namespaces.
+        summary: Cluster has overcommitted memory resource requests.
+      expr: |-
+        sum(kube_resourcequota{kubernetes_name="kube-state-metrics", type="hard", resource="memory"})
+          /
+        sum(kube_node_status_allocatable_memory_bytes{kubernetes_name="kube-state-metrics"})
+          > 1.5
+      for: 5m
+      labels:
+        severity: warning
+    - alert: KubeQuotaAlmostFull
+      annotations:
+        description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
+        summary: Namespace quota is going to be full.
+      expr: |-
+        kube_resourcequota{kubernetes_name="kube-state-metrics", type="used"}
+          / ignoring(instance, job, type)
+        (kube_resourcequota{kubernetes_name="kube-state-metrics", type="hard"} > 0)
+          > 0.9 < 1
+      for: 15m
+      labels:
+        severity: info
+    - alert: KubeQuotaFullyUsed
+      annotations:
+        description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
+        summary: Namespace quota is fully used.
+      expr: |-
+        kube_resourcequota{kubernetes_name="kube-state-metrics", type="used"}
+          / ignoring(instance, job, type)
+        (kube_resourcequota{kubernetes_name="kube-state-metrics", type="hard"} > 0)
+          == 1
+      for: 15m
+      labels:
+        severity: info
+    - alert: KubeQuotaExceeded
+      annotations:
+        description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
+        summary: Namespace quota has exceeded the limits.
+      expr: |-
+        kube_resourcequota{kubernetes_name="kube-state-metrics", type="used"}
+          / ignoring(instance, job, type)
+        (kube_resourcequota{kubernetes_name="kube-state-metrics", type="hard"} > 0)
+          > 1
+      for: 15m
+      labels:
+        severity: warning
+    - alert: CPUThrottlingHigh
+      annotations:
+        description: '{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}.'
+        summary: Processes experience elevated CPU throttling.
+      expr: |-
+        sum(increase(container_cpu_cfs_throttled_periods_total{container!="", }[5m])) by (container, pod, namespace)
+          /
+        sum(increase(container_cpu_cfs_periods_total{}[5m])) by (container, pod, namespace)
+          > ( 80 / 100 )
+      for: 15m
+      labels:
+        severity: info

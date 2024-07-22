@@ -1,0 +1,11 @@
+# ---
+# file: roles/monitoring/tasks/main.yml
+
+- name: Configure node_exporter
+  import_tasks: node_exporter.yml
+
+- name: Configure prometheus
+  import_tasks: prometheus.yml
+
+- name: Configure grafana
+  import_tasks: grafana.yml

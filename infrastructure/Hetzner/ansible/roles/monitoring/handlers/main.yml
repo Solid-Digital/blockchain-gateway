@@ -1,0 +1,21 @@
+# ---
+# file: roles/monitoring/files/etc/handlers/main.yml
+
+- name: restart prometheus
+  docker_container:
+    name: prometheus
+    state: started
+    restart: yes
+  tags:
+    - prometheus
+    - monitoring
+
+
+- name: restart grafana
+  docker_container:
+    name: grafana
+    state: started
+    restart: yes
+  tags:
+    - grafana
+    - monitoring

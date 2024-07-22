@@ -1,0 +1,26 @@
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshotContent
+metadata:
+  namespace: mainnet-nodes
+  name: geth-mainnet-default
+spec:
+  volumeSnapshotRef:
+    name: geth-mainnet-default
+    namespace: mainnet-nodes
+  csiVolumeSnapshotSource:
+    driver: dobs.csi.digitalocean.com
+    snapshotHandle: d80f126f-6fae-11ea-98bc-0a58ac1480a1
+    restoreSize: 357919717376
+  deletionPolicy: Retain
+status:
+  restoreSize: null
+---
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  namespace: mainnet-nodes
+  name: geth-mainnet-default
+spec:
+  snapshotClassName: do-block-storage
+  snapshotContentName: geth-mainnet-default
+---

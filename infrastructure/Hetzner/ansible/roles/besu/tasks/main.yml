@@ -1,0 +1,57 @@
+# ---
+# file: roles/besu/tasks/main.yml
+- name: Ensure besu group exists
+  group:
+    name: besu
+  tags:
+    - besu
+
+- name: Ensure besu user exists
+  user:
+    name: besu
+  tags:
+    - besu
+  register: besu_user
+
+- name: Ensure besu data folders exists
+  file:
+    state: directory
+    path: "{{ item.value.data_path_host_base }}/{{ item.value.name }}"
+    owner: besu
+    group: besu
+    mode: '0755'
+  with_dict: "{{ besu_instances }}"
+  tags:
+    - besu
+
+- name: Ensure besu container is {{ besu_container_state | default('started') }}
+  docker_container:
+    image: hyperledger/besu:latest
+    name: "{{ item.value.name }}"
+    network_mode: host
+    cpu_period: "{{ docker_cpu_period }}"
+    cpu_quota: "{{ (docker_cpu_period * item.value.cpus)|int }}"
+    memory: "{{ item.value.memory }}"
+    user: "{{ besu_user.uid }}"
+    restart_policy: always
+    command:
+      - --network=mainnet
+      - "--data-path={{ besu_data_path_container }}"
+      - "--sync-mode={{ item.value.sync_mode }}"
+      - "--pruning-enabled={{ item.value.pruning }}"
+      - --rpc-http-enabled
+      - --rpc-http-host="{{ item.value.host }}"
+      - --rpc-http-port="{{ item.value.rpc_http_port}}"
+      - --rpc-ws-enabled
+      - --rpc-ws-host="{{ item.value.host }}"
+      - --rpc-ws-port="{{ item.value.rpc_ws_port }}"
+      - --metrics-enabled=true
+      - --metrics-host="{{ item.value.host }}"
+      - --metrics-port="{{ item.value.metrics_port }}"
+      - --p2p-port="{{ item.value.p2p_port }}"
+    state: "{{ besu_container_state | default('started') }}"
+    volumes:
+      - "{{ item.value.data_path_host_base }}/{{ item.value.name }}:{{ besu_data_path_container }}"
+  with_dict: "{{ besu_instances }}"
+  tags:
+    - besu

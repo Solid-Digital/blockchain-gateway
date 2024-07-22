@@ -1,0 +1,57 @@
+# ---
+# file: roles/monitoring/tasks/prometheus.yml
+
+- name: Ensure prometheus config folder exists
+  file:
+    path: "{{ monitoring_prometheus_config_host_path }}"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  tags:
+    - prometheus
+    - monitoring
+
+- name: Ensure prometheus data folder exists
+  file:
+    path: "{{ monitoring_prometheus_data_host_path }}"
+    state: directory
+    mode: '0755'
+    owner: nobody
+    group: nogroup
+  tags:
+    - prometheus
+    - monitoring
+
+- name: Ensure prometheus config is copied
+  template:
+    src: etc/prometheus/prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+    owner: root
+    group: root
+  notify: "restart prometheus"
+  tags:
+    - prometheus
+    - monitoring
+    
+- name: Ensure prometheus is started
+  docker_container:
+    image: prom/prometheus:v2.17.1
+    name: prometheus
+    network_mode: host
+    cpu_period: "{{ docker_cpu_period }}"
+    cpu_quota: "{{ (docker_cpu_period * 0.05)|int }}"  # %5 of 1 CPU
+    memory: "100M"
+    command:
+      - --storage.tsdb.retention.time=180d
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+      - --web.listen-address=127.0.0.1:9090
+    volumes:
+      - "{{ monitoring_prometheus_config_host_path }}:/etc/prometheus/"
+      - "{{ monitoring_prometheus_data_host_path }}:/prometheus"
+  tags:
+    - prometheus
+    - monitoring

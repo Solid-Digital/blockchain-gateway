@@ -1,0 +1,30 @@
+groups:
+  - name: besu-nodes
+    rules:
+    - alert: BesuNodeIsBlocksBehind
+      annotations:
+        description: Pod {{ $labels.kubernetes_pod_name }} running in namespace {{ $labels.kubernetes_namespace }} is {{ $value  | humanize }} blocks behind.
+        summary: Besu node is behind by a number of blocks.
+      expr: |-
+        ethereum_best_known_block_number - ethereum_blockchain_height > 0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: BesuNodeBlockheightNotIncreasing
+      annotations:
+        description: Pod {{ $labels.kubernetes_pod_name }} running in namespace {{ $labels.kubernetes_namespace }} is not reporting an increase in bockchain height.
+        summary: Blockchain height is not increasing.
+      expr: |-
+        changes(ethereum_best_known_block_number[2m]) == 0
+      for: 5m
+      labels:
+        severity: critical
+    - alert: BesuNodeNotConnectedToPeers
+      annotations:
+        description: Pod {{ $labels.kubernetes_pod_name }} running in namespace {{ $labels.kubernetes_namespace }} is not connected to any peers.
+        summary: Besu node is not connected to any peers
+      expr: |-
+        ethereum_peer_count == 0
+      for: 5m
+      labels:
+        severity: critical

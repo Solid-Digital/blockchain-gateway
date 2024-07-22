@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb
+  namespace: bravenfelt-metrics
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - image: docker.io/influxdb:2.3
+        ports:
+          - containerPort: 8086
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        volumeMounts:
+          - mountPath: /var/lib/influxdb
+            name: influxdb-data
+          - mountPath: /etc/influxdb/influxdb.conf
+            name: influxdb-config
+            subPath: influxdb.conf
+            readOnly: true
+        envFrom:
+          - secretRef:
+              name: influxdb-secrets
+        imagePullPolicy: Always
+        name: influxdb
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data
+        - name: influxdb-config
+          configMap:
+            name: influxdb-config

@@ -1,0 +1,70 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: harbor-db-backup-cronjob
+  namespace: harbor
+  labels:
+    name: harbor-db-backup
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 1800
+      template:
+        metadata:
+          labels:
+            app: harbor-db-backup
+        spec:
+          containers:
+            - workingDir: /var/backups
+              args:
+                - sh
+                - -c
+                - echo "making backup" &&
+                  pg_dump -h harbor-postgresql -U postgres -d registry > registry.psql &&
+                  pg_dump -h harbor-postgresql -U postgres -d notaryserver > notaryserver.psql &&
+                  pg_dump -h harbor-postgresql -U postgres -d notarysigner > notarysigner.psql &&
+                  tar -cvzf `date +%F`.tgz *.psql &&
+                  echo "OK, Uploading:" &&
+                  aws s3 cp --endpoint=https://ams3.digitaloceanspaces.com `date +%F`.tgz s3://unchain-backups/harbor-db/ &&
+                  du -h --max-depth=1 /var/backups/ &&
+                  echo "OK, All done"
+              env:
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: harbor-postgresql
+                      key: postgresql-password
+                      optional: false
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: harbor-registry
+                      key: REGISTRY_STORAGE_S3_ACCESSKEY
+                      optional: false
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: harbor-registry
+                      key: REGISTRY_STORAGE_S3_SECRETKEY
+                      optional: false
+              image: registry.unchain.io/unchain/backup-tool
+              imagePullPolicy: Always
+              name: backup-tool
+              resources: {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities: {}
+                privileged: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: false
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          imagePullSecrets:
+            - name: registry-unchain-io
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30

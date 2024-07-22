@@ -1,0 +1,12 @@
+groups:
+  - name: kubernetes-simple-nodes
+    rules:
+    - alert: KubernetesNodeNotReady
+      annotations:
+        description: Node {{ $labels.kubernetes_node }} has not been 'ready' for prolonged period of time.
+        summary: Kubernetes node is not ready
+      expr: |-
+        kube_node_status_condition{condition="Ready", status!="true"} == 1
+      for: 5m
+      labels:
+        severity: critical

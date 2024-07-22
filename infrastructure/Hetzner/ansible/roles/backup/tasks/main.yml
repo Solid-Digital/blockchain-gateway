@@ -1,0 +1,84 @@
+# ---
+# file:  roles/backup/main.yml
+
+- name: Ensure folder for backup scripts exists
+  file:
+    state: directory
+    path: "{{ backup_scripts_path_abs }}"
+    owner: backup
+    group: backup
+  tags:
+    - backup
+
+
+- name: Ensure backup scripts exists
+  template:
+    src: "{{ backup_scripts_path }}/{{ item }}"
+    dest: "{{ backup_scripts_path_abs }}/{{item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - "{{ backup_to_storage_box_script_name }}"
+  tags:
+    - backup
+
+- name: Make sure snapshot mountpoints exists
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - "{{ backup_to_storage_box_mountpoint }}"
+  tags:
+    - backup
+
+- name: Make sure folder for backup scripts' logs exists
+  file:
+    state: directory
+    path: "{{ backup_scripts_logs_path_abs }}"
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - backup
+
+- name: Creates {{ backup_to_storage_box_script_name }} backup cron file under /etc/cron.d
+  cron:
+    name: rsync lv_data to hetzner storage box
+    minute: "0"
+    hour: "14"
+    weekday: "1"
+    user: root
+    job: "PATH=/usr/sbin:/usr/bin:/sbin:/bin; bash /{{ backup_scripts_path }}/{{ backup_to_storage_box_script_name }} > {{ backup_scripts_logs_path_abs }}//{{ backup_to_storage_box_script_name | replace('.sh', '.log') }} 2>&1"
+    cron_file: backup_to_storage_box
+  tags:
+    - backup
+
+- name: Copy ssh file for hetzner storage gox access
+  copy:
+    src: "{{ inventory_hostname }}/.ssh/{{ item }}"
+    dest: "/root/.ssh/{{ item }}"
+    owner: root
+    group: root
+    mode: "0600"
+  tags:
+    - backup
+  with_items:
+    - server_id_rsa
+    - server_id_rsa.pub
+
+- name: Ensure storage box host keys are present in .ssh/known_hosts
+  lineinfile:
+    path: /root/.ssh/known_hosts
+    line: "{{ item }}"
+    create: yes
+    owner: root
+    group: root
+  with_items:
+    - "|1|RuIe2t/zSUI8A11uheW/GmvMxOE=|mpZ0+6200MjEGITq+yLeqgy6DQA= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs"
+    - "|1|sjetu+XI9WaI9bwVx9fX9ixPOCw=|q+iAIj6wBOfIUAo/+aL+h0wWLLY= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs"
+  tags:
+    - backup

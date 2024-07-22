@@ -1,0 +1,60 @@
+# ---
+# file: roles/nginx/tasks/main.yml
+
+- name: Ensure certbot repository is present
+  apt_repository:
+    repo: "ppa:certbot/certbot"
+    state: present
+  tags:
+    - nginx
+
+- name: Ensure nginx and certbot packages are {{ apt_state }}
+  apt:
+    state: "{{ apt_state }}"
+    update_cache: true
+    name:
+      - nginx
+      - certbot
+      - python-certbot-nginx
+  tags:
+    - nginx
+
+- name: Ensure nginx config folder exists
+  file:
+    state: directory
+    path: "/etc/nginx"
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - nginx
+
+- name: Ensure nginx config template is present
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf.tpl
+    owner: root
+    group: root
+    mode: '0755'
+  register: write_nginx_conf_tpl
+  tags:
+    - nginx
+
+- name: "If the nginx config template changed, replace the real config with it"
+  command: \cp -f /etc/nginx/nginx.conf.tpl /etc/nginx/nginx.conf
+  when: write_nginx_conf_tpl.changed
+  tags:
+      - nginx
+
+- name: "Collect all besu ingress domains into a variable"
+  set_fact:
+     besu_ingress_domains: "{{ besu_instances | json_query('*.ingress.envs.*.server_name') | flatten | join(',') }}"
+  when: write_nginx_conf_tpl.changed
+  tags: 
+    - nginx
+  
+- name: Ensure certbot is activated
+  command: certbot --nginx --non-interactive --agree-tos --email {{ admin_email }} --domains {{ besu_ingress_domains }} {{ certbot_extra_flags }}
+  when: write_nginx_conf_tpl.changed
+  tags:
+    - nginx

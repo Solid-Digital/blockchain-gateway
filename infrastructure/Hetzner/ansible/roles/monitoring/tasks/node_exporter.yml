@@ -1,0 +1,70 @@
+# ---
+# roles/monitoring/tasks/node_exporter.yml
+
+- name: Ensure node_exporter user exists
+  user:
+    name: node_exporter
+    create_home: True
+    home: /home/node_exporter
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Ensure node_exporter group exists
+  group:
+    name: node_exporter
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Download node_exporter binary
+  get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v{{ monitoring_node_exporter_version }}/node_exporter-{{ monitoring_node_exporter_version }}.linux-amd64.tar.gz
+    dest: /home/node_exporter/node_exporter.tar.gz
+    checksum: sha256:b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424 
+    owner: node_exporter
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Unarchive node_exporter binary
+  unarchive:
+    src: /home/node_exporter/node_exporter.tar.gz
+    remote_src: yes
+    dest: /home/node_exporter
+    owner: node_exporter
+    group: node_exporter
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Copy node_exporter to /usr/local/bin/
+  copy:
+    remote_src: true
+    src: /home/node_exporter/node_exporter-{{ monitoring_node_exporter_version }}.linux-amd64/node_exporter
+    dest: /usr/local/bin
+    owner: node_exporter
+    group: node_exporter
+    mode: +x
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Ensure node_exporter service template is present
+  copy:
+    src: etc/systemd/system/node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+  tags:
+    - node_exporter
+    - monitoring
+
+- name: Ensure node_exporter service is running and enabled
+  service:
+    name: node_exporter
+    state: started
+    enabled: true
+  tags:
+    - node_exporter
+    - monitoring

@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: mongodb-backup-
+  namespace: mongodb
+  labels:
+    name: mongodb-backup
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 1800
+  template:
+    spec:
+      containers:
+        - workingDir: /var/backups
+          args:
+            - sh
+            - -c
+            - echo "making backup" && 
+              mongodump 
+              -h mongodb.mongodb.svc.cluster.local 
+              -u root 
+              -p $MONGODB_PASSWORD
+              --authenticationDatabase admin 
+              --forceTableScan
+              --out `date +%F` && 
+              echo "OK, now compressing:" &&
+              tar -cvzf `date +%F`.tgz `date +%F` &&
+              echo "OK, Uploading:" &&
+              aws s3 cp `date +%F`.tgz s3://unchain-backups/mongodb-prod/ &&
+              du -h --max-depth=1 /var/backups/ &&
+              echo "OK, All done"
+          env:
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mongodb-root-password
+                  name: mongodb
+                  optional: false
+          image: registry.unchain.io/unchain/mongodb-backup
+          imagePullPolicy: Always
+          name: mongodb-backupjob
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      imagePullSecrets:
+        - name: registry-unchain-io
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+          
+

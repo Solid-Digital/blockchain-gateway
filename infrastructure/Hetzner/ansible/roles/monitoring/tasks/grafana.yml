@@ -1,0 +1,101 @@
+# ---
+# file: roles/monitoring/tasks/grafana.yml
+
+- name: Ensure grafana group exists
+  group:
+    name: grafana
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana user exists
+  user:
+    name: grafana
+  tags:
+    - grafana
+    - monitoring
+  register: grafana_user
+
+- name: Ensure grafana data folder exists
+  file:
+    state: directory
+    path: "{{ monitoring_grafana_data_host_path }}/dashboards"
+    owner: grafana
+    group: grafana
+    mode: '0755'
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana config folder exists
+  file:
+    state: directory
+    path: "{{ monitoring_grafana_config_host_path }}/provisioning/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - datasources
+    - dashboards
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana config is present
+  copy:
+    src: "etc/grafana/{{ item }}"
+    dest: "/etc/grafana/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - grafana.ini
+    - provisioning/datasources/prometheus.yaml
+  notify: "restart grafana"
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana dashboard config is present
+  template:
+    src: etc/grafana/provisioning/dashboards/defaults.yaml
+    dest: /etc/grafana/provisioning/dashboards/defaults.yaml
+    owner: root
+    group: root
+    mode: '0755'
+  notify: "restart grafana"
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana dashboard json files are present
+  copy:
+    src: "var/lib/grafana/dashboards/{{ item }}"
+    dest: "/var/lib/grafana/dashboards/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - node_exporter.json
+    - besu.json
+  notify: "restart grafana"
+  tags:
+    - grafana
+    - monitoring
+
+- name: Ensure grafana container is running
+  docker_container:
+    image: grafana/grafana:6.7.2
+    name: grafana
+    restart_policy: always
+    cpu_period: "{{ docker_cpu_period }}"
+    cpu_quota: "{{ (docker_cpu_period * 0.05)|int }}"  # %5 of 1 CPU
+    memory: "100M"
+    network_mode: host
+    volumes:
+      - "{{ monitoring_grafana_data_host_path }}:/var/lib/grafana"
+      - "{{ monitoring_grafana_config_host_path }}:/etc/grafana/"
+    user: "{{ grafana_user.uid }}"
+  tags:
+    - grafana
+    - monitoring

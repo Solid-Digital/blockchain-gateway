@@ -1,0 +1,56 @@
+namespace: monitoring
+commonLabels:
+  app.kubernetes.io/managed-by: kustomize
+  infrastructure: monitoring
+resources:
+  - ./ingresses.yaml
+  - ./resources/alertmanager_deployment_and_service.yaml
+  - ./resources/grafana_deployment_and_service.yaml
+  - ./resources/kube_state_deployment_and_service.yaml
+  - ./resources/kube_state_serviceaccount_and_role.yaml
+  - ./resources/namespace.yaml
+  - ./resources/node_exporter_daemonset_and_service.yaml
+  - ./resources/oauth2_proxy_deployment_and_service.yaml
+  - ./resources/prometheus_serviceaccount_and_roles.yaml
+  - ./resources/prometheus_statefulset_and_sevice.yaml
+configMapGenerator:
+  - name: alertmanager.env
+    env: ./configmaps/alertmanager/alertmanager.env
+  - name: grafana-config
+    files:
+      - ./configmaps/grafana/grafana.ini
+  - name: grafana-datasources
+    files:
+      - ./configmaps/grafana/datasources.yaml
+  - name: grafana-dashboards
+    files:
+      - ./configmaps/grafana/dashboards/besu_overview.json
+      - ./configmaps/grafana/dashboards/kubernetes_app_metrics.json
+      - ./configmaps/grafana/dashboards/kubernetes_cluster_monitoring.json
+      - ./configmaps/grafana/dashboards/kubernetes_persistence_volumes.json
+      - ./configmaps/grafana/dashboards/nginx_ingress_controller.json
+  - name: grafana-dashboards-config
+    files:
+      - ./configmaps/grafana/provider.yaml
+  - name: prometheus.env
+    env: ./configmaps/prometheus/prometheus.env
+  - name: prometheus-config
+    files:
+      - ./configmaps/prometheus/prometheus.yml
+  - name: prometheus-rule-files
+    files:
+      - ./configmaps/prometheus/prometheus_rules/besu-nodes.yaml
+      - ./configmaps/prometheus/prometheus_rules/kubernetes-apps.yaml
+      - ./configmaps/prometheus/prometheus_rules/kubernetes-resources.yaml
+      - ./configmaps/prometheus/prometheus_rules/kubernetes-simple-nodes.yaml
+      - ./configmaps/prometheus/prometheus_rules/kubernetes-storage.yaml
+secretGenerator:
+  - name: grafana-postgres
+    env: ./secrets/grafana_postgres.secret.env
+  - name: grafana
+    env: ./secrets/grafana.secret.env
+  - name: oauth2-proxy-env
+    env: ./secrets/oauth2_proxy.secret.env
+  - name: prometheus-alertmanager
+    files:
+      - ./secrets/alertmanager.secret.yaml

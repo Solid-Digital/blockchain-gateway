@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: mainnet-nodes
+  name: besu-mainnet-fast-prune-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/auth-url: https://tbg-nodes-auth.prod.dgo.unchain.io
+    nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Unchain-Network-Config mainnet;
+spec:
+  tls:
+    - secretName: "mainnet.nodes.unchain.io"
+      hosts:
+        - "mainnet.nodes.unchain.io"
+  rules:
+    - host: "mainnet.nodes.unchain.io"
+      http:
+        paths:
+          - path: "/v0/ws/([^/]*)/?(.*)"
+            backend:
+              serviceName: besu-mainnet-fast-prune
+              servicePort: 8546
+          - path: "/v0/([^/]*)/?(.*)"
+            backend:
+              serviceName: besu-mainnet-fast-prune
+              servicePort: 8545
+          - path: "/v0/node/?(.*)"
+            backend:
+              serviceName: besu-mainnet-fast-prune
+              servicePort: 30303

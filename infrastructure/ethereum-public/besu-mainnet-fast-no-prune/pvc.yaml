@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: mainnet-nodes
+  name: besu-mainnet-fast-prune
+  annotations:
+    # fake it by indicating this is provisioned dynamically, so the system
+    # works properly
+    pv.kubernetes.io/provisioned-by: dobs.csi.digitalocean.com
+spec:
+  storageClassName: do-block-storage
+  # by default, the volume will be not deleted if you delete the PVC, change to
+  # "Delete" if you wish the volume to be deleted automatically with the PVC
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 400Gi
+  accessModes:
+    - ReadWriteOnce
+  csi:
+    driver: dobs.csi.digitalocean.com
+    fsType: ext4
+    volumeHandle: 576a5681-6995-11ea-ba8a-0a58ac1480e6
+    volumeAttributes:
+      com.digitalocean.csi/noformat: "true"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: mainnet-nodes
+  name: besu-mainnet-fast-prune
+spec:
+  volumeName: besu-mainnet-fast-prune
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 400Gi
+  

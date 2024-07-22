@@ -1,0 +1,12 @@
+# --
+# file: reset_besu.yaml
+
+- name: Reset besu container and block storage
+  hosts:
+    - all
+  roles:
+    - role: besu
+      besu_container_state: absent
+    - role: lvm
+      lvm_config: delete_lv
+      lvm_delete_lv: lv_data

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: besu-mainnet-fast-prune
+  labels:
+    app: besu-mainnet-fast-prune
+  namespace: mainnet-nodes
+data:
+  nodesHttpCorsOrigins: "*"
+  nodesHostWhitelist: "*"

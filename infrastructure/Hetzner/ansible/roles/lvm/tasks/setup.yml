@@ -1,0 +1,80 @@
+# ---
+# file: roles/lvm/tasks/stripe.yml
+
+- name: Ensure xfsprogs is installed
+  apt:
+    pkg: xfsprogs
+    state: "{{ apt_state }}"
+  tags:
+    - lvm
+    - xfs
+
+- name: Ensure lvm2 is installed
+  apt:
+    pkg: lvm2
+    state: "{{ apt_state }}"
+  tags:
+    - lvm
+
+- name: Ensure blockdevices are unmounted
+  mount:
+    path: "{{ item }}"
+    state: unmounted
+  with_items: "{{ lvm_original_mounts | default('[]') }}"
+  tags:
+    - lvm
+
+- name: Ensure blockdevices are not in fstab
+  mount:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ lvm_original_mounts | default('[]') }}"
+  tags:
+    - lvm
+
+- name: Ensure logical volume group is present
+  lvg:
+    vg: vg1
+    pvs: "{{ lvm_all_pvs | join(',') }}"
+    state: present
+  tags:
+    - lvm
+
+- name: Ensure logical volume exists
+  lvol:
+    vg: vg1
+    lv: "{{ item.key }}"
+    opts: "{{ item.value.lv_opts | join(' ') }}"
+    size: "{{ item.value.lv_size_GB }}G"
+  with_dict: "{{ lvm_lvs }}"
+  tags:
+    - lvm
+
+- name: Ensure filesystem exists on logical volume #OPTS add stripe size to mkfs option
+  filesystem:
+    fstype: "{{ item.value.lv_fstype }}"
+    dev: "/dev/vg1/{{ item.key }}"
+    resizefs: true
+  with_dict: "{{ lvm_lvs }}"
+  tags:
+    - lvm
+
+- name: Ensure mountpoint exists
+  file:
+    path: "{{ item.value.lv_mountpoint }}"
+    state: directory
+  with_dict: "{{ lvm_lvs }}"
+  tags:
+    - lvm
+
+- name: Ensure logical volume is mounted
+  mount:
+    boot: true
+    path: "{{ item.value.lv_mountpoint }}"
+    src: "/dev/vg1/{{ item.key }}"
+    fstype: "{{ item.value.lv_fstype }}"
+    opts: "defaults"
+    state: mounted
+  with_dict: "{{ lvm_lvs }}"
+  tags:
+    - lvm

@@ -1,0 +1,15 @@
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+configMapGenerator:
+  - name: vault-config
+    files: 
+      - config.hcl
+secretGenerator:
+  - name: vault-secret
+    env: vault.env
+generatorOptions:
+  disableNameSuffixHash: true
+namespace: vault

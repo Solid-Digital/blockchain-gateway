@@ -1,0 +1,108 @@
+# lvm role
+lvm_original_mounts: 
+  - /mnt/volume_0
+  - /mnt/volume_1
+  - /mnt/volume_2
+  - /mnt/volume_3
+
+lvm_all_pvs:
+  - /dev/sda
+  - /dev/sdb
+  - /dev/sdc
+  - /dev/sdd
+
+lvm_lvs:
+  lv_data:
+    lv_opts:
+      - '-i4'
+      - '-I512' # Stripe size
+    lv_pvs:
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+      - /dev/sdd
+    lv_size_GB: 120
+    lv_fstype: xfs
+    lv_mountpoint: "/lvm_disks/lv_data"
+
+# nginx role
+certbot_extra_flags: " --test-cert "
+
+# besu role
+besu_data_path_container: /var/lib/besu
+besu_instances:
+  besu_archive:
+    name: besu_archive
+    data_path_host_base: "{{ lvm_lvs.lv_data.lv_mountpoint }}"
+    cpus: 0.9
+    memory: 2G
+    host: 127.0.0.1
+    rpc_http_port: 8545
+    rpc_ws_port: 8546
+    metrics_port: 9545
+    p2p_port: 30303 
+    pruning: false
+    sync_mode: FULL
+    ingress:
+      network_config: mainnet-archive
+      envs:
+        staging:
+          server_name: mainnet-archive.staging.do-test1.unchain.io
+          auth_url: https://tbg-nodes-auth.staging.dgo.unchain.io
+        prod:
+          server_name: mainnet-archive.do-test1.unchain.io
+          auth_url: https://tbg-nodes-auth.prod.dgo.unchain.io
+  besu_fast_sync_no_pruning:
+    name: besu_fast_sync_no_pruning
+    data_path_host_base: "{{ lvm_lvs.lv_data.lv_mountpoint }}"
+    cpus: 3
+    memory: 4G
+    host: 127.0.0.1
+    rpc_http_port: 8565
+    rpc_ws_port: 8566
+    metrics_port: 9565
+    p2p_port: 30503
+    pruning: false
+    sync_mode: FAST
+    ingress:
+      network_config: mainnet
+      envs:
+        staging:
+          server_name: mainnet.staging.do-test1.unchain.io
+          auth_url: https://tbg-nodes-auth.staging.dgo.unchain.io
+        prod:
+          server_name: mainnet.do-test1.unchain.io
+          auth_url: https://tbg-nodes-auth.prod.dgo.unchain.io
+
+
+# monitoring role
+monitoring_node_exporter_version: 0.18.1
+
+monitoring_prometheus_config_host_path: /etc/prometheus/
+monitoring_prometheus_data_host_path: /var/lib/prometheus/
+
+monitoring_grafana_config_host_path: /etc/grafana
+monitoring_grafana_data_host_path: /var/lib/grafana
+
+# swap role
+swap_path: /swap
+swap_fraction_memory: 0.5
+
+# backup role
+backup_pigz_processors: 2
+backup_scripts_path: opt/scripts
+backup_scripts_logs_path_abs: /var/log/backup_scripts
+backup_scripts_path_abs: "/{{ backup_scripts_path }}"
+backup_fraction_lv_data: 0.1
+backup_snapshot_size_GB: "{{ lvm_lvs.lv_data.lv_size_GB * backup_fraction_lv_data }}"
+backup_snapshots_mountpoint_base: /lvm_disks/snapshots
+backup_to_storage_box_mountpoint: "{{ backup_snapshots_mountpoint_base }}/backup_to_storage_box"
+backup_slack_url: https://hooks.slack.com/services/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
+backup_to_storage_box_script_name: backup_to_storage_box.sh
+backup_to_storage_box_base_path: "/home/{{ inventory_hostname }}"
+backup_storage_box_rsync_url: u233451@u233451.your-storagebox.de 
+backup_storage_box_configs:
+  - box_url: u233451@u233451.your-storagebox.de # 10TB storage box
+    besu_node: besu_archive
+  - box_url: u254583@u254583.your-storagebox.de # 5TB storage box
+    besu_node: besu_fast_sync_no_pruning

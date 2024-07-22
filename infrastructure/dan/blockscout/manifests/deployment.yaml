@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blockscout
+  namespace: blockscout-dan2
+spec:
+  selector:
+    matchLabels:
+      fullName: blockscout
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fullName: blockscout
+        organization: dan
+    spec:
+      containers:
+      - args:
+        - /bin/sh
+        - -c
+        - mix phx.server
+        env:
+        - name: DATABASE_URL
+          value: postgresql://blockscout:AVNS_-BnKY9FnFXsNiJ420lA@block-explorer-test-db-do-user-2339835-0.b.db.ondigitalocean.com:25061/blockscout_pool?sslmode=require
+        - name: INDEXER_DISABLE_ADDRESS_COIN_BALANCE_FETCHER
+          value: "true"
+        - name: INDEXER_DISABLE_BLOCK_REWARD_FETCHER
+          value: "true"
+        - name: ETHEREUM_JSONRPC_HTTP_URL
+          value: besu-validator1.dan2.svc.cluster.local:8545
+        - name: ETHEREUM_JSONRPC_TRACE_URL
+          value: besu-validator1.dan2.svc.cluster.local:8545
+        - name: ETHEREUM_JSONRPC_VARIANT
+          value: besu
+        - name: MIX_ENV
+          value: prod
+        - name: FIRST_BLOCK
+          value: "11630834"
+        - name: TRACE_FIRST_BLOCK
+          value: "11630834"
+        - name: DISABLE_INDEXER
+          value: "true"
+        image: registry.unchain.io/unchain/blockscout:v4.1.7-beta
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 500Mi
+        imagePullPolicy: Always
+        name: blockscout
+        ports:
+        - containerPort: 4000
+          name: 4000tcp02
+          protocol: TCP
+        tty: true
+      imagePullSecrets:
+      - name: registry-unchain-io
+      restartPolicy: Always

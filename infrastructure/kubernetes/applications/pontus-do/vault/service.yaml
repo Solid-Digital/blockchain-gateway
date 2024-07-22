@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault
+spec:
+  ports:
+  - name: 8200tcp02-vault
+    port: 8200
+    protocol: TCP
+    targetPort: 8200
+  - name: 8201tcp02-vault
+    port: 8201
+    protocol: TCP
+    targetPort: 8201
+  - name: 8202tcp02-vault
+    port: 8202
+    protocol: TCP
+    targetPort: 8202
+  selector:
+    app: vault
+  type: ClusterIP

@@ -1,0 +1,57 @@
+# ---
+# file: ansible/roles/security/files/main.yml
+
+- name: Ensure ufw is installed
+  apt:
+    state: "{{ apt_state }}"
+    name: ufw
+  tags:
+    - ufw
+    - security
+
+- name: Ensure ufw service is enabled
+  service:
+    name: ufw
+    enabled: true
+    state: started
+  tags:
+    - ufw
+    - security
+
+- name: ufw - default deny
+  ufw:
+    default: "deny"
+  tags:
+    - ufw
+    - security
+
+- name: ufw - limit ssh
+  ufw:
+    rule: "limit"
+    name: OpenSSH
+  tags:
+    - ufw
+    - security
+
+- name: ufw - allow http
+  ufw:
+    rule: "allow"
+    port: http
+  tags:
+    - ufw
+    - security
+
+- name: ufw - allow https
+  ufw:
+    rule: "allow"
+    port: https
+  tags:
+    - ufw
+    - security
+
+- name: Ensure ufw is enabled
+  ufw:
+    state: "enabled"
+  tags:
+    - ufw
+    - security

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vault
+  name: vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: vault
+      annotations:
+        updated-at: "{{date}}"
+    spec:
+      containers:
+        - 
+          name: vault
+          image: vault:1.4.2
+          args:
+            - server
+            - -config
+            - /etc/vault
+          envFrom:
+            - secretRef:
+                name: vault-secret
+          env:
+            - name: SKIP_SETCAP
+              value: "true"
+            - name: VAULT_LOG_LEVEL
+              value: info
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            - name: VAULT_CLUSTER_ADDR
+              value: https://$(POD_IP):8201
+          ports:
+            - containerPort: 8200
+              name: 8200tcp02
+              protocol: TCP
+            - containerPort: 8201
+              name: 8201tcp02
+              protocol: TCP
+            - containerPort: 8202
+              name: 8202tcp02
+              protocol: TCP
+          resources:
+            requests:
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /etc/vault/
+              name: config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            defaultMode: 292
+            name: vault-config
+            optional: false
+          name: config

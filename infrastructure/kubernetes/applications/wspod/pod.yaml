@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["3.122.116.93"],"port":31605,"protocol":"TCP","serviceName":"adapters:undeveloped-listenertrp-165a89","allNodes":true}]'
+    kubernetes.io/psp: base-adapters-policy-psp
+  creationTimestamp: null
+  generateName: undeveloped-listenertrp-165a89-6db4999dc5-
+  labels:
+    adapterID: 5c7e9428d8891d770f6cc0c1
+    fullName: undeveloped-listenertrp-165a89
+    name: listenertrp
+    organization: 5c4085c49800050001963a07
+    pod-template-hash: "2860555871"
+  ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: undeveloped-listenertrp-165a89-6db4999dc5
+      uid: 95a52e0b-3f5a-11e9-b33c-02a6e4859310
+  selfLink: /api/v1/namespaces/adapters/pods/undeveloped-listenertrp-165a89-6db4999dc5-pxdsr
+spec:
+  containers:
+    - image: registry.unchain.io/undeveloped/listenertrp-165a89:v0.0.7
+      imagePullPolicy: Always
+      name: adapter
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+      resources:
+        limits:
+          cpu: "1"
+          memory: 512M
+        requests:
+          cpu: 50m
+          memory: 25M
+      securityContext:
+        allowPrivilegeEscalation: false
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: default-token-pwtlr
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+    - name: regcred
+  nodeName: ip-172-31-41-47.eu-central-1.compute.internal
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: default-token-pwtlr
+      secret:
+        defaultMode: 420
+        secretName: default-token-pwtlr
+status:
+  phase: Pending
+  qosClass: Burstable

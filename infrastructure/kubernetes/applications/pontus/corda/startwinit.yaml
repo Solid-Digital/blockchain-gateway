@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-s3-init
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: corda
+    spec:
+      initContainers:
+        - name: s3-cordapp-loader
+          image: garland/docker-s3cmd
+          command:
+            - s3cmd
+            - get
+            - s3://cordapps-klm/*
+            - /opt/cordapps/
+          volumeMounts:
+            - mountPath: /opt/cordapps/
+              name: cordapps
+              readOnly: false
+      containers:
+        - name: cordapp-viewer
+          image: davyj0nes/qotd
+          volumeMounts:
+            - mountPath: /opt/cordapps/
+              name: cordapps
+              readOnly: true
+          ports:
+            - name: http
+              containerPort: 8080
+      volumes:
+        - name: cordapps
+          emptyDir:
+            sizeLimit: "512M"
