@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+import "message.proto";
+
+package proto;
+
+message InitEndpointRequest {
+    uint32 stub_server = 1;
+    bytes config = 2;
+}
+
+message InitEndpointResponse {}
+
+message SendRequest {
+    uint32 stub_server = 1;
+    AdapterMessage message = 2;
+}
+
+message SendResponse {
+    AdapterMessage response = 1;
+}
+
+message ReceiveRequest {
+    uint32 stub_server = 1;
+}
+
+message ReceiveResponse {
+    TaggedAdapterMessage message = 1;
+}
+
+message AckRequest {
+    uint32 stub_server = 1;
+    uint64 tag = 2;
+    AdapterMessage response = 3;
+}
+
+message AckResponse {}
+
+message NackRequest {
+    uint32 stub_server = 1;
+    uint64 tag = 2;
+    string error = 3;
+}
+
+message NackResponse {}
+
+message CloseRequest {
+    uint32 stub_server = 1;
+}
+
+message CloseResponse {}
+
+service Endpoint {
+    rpc Init(InitEndpointRequest) returns (InitEndpointResponse);
+    rpc Send(SendRequest) returns (SendResponse);
+    rpc Receive(ReceiveRequest) returns (ReceiveResponse);
+    rpc Ack(AckRequest) returns (AckResponse);
+    rpc Nack(NackRequest) returns (NackResponse);
+    rpc Close(CloseRequest) returns (CloseResponse);
+}

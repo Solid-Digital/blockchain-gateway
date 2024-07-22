@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+
+message AdapterMessage {
+    bytes body = 1;
+    map<string, bool> attributes = 2;
+}
+
+message TaggedAdapterMessage {
+    uint64 Tag = 1;
+    AdapterMessage message = 2;
+}

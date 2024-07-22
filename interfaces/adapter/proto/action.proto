@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "message.proto";
+
+package proto;
+
+
+message InitActionRequest {
+    uint32 stub_server = 1;
+    bytes config = 2;
+}
+
+message InitActionResponse {}
+
+message InvokeRequest {
+    uint32 stub_server = 1;
+    AdapterMessage message = 2;
+}
+
+message InvokeResponse {
+    AdapterMessage message = 1;
+}
+
+service Action {
+    rpc Init(InitActionRequest) returns (InitActionResponse);
+    rpc Invoke(InvokeRequest) returns (InvokeResponse);
+}
