@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ares-branch
+  labels:
+    app: ares
+    app.kubernetes.io/name: ares
+    app.kubernetes.io/version: "{{tag}}"
+    app.kubernetes.io/component: server
+  name: ares
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ares
+        app.kubernetes.io/name: ares
+        app.kubernetes.io/component: server
+      annotations:
+        updated-at: "{{date}}"
+        version: "{{tag}}"
+    spec:
+      initContainers:
+        - name: ares-db-reset
+          command:
+            - sh
+            - -c
+          args:
+            - >
+              ./ares-migrate --cfg=config/config.toml reset &&
+              ./ares-migrate --cfg=config/config.toml up &&
+              ./ares-bootstrap --cfg=config/config.toml &&
+              ./ares-fixtures --cfg=config/config.toml up
+          volumeMounts:
+            - mountPath: /app/config
+              name: ares-config
+            - mountPath: /kubeconfig
+              name: kubeconfig
+          image: registry.unchain.io/unchain/ares:{{tag}}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      containers:
+        - name: ares
+          command:
+            - /app/ares
+          args:
+            - --cfg=config/config.toml
+          volumeMounts:
+            - mountPath: /app/config
+              name: ares-config
+            - mountPath: /kubeconfig
+              name: kubeconfig
+          image: registry.unchain.io/unchain/ares:{{tag}}
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
+      volumes:
+        - name: ares-config
+          secret:
+            secretName: ares-config
+            items:
+              - key: config.toml
+                path: config.toml
+        - name: kubeconfig
+          secret:
+            secretName: kubeconfig
+      imagePullSecrets:
+        - name: registry-unchain-io
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ares
+      app.kubernetes.io/component: server

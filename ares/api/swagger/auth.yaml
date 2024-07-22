@@ -1,0 +1,338 @@
+---
+swagger: "2.0"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+
+paths:
+  /auth/registration:
+    post:
+      tags:
+        - "auth"
+      summary: "Register New User"
+      operationId: "CreateRegistration"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateRegistrationRequest"
+      responses:
+        200:
+          description: "Status 200"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+      security: []
+  /auth/registration/confirm:
+      post:
+        tags:
+          - "auth"
+        summary: "Confirm the registration and email"
+        operationId: "ConfirmRegistration"
+        consumes: []
+        parameters:
+          - name: "body"
+            in: "body"
+            required: true
+            schema:
+              $ref: "#/definitions/ConfirmRegistrationRequest"
+        responses:
+          200:
+            description: "Status 200"
+            schema:
+              $ref: "#/definitions/LoginResponse"
+          500:
+            description: "Internal server error"
+            schema:
+              type: "string"
+        security: []
+  /auth/registration-redirect:
+    post:
+      tags:
+        - "auth"
+      summary: "Redirect for registration"
+      operationId: "RedirectToRegistration"
+      consumes: ["application/x-www-form-urlencoded"]
+      responses:
+        301:
+          description: "Redirect to connect registration page"
+        500:
+          description: "Internal Service Error"
+          schema:
+              type: "object"
+        200:
+          description: "Status 200"
+      security: []
+  /auth/user:
+    get:
+      tags:
+        - "auth"
+      summary: "Get Current User Profile"
+      description: "Get the current user's profile."
+      operationId: "GetCurrentUser"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetCurrentUserResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "auth"
+      summary: "Update User Profile"
+      description: "Update the profile that is associated with the token used for\
+        \ the API call."
+      operationId: "UpdateCurrentUser"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCurrentUserRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetCurrentUserResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    delete:
+      tags:
+        - "auth"
+      summary: "Delete the current user"
+      description: "Archive the profile that is associated with the token used for\
+        \ the API call."
+      operationId: "DeleteCurrentUser"
+      parameters: []
+      responses:
+        204:
+          description: "Deleted"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login User"
+      operationId: "Login"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        401:
+          description: "Status 401"
+          schema:
+            type: "object"
+      security: []
+  /auth/logout:
+    get:
+      tags:
+        - "auth"
+      summary: "Logout User"
+      operationId: "Logout"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /auth/password/reset:
+    post:
+      tags:
+        - "auth"
+      summary: "Reset Password"
+      operationId: "ResetPassword"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ResetPasswordRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/ResetPasswordResponse"
+        401:
+          description: "Status 401"
+          schema:
+            type: "object"
+      security: []
+  /auth/password/reset/confirm:
+    post:
+      tags:
+        - "auth"
+      summary: "Confirm the password reset"
+      operationId: "ConfirmResetPassword"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ConfirmResetPasswordRequest"
+      responses:
+        200:
+          description: "Status 200"
+        401:
+          description: "Status 401"
+          schema:
+            type: "object"
+      security: []
+  /auth/password/change:
+    post:
+      tags:
+        - "auth"
+      summary: "Change the current user's password"
+      operationId: "ChangeCurrentPassword"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ChangeCurrentPasswordRequest"
+      responses:
+        201:
+          description: "Accepted"
+        401:
+          description: "Unauthorized error"
+          schema:
+            type: "object"
+
+definitions:
+  LoginRequest:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+    properties:
+      email:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+  CreateRegistrationRequest:
+    type: "object"
+    required:
+      - "email"
+      - "organizationName"
+      - "organizationDisplayName"
+    properties:
+      email:
+        type: "string"
+        format: email
+      organizationDisplayName:
+        type: "string"
+      organizationName:
+        type: "string"
+      registrationReference:
+        type: object
+        description: "reference object for any billing provider or marketplace"
+        properties:
+          token:
+            type: "string"
+          source:
+            type: "string"
+  ConfirmRegistrationRequest:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      password:
+        type: "string"
+      fullName:
+        type: "string"
+  GetCurrentUserResponse:
+    type: "object"
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      fullName:
+        x-order: 2
+        type: "string"
+      email:
+        x-order: 3
+        type: "string"
+      createdAt:
+        x-order: 4
+        type: "string"
+        format: "date-time"
+      defaultOrganization:
+        x-order: 5
+        type: "string"
+      roles:
+        type: "object"
+        description: "Roles is map[org][role]bool"
+        additionalProperties:
+          type: "object"
+          additionalProperties:
+            type: boolean
+  UpdateCurrentUserRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        format: email
+      fullName:
+        type: "string"
+  ResetPasswordRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        format: email
+  ResetPasswordResponse:
+    type: "object"
+    properties:
+      requestID:
+        type: "string"
+  ConfirmResetPasswordRequest:
+    type: "object"
+    properties:
+      recoveryCode:
+        type: "string"
+      password:
+        type: "string"
+  ChangeCurrentPasswordRequest:
+    type: "object"
+    properties:
+      currentPassword:
+        type: "string"
+      newPassword:
+        type: "string"
+  LoginResponse:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      userID:
+        type: "integer"
+      defaultOrganization:
+        type: "string"

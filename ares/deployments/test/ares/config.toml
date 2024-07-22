@@ -1,0 +1,414 @@
+url = ":8080"
+
+#[bootstrap]
+#    adminEmailAddress = "admin@unchain.io"
+#    adminPassword = "7fdn3qen8vnwa2aAF"
+#    adminOrganization = "bootstrap-org"
+
+[logger]
+    level = "debug"
+    format = "text"
+
+[jwt]
+    expirationDelta = 72
+    issuer = "localhost:8080"
+
+    [jwt.tls.key]
+        pem = """
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA4w5xhil8YFSLptRxzQsiJgQm7DxfVx7nEFAndQDw/7a1VfIf
+hhzZlUYx6u+57kP4+JPhqLMl9hEPnJh2DMPV4wrQAOSe6pDK5UP/xZQx8ygy70lG
+fJ6MVo7mkXKaofKobOhkFIOhqtLU/6CrzFl+KdFIsD7pt+FxV6mMmPbnAvDN+hF5
+NwU6N61WGAZER8z7SSTgayGpuHdUKCdPwfuiUIEX3GxhskzV/ROiS+R/NbQZlsfm
+QqcBJ5FxhOtAVevi9s7x6LLTSQKopuuunSTTtu3ys/hs5m6AqNPPkLKqp6R8iXF1
+Lg0DMeQlFHYwEo3oRweMNhfYRzC3ukioSf+GuwIDAQABAoIBADlemeKLMujoE80Y
+WpSzXnJ6lBcWfgR2Q23EwuN2VG5YDONlZP+u5G8qKEyzO6hvNkYgn2DPuyS8VNR9
+VT6OcMmIHtxK57he01UwZDzY3/IPUydQvWWZbd4lBy7y5Q1MUbAK29avF7cgxD6+
+qwncBtusDJCzpLwYU1oR9ftkTyRXl8WzHUQ+/QILNnSCDsTrP8JsVaVxbd6FhKKn
+5sSyqM+dX7mtvVAOcj0OJSHZiit7fk5QG9Pi/5iP4pCdZf42sImsr++2GFOezfJd
+H5UU+ujTf+b4oGirnqgEDRrSr5IyykagWc07D2KJgyPzrkfFDxoB5C/ZC3C6C9AA
+Xwzd+GECgYEA5SPDfCMVBRFkYBoxKgbWEElquGiPMDSe+p6QSlX24UXFv8gzdtbT
+f33d27v2cpIOWYym3Er5JiSFq6oCr1cg9+mLP/tNc50sHrdHb8vRfn190nawFJHa
+eOe0b3ZePUtAxdd1HaZgq4bNnLYSbi//spdHuu6E1jZrzcmbvIm7PJECgYEA/awp
+rILMDvqHuGNlVr+kdcGfmFxA8y9Z1tZHLgqNjPQQlaOuyJn1cfYbIqghMLjk//Au
+VQ5gfKLc2abHQaVQ2dLqV846eNQvr+cnLQUrUqk41IZuN0HTMbvLHgOLkQNdsUMs
+1TmmPeMxh9X9cLqp7mZoY5CeWeWFOe3EJA1dZIsCgYEAklbf3yUMpJrx7wprQbrx
+9Z7dwH5OjGve6JJh9oemT0LfQ1dZvtj+ZBr/mPkXMR6keX6Bhol/S2Ph1ruSUWck
+0A/gdfFKCr9jUQ6eWgDif5UnyUUxuUFZNQRN0S3Yi+7GpFOxIUmDzagfIqmJZcPT
+2rwQ/IqeXayN9vR+ONABu3ECgYAECn4PdXXytyL6WPsASsU/6vmz36RZO2Pe/ELe
+BOUEXc7100mxgGJckmMURkFhGVDsktLqH/SBh8ak4PdDoHKNRcLd6zcbPaYU00XY
+fcCW7IMvP4T59F586FTwAXZztO4FKODJ9MUlLz1WwJ3s8cxLM+5tx5v+Kp3YsmTx
+fhUCyQKBgDCEkFexrqC2a1rHLh+pwTyvnE4JCVNt72FF8L51aEsG5tGGFvTvgUN6
+IlRCYASNhUK/3+hu337uOSolKXu0W+dFnp1/OLo6sUkuhxWGx3YLwGJygjSrOl5f
+3wIikQ0U/RjRr+/pI0/yw/w3Xcr7iUjei6SBxkiIeZL/749EcLNB
+-----END RSA PRIVATE KEY-----
+"""
+    [jwt.tls.cert]
+        pem = """
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4w5xhil8YFSLptRxzQsi
+JgQm7DxfVx7nEFAndQDw/7a1VfIfhhzZlUYx6u+57kP4+JPhqLMl9hEPnJh2DMPV
+4wrQAOSe6pDK5UP/xZQx8ygy70lGfJ6MVo7mkXKaofKobOhkFIOhqtLU/6CrzFl+
+KdFIsD7pt+FxV6mMmPbnAvDN+hF5NwU6N61WGAZER8z7SSTgayGpuHdUKCdPwfui
+UIEX3GxhskzV/ROiS+R/NbQZlsfmQqcBJ5FxhOtAVevi9s7x6LLTSQKopuuunSTT
+tu3ys/hs5m6AqNPPkLKqp6R8iXF1Lg0DMeQlFHYwEo3oRweMNhfYRzC3ukioSf+G
+uwIDAQAB
+-----END PUBLIC KEY-----
+        """
+
+[adapterService]
+    url = "adapter.unchain.io"
+    registryURL = "registry.unchain.io"
+
+    deploymentRegion = "eu-central-1"
+    deploymentHost = "adapter.unchain.io"
+
+[mongo]
+    host = "178.62.225.105"
+    authDB = "admin"
+    db = "unchain_db5"
+    user = "ares_admin"
+    password = "sn3kx0ss0s8"
+
+    [mongo.tls.key]
+        pem = """
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDdEq4NNOXUF3Ft
+3hAtIqvXSVmZwRqecTbdjozTtBhmm2RruK+9uymACIHd2eZWjextNRT0yzvtbzEL
+Ia0IG0XMaRDkVD9Sm/iXZ0Mbn2/9rYRDlP3edMle735OYlrr0tAfBHIgGEhyI1U/
+nHR16PQDupVr7OYXt3kKfNtoTlFftKCBNfjvfB4Xvee+612HyJzDDpWFJNxDszzs
+ffejx37ikjv+KpC103RdvHkNgRfZy7b3u5mvaVs8P7lwHLLTV5atUX0l7Ok5o9Af
+pCbYiq9m61SNHT4baab7kB3Zib0ZZYxPNfkCprwKEeVFHxfQf4pe5kwGAstELCo0
+RsS8f9tLAgMBAAECggEAYn/ALQI0pJsNXvZiHroj9ngoA+mWAqJO38hz1p+Xf6Ac
+ziIrq02I4BLqSf6cMlRp0v6jp64ltVSldWA7yDDemIT3kcQ3sobr7AmGTPhs3YpC
+NBpeQo+maTYsAKCyAgCb2jYQ41vua2xyvzTmbuKsVjz79mpG2qpUs+eNmpvKhekQ
+zZkZ2uZHbaZOC0OLihVd7jfxXO8DY8QZWCVJfsdlA+RV0BtW/1R9fPqGJ7rPD27f
+otWctL4Gu/8RZVlfgdXsYKHHCsv20iS6OLVNxq8wuQxilCBLM+6QgLPkJUMGRagq
+vnaWj5LYCjuzFreSLJdBZ82d9JlXGMDnPF4UkSbUgQKBgQDzhG+LkCQGayUeVPV4
+V92XQHXcMjA6q1bjgLtCEFh4gOb8PosNfGmKXOqpXAg+A7Z7GXlPn6kZHMBBqcjn
+Ai+T+XHk2DNjHewsX/PHE07/7Dg+iRClysr2Uyxs0fDykdn9+k+xszFqHU8R4IE8
+wPPnaTWB45EJV7uO/ansSp+g7QKBgQDoZ7eiFJOwQgIrl4kfj9uFaJgqn2bPuI7f
+jkess/gt+ugK93Eo7z+USG3opGsLZ0jc40NGdsIfG2ENILWqMXoWJKt8a0vQwChP
+v0W1g1S6xO4KFopJTbqQ0m7e9ZQzhMDbSK8bWcGP85oHjcOC7qOALhbbyiXoMzVF
+P9L7qQs+FwKBgQCeneUKQxk0FRZYa354pMLxgktC4m4HyRMPnQpcPclitJPAOfzZ
+C/Cy71LqfcfgnQp/pFggRR8f/Fo+axkxX3seJ5zIMwtFxHfRb66aPTl3+aWpFh6B
+31XUnNiTCSyo09fqVuESHmZReEXInzOPHx+/3Ae+UzxlmX/R4+iKwRC5AQKBgEr/
+dW4Tj9l4Y7TnkPOje+bgawKOMCJmX4zbIFwmM7e62Xj4gwb/thfHC9jgfj7O1N+b
+Y1Fw75IURsxyus0ybECLEt/yzCOQbzHU+szplcUz2dFdlsCzGbq0fdzriSja9VWO
+bhu4alNm/FTltasiEZdCyFOjN3poVA+F2jMmSR9/AoGBAOtCSWFjo7ppmMwkAFu7
+kBzuf6G47q3u29teeqgxkwMysJelrBm/CyYRu2wWr46lQLdLcJ782geCKDRxuGKm
+cwLJyOOcqp2UBDH6VKB5jwMn90wGC8iQ5mfGpNrJS8p2f2tjH4r6Ga2YZ6/KCgb0
+t8DUeaMmfZCu6PZsxvWzEvJI
+-----END PRIVATE KEY-----
+"""
+    [mongo.tls.cert]
+        pem = """
+-----BEGIN CERTIFICATE-----
+MIIDRzCCAi8CCQCUIj+RFTx4QDANBgkqhkiG9w0BAQsFADBkMQswCQYDVQQDDAJD
+QTEOMAwGA1UECwwFSlNEZXYxEzARBgNVBAoMCkphc3BlcnNvZnQxFjAUBgNVBAcM
+DVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJVUzAeFw0xNzA5
+MjEwNTAwMjdaFw00NTAyMDUwNTAwMjdaMGcxDjAMBgNVBAMMBWFkbWluMQ4wDAYD
+VQQLDAVKU0RldjETMBEGA1UECgwKSmFzcGVyc29mdDEWMBQGA1UEBwwNU2FuIEZy
+YW5jaXNjbzELMAkGA1UECAwCQ0ExCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0B
+AQEFAAOCAQ8AMIIBCgKCAQEA3RKuDTTl1Bdxbd4QLSKr10lZmcEannE23Y6M07QY
+Zptka7ivvbspgAiB3dnmVo3sbTUU9Ms77W8xCyGtCBtFzGkQ5FQ/Upv4l2dDG59v
+/a2EQ5T93nTJXu9+TmJa69LQHwRyIBhIciNVP5x0dej0A7qVa+zmF7d5CnzbaE5R
+X7SggTX473weF73nvutdh8icww6VhSTcQ7M87H33o8d+4pI7/iqQtdN0Xbx5DYEX
+2cu297uZr2lbPD+5cByy01eWrVF9JezpOaPQH6Qm2IqvZutUjR0+G2mm+5Ad2Ym9
+GWWMTzX5Aqa8ChHlRR8X0H+KXuZMBgLLRCwqNEbEvH/bSwIDAQABMA0GCSqGSIb3
+DQEBCwUAA4IBAQCxaUOvfa4L6gzEb3gIpq5Y3WoG/C2YM1sN6AzVSA991mMJoV70
+H8AluHJ+fWOTQmCQagfeRjj6Cd51JEq5OrY/400j4j9TSpS0t1BZ7sToIuVXabs1
+6IGj7XZCr4oQHFr8LxYK56a9C/9oswJiHtMsj6XHHeaj+wQn74+Y30PC4TiiNwyA
+6u+XxjB/DG0+7IDKoRhqcm3ebjPXoOy5Sl3sTte01OatJwaVoBeHCAb2KMFYfNSx
++dCn0WQg6OLPMu3cuCzXyIaYon18xWGAfCStymRRd7ERFzpfbYg0hh2t+TRn2n7v
+eGlKX2wsC0EMFVEAHfAB3MJyKYVf8DcL3abZ
+-----END CERTIFICATE-----
+        """
+
+[mongo.collections]
+    organization = "organization"
+    user = "user"
+    adapter = "adapter"
+    adapterComponent = "adapterComponent"
+    adapterComponentTemplate = "adapterComponentTemplate"
+    adapterComponentTemplateVersion = "adapterComponentTemplateVersion"
+    adapterTemplate = "adapterTemplate"
+    adapterTemplateVersion = "adapterTemplateVersion"
+
+[casbin]
+    host = "178.62.225.105"
+    authDB = "admin"
+    db = "casbin_db5"
+    user = "ares_admin"
+    password = "sn3kx0ss0s8"
+
+    [casbin.tls.key]
+        pem = """
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDdEq4NNOXUF3Ft
+3hAtIqvXSVmZwRqecTbdjozTtBhmm2RruK+9uymACIHd2eZWjextNRT0yzvtbzEL
+Ia0IG0XMaRDkVD9Sm/iXZ0Mbn2/9rYRDlP3edMle735OYlrr0tAfBHIgGEhyI1U/
+nHR16PQDupVr7OYXt3kKfNtoTlFftKCBNfjvfB4Xvee+612HyJzDDpWFJNxDszzs
+ffejx37ikjv+KpC103RdvHkNgRfZy7b3u5mvaVs8P7lwHLLTV5atUX0l7Ok5o9Af
+pCbYiq9m61SNHT4baab7kB3Zib0ZZYxPNfkCprwKEeVFHxfQf4pe5kwGAstELCo0
+RsS8f9tLAgMBAAECggEAYn/ALQI0pJsNXvZiHroj9ngoA+mWAqJO38hz1p+Xf6Ac
+ziIrq02I4BLqSf6cMlRp0v6jp64ltVSldWA7yDDemIT3kcQ3sobr7AmGTPhs3YpC
+NBpeQo+maTYsAKCyAgCb2jYQ41vua2xyvzTmbuKsVjz79mpG2qpUs+eNmpvKhekQ
+zZkZ2uZHbaZOC0OLihVd7jfxXO8DY8QZWCVJfsdlA+RV0BtW/1R9fPqGJ7rPD27f
+otWctL4Gu/8RZVlfgdXsYKHHCsv20iS6OLVNxq8wuQxilCBLM+6QgLPkJUMGRagq
+vnaWj5LYCjuzFreSLJdBZ82d9JlXGMDnPF4UkSbUgQKBgQDzhG+LkCQGayUeVPV4
+V92XQHXcMjA6q1bjgLtCEFh4gOb8PosNfGmKXOqpXAg+A7Z7GXlPn6kZHMBBqcjn
+Ai+T+XHk2DNjHewsX/PHE07/7Dg+iRClysr2Uyxs0fDykdn9+k+xszFqHU8R4IE8
+wPPnaTWB45EJV7uO/ansSp+g7QKBgQDoZ7eiFJOwQgIrl4kfj9uFaJgqn2bPuI7f
+jkess/gt+ugK93Eo7z+USG3opGsLZ0jc40NGdsIfG2ENILWqMXoWJKt8a0vQwChP
+v0W1g1S6xO4KFopJTbqQ0m7e9ZQzhMDbSK8bWcGP85oHjcOC7qOALhbbyiXoMzVF
+P9L7qQs+FwKBgQCeneUKQxk0FRZYa354pMLxgktC4m4HyRMPnQpcPclitJPAOfzZ
+C/Cy71LqfcfgnQp/pFggRR8f/Fo+axkxX3seJ5zIMwtFxHfRb66aPTl3+aWpFh6B
+31XUnNiTCSyo09fqVuESHmZReEXInzOPHx+/3Ae+UzxlmX/R4+iKwRC5AQKBgEr/
+dW4Tj9l4Y7TnkPOje+bgawKOMCJmX4zbIFwmM7e62Xj4gwb/thfHC9jgfj7O1N+b
+Y1Fw75IURsxyus0ybECLEt/yzCOQbzHU+szplcUz2dFdlsCzGbq0fdzriSja9VWO
+bhu4alNm/FTltasiEZdCyFOjN3poVA+F2jMmSR9/AoGBAOtCSWFjo7ppmMwkAFu7
+kBzuf6G47q3u29teeqgxkwMysJelrBm/CyYRu2wWr46lQLdLcJ782geCKDRxuGKm
+cwLJyOOcqp2UBDH6VKB5jwMn90wGC8iQ5mfGpNrJS8p2f2tjH4r6Ga2YZ6/KCgb0
+t8DUeaMmfZCu6PZsxvWzEvJI
+-----END PRIVATE KEY-----
+"""
+    [casbin.tls.cert]
+        pem = """
+-----BEGIN CERTIFICATE-----
+MIIDRzCCAi8CCQCUIj+RFTx4QDANBgkqhkiG9w0BAQsFADBkMQswCQYDVQQDDAJD
+QTEOMAwGA1UECwwFSlNEZXYxEzARBgNVBAoMCkphc3BlcnNvZnQxFjAUBgNVBAcM
+DVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJVUzAeFw0xNzA5
+MjEwNTAwMjdaFw00NTAyMDUwNTAwMjdaMGcxDjAMBgNVBAMMBWFkbWluMQ4wDAYD
+VQQLDAVKU0RldjETMBEGA1UECgwKSmFzcGVyc29mdDEWMBQGA1UEBwwNU2FuIEZy
+YW5jaXNjbzELMAkGA1UECAwCQ0ExCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0B
+AQEFAAOCAQ8AMIIBCgKCAQEA3RKuDTTl1Bdxbd4QLSKr10lZmcEannE23Y6M07QY
+Zptka7ivvbspgAiB3dnmVo3sbTUU9Ms77W8xCyGtCBtFzGkQ5FQ/Upv4l2dDG59v
+/a2EQ5T93nTJXu9+TmJa69LQHwRyIBhIciNVP5x0dej0A7qVa+zmF7d5CnzbaE5R
+X7SggTX473weF73nvutdh8icww6VhSTcQ7M87H33o8d+4pI7/iqQtdN0Xbx5DYEX
+2cu297uZr2lbPD+5cByy01eWrVF9JezpOaPQH6Qm2IqvZutUjR0+G2mm+5Ad2Ym9
+GWWMTzX5Aqa8ChHlRR8X0H+KXuZMBgLLRCwqNEbEvH/bSwIDAQABMA0GCSqGSIb3
+DQEBCwUAA4IBAQCxaUOvfa4L6gzEb3gIpq5Y3WoG/C2YM1sN6AzVSA991mMJoV70
+H8AluHJ+fWOTQmCQagfeRjj6Cd51JEq5OrY/400j4j9TSpS0t1BZ7sToIuVXabs1
+6IGj7XZCr4oQHFr8LxYK56a9C/9oswJiHtMsj6XHHeaj+wQn74+Y30PC4TiiNwyA
+6u+XxjB/DG0+7IDKoRhqcm3ebjPXoOy5Sl3sTte01OatJwaVoBeHCAb2KMFYfNSx
++dCn0WQg6OLPMu3cuCzXyIaYon18xWGAfCStymRRd7ERFzpfbYg0hh2t+TRn2n7v
+eGlKX2wsC0EMFVEAHfAB3MJyKYVf8DcL3abZ
+-----END CERTIFICATE-----
+        """
+[docker]
+    host = "tcp://ares.unchain.io:2376"
+    version = "v1.24"
+    dockerBaseImage = "unchain/alpine-glibc"
+
+    [docker.auth]
+        serverAddress = "registry.unchain.io"
+    	username = "admin"
+    	password = "N457hlRx0bPR"
+
+
+    [docker.tls.key]
+        pem = """
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+"""
+    [docker.tls.cert]
+        pem = """
+-----BEGIN CERTIFICATE-----
+MIIFFTCCAv2gAwIBAgIUWe634/dpvVZdosuW5efaPRItZ9gwDQYJKoZIhvcNAQEL
+BQAwVjESMBAGA1UECgwJTXlDb21wYW55MQswCQYDVQQLDAJJVDETMBEGA1UEAwwK
+RG9ja2VyUHJvZDEeMBwGCSqGSIb3DQEJARYPdGVzdEBleGFtcGxlLmRlMB4XDTE5
+MDkyMzE2MDAwOFoXDTIxMDgyMzE2MDAwOFowGjEYMBYGA1UEAwwPYXJlcy51bmNo
+YWluLmlvMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAw0owp//37ZnH
+FYXTt4DZgGMUXC5Kn9XniEdVyZmeq68/VGaf78RW8gSNdAcWYVlZfMjode3jVhmQ
+cXjzmQX0apHbVAbX3s+NpzYhc+tM2bAq2rUjDMMe1L135DJXd/REAKfukkXB1UPk
+ilIzJWB3I4s4OYRYfkogB+cVqP9UriWbeF/upi+VePrqdDW37fWOOXpJKjVda+cG
+w9NLLu/LXUSL6fJK16isY08jss6g5hvsdf84VBtunBPcfHHgjpZ/smwWecAXXlHu
+xeFOEFRO1ofLzWsJDIF7m9CAiY6STbtz74AKxGkbJKUqPhMBJoTKJ4noQJKwoTuv
+eta6OpvzoCPJzsZzhQ0HGuD05HawWv2uw2JTOkMLrffXct3KmEhOR+D8OgTm7aQE
+5jvZawj7jxEMJ3vyRyGNaM2tViyp4i5rsoQiC55x+gsfv/4aMqATJgPYtzv6nzyf
+vhON7iYuj9HpNeWIpORkVh8z0bqKm8TBAyQJnXh24/vHMDgroxTBGKMAKHLrYeD2
+YnUZnltNg86xwRc+vRB9r/RB1mgYga4EM322LMZ7pP1w5kGWP6YukA3m6ur1Pu0e
+f5i/Eda+QYjGe7bPdRs0PuTyKYxhty98L2U5IrdrMdn/zXO6e9XH2lfXE04rp57B
+8ofzQzZTDcU2jgnvA9ix7QhPLlXlcvkCAwEAAaMXMBUwEwYDVR0lBAwwCgYIKwYB
+BQUHAwIwDQYJKoZIhvcNAQELBQADggIBADTssTsmAIm1QIprkJpn2UdsZQPobhxD
+Hn92pYjJy7TFJYtNpLNXNSS3TSiC2hgmIXqACtE9A7aEXJZT2FiFh/Y1woJM3J5j
+BPK/r1DfApJrw70yK8dg9d7KPrbceD96kEC0LtkS3H+ul+OjQ93/M54V9mTaT0LE
+JbCd71bnmmX4t+8WSe7YtXD5ED9vWn3OA57Bj4FZP8YN5MXuyxyZKgB880CwQeGD
+Ra2EeMeWCK2rlX4uHAtfHM5xob1RIHl0D7l8rnMNxOEQyK998iEFZOueTDjGFZNz
+CX0Cdz09dyhwWkC1FKxVMghCH/s6wfb9mqHAOjaLwLn/Fut8/IpTbn6h+ho2SnVn
+fgUTWrbNUiZySjs5A4ZUs0v4oK8Wq3+4/EVsF+B4/UloHcV/cxVGsgL8qceVoGJE
+LhZiRMvbsr7sqfNvqFTV4ATRj3acXXD5daRYP1XtNFNtDQXnuhBlhH29Vv3+5ewF
+6l0cEIafZrlzEAtX5TqAw6GpPxvb2Zu7b63RL6mWhVlxJN3wDRRT2XmKX0830yPL
+XRvcZZ9hyhLClzClvnwhybtrIDxw+64GCYBV1JF3RwSE8qPwXQ7yDU6pMuQ5gGzZ
+bDYDMgIBNxzUI0SY/Ysy2wRGVvTLg8F33evTL0UENLVkuGEd/3qNA4XFGw2pEBJW
+BpgCCPPL6LFb
+-----END CERTIFICATE-----
+        """
+
+[redis]
+    host = "178.62.225.105:6379"
+    authToken = "Unchain"
+
+[harbor]
+    url = "https://registry.unchain.io/"
+    username = "admin"
+    password = "N457hlRx0bPR"
+
+[elastic]
+    user = "ares"
+    pass = "sE2xDVOU46co"
+    url = "https://elastic.aws.unchain.io"
+    index = "adapters-*"
+
+    httpTimeout = 30.0
+    queryLimit = 200.0
+
+    SSL = true
+
+    [elastic.tls.key]
+        pem = """
+-----BEGIN PRIVATE KEY-----
+MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCmXlG1IGz4IjhQ
+r0q1ct3qoMWgJfVpCQbCFcw0UvJkgB9Ifp97L/1z97eZY1XEMLu/3Wvy9WwBficO
+tqm8QLyu81W9eetg9Tpt/Ok3Ufsd8RgOi895AJ+Bot2P1xOLbL7u9UNKtH2wQeZ+
+7yu1BzgQawtj+gvOXosgI7VHhkxlwdb6O0vTAUBOV8GsYyNmMZd15bad8LyS5uvz
+dNGQPFFnzcWd1ykkEkc6AQ2mpmLT4VBSNUGpaNZ2cZQcBDelCLGltfTCC6Uka/3c
+/rAIJd8Z8aDnpBnnw+ff1leTv6RLcIsS5cvHBUWgQDWVdOyhhYe6lklK/zGURW2L
+5R12p77ZAgMBAAECggEAF5fcooEcsvu3XMnfIGhPzExMem+no+Ohz7hjoy/4LAR3
+a0J5v3CI0v9YTCpoKVB377eo7WWckYGgbFe/LnFH0M+1Yw99L9zXEm4BbNT1dcOR
+E88D9zb9Z9b+8L0him47jYu+pUN/Z5WQ6INmgV+qtblYfi8hqXyC4mXt+Vy0TOG7
+32ciEoraO0EViiXcAwuoph+VZ0k4ub4rY9WrRq9CFIBkkSilSqAgM4AXoJJGWDro
+Wuc3mFOVjusIP9XsjyKl1M1vyQAK6/nfFVr5DplzKjP9qqpe9MiFCE4dgxZEekuc
+9ry9E1GokVTtAusCC9+kzYR6HW0z33kEAEv6AUO5YQKBgQDQlXeKMlq/Lx80MqU2
+XipiytZBBVadNintan/VBOTDXXFecqX8Cqz/IZ79GFSiDoQNf87EGQMkyJDs+LiA
+JYA0HDrGCfguh+nf/hnzplz23rGxW21AJA7ZPeuw0hswk8DowoML2u9rRROlqiAG
+Uby3VVbR+sTM3l7tFeShMKNefQKBgQDMMCBuV2lHYqtII6dj1YU0EXcKUDKN5mG8
+NRT2eYiQMhE7VHnFfw0ryiXuYd1vK3cjCmIDuBWK09FcabHzoGNjfrQvCZzpzXX3
+xSpNY4if2olDYCRLxH4xezZZYL8SeCpktupGSI9iEaTQDCoRlmrePvsOJotWwR04
+UBnfkLnEjQKBgCJEnBoRQcVtKXQ66devysjmSCLwjJVRg7vkplHJ9wd9v5Vjwo9Q
+9bEIxgUQzT6+ocVR/RdMgK63YM/94Nn0z0ZAaQuGMcb7P1o0dfEIoPdSCOF5gs5p
+3iKkwKcRLbRiYewboMn+0xzNgXfTJmXDYfzAwX3H9DMwSWosEZ7FzeFFAoGAXI/Q
+k9SiUA8FkF1BS3uGt9TW/uDeGf9+/L+fciAj7SIVN60SypnO0bQAv/CzXer5RfQ1
+/HOdqGJfPSJY3hUuGPNeIRidfkt6l8hUZeKiE70Qjm9t5L79adbuC1RVKb05kpBs
+4VGRViajbQCmrXRfm8I3MvH8JmbCpT2CjRthax0CgYBnpzKJ7gzchc7aJSaOm360
+Fdd3mV8JH5KjuqBk7w9Z8/7662aHRR315bi+AkZGuzex+hGT1CM/ljQBbndBl2DT
+a8VWB5+VxH6JQ0BKBA2cCg6dy0w7sKMbZAvMMeiSRAl9BSaZUuT/4ZvcswdgsfKN
+mUNHeAnF3DvW85b628JtHQ==
+-----END PRIVATE KEY-----
+"""
+    [elastic.tls.cert]
+        pem = """
+-----BEGIN CERTIFICATE-----
+MIIDjTCCAnWgAwIBAgIJAMFrUvkDdauSMA0GCSqGSIb3DQEBCwUAMGIxCzAJBgNV
+BAYTAk5MMQswCQYDVQQIDAJOSDEMMAoGA1UEBwwDQU1TMRAwDgYDVQQKDAdVTkNI
+QUlOMQwwCgYDVQQLDANMT0cxGDAWBgNVBAMMD2FyZXMudW5jaGFpbi5pbzAeFw0x
+ODAxMTcxNDI2MTJaFw0xOTAxMTcxNDI2MTJaMGIxCzAJBgNVBAYTAk5MMQswCQYD
+VQQIDAJOSDEMMAoGA1UEBwwDQU1TMRAwDgYDVQQKDAdVTkNIQUlOMQwwCgYDVQQL
+DANMT0cxGDAWBgNVBAMMD2FyZXMudW5jaGFpbi5pbzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAKZeUbUgbPgiOFCvSrVy3eqgxaAl9WkJBsIVzDRS8mSA
+H0h+n3sv/XP3t5ljVcQwu7/da/L1bAF+Jw62qbxAvK7zVb1562D1Om386TdR+x3x
+GA6Lz3kAn4Gi3Y/XE4tsvu71Q0q0fbBB5n7vK7UHOBBrC2P6C85eiyAjtUeGTGXB
+1vo7S9MBQE5XwaxjI2Yxl3Xltp3wvJLm6/N00ZA8UWfNxZ3XKSQSRzoBDaamYtPh
+UFI1Qalo1nZxlBwEN6UIsaW19MILpSRr/dz+sAgl3xnxoOekGefD59/WV5O/pEtw
+ixLly8cFRaBANZV07KGFh7qWSUr/MZRFbYvlHXanvtkCAwEAAaNGMEQwCwYDVR0P
+BAQDAgQwMBMGA1UdJQQMMAoGCCsGAQUFBwMBMCAGA1UdEQQZMBeHBLI+4WmCD2Fy
+ZXMudW5jaGFpbi5pbzANBgkqhkiG9w0BAQsFAAOCAQEAkWMRMwvF6YeSLU6jCA5/
+YbaBvYZMZvSFyG7sckFKkbv4uBmp2UzXB001KDRe1YZBi6kL7yV/KfAJZYJyFdIA
+IqqErSlT3ruSjBpuOtVdINXKpzW7yGbY+jY6+Bpro98zKWuj6DQl/6X+EYq3yYA4
+k/OAMLz4KZxzikwzpQjTxujab+9BwvhGjNQuMPq4w9qZsiYwzQKwFxv58S/gsomu
+CYvtfWD9rw116ErABoP5khNRxBNWCKL1V/WQ9OH3HAsDuu4YFs8D8TRZw2WsGa8e
+DV0sHAjWbQcBXoAaaMThUBYkajw0YDfdkB/MhOiydYoL38OxzeYMyoHynPCVZd5U
+lQ==
+-----END CERTIFICATE-----
+        """
+
+[s3]
+    url = "ams3.digitaloceanspaces.com"
+    accessKey = "IUKK34NGF2DVE5MWH6FM"
+    secretAccessKey = "XKC1kqr0mUbXGkmHxQ/06wwcCiaQbF7Hx6eOwT+WXfs"
+    SSL = true
+    bucketName = "components"
+
+[mail]
+    host = "smtp.office365.com"
+    port = "25"
+    username = "bot@unchain.io"
+    password = "ynv9a87r3yoiq2%h24fanv"
+    from = "bot@unchain.io"
+
+[kubernetes]
+    registryCredentialsSecret = "regcred"
+    namespace = "adapters"
+    config = """
+apiVersion: v1
+kind: Config
+clusters:
+- name: "adapters-aws-frankfurt"
+  cluster:
+    server: "https://rancher.aws.unchain.io/k8s/clusters/c-zxdj8"
+    api-version: v1
+    certificate-authority-data: ""
+
+users:
+- name: "user-tt6jh"
+  user:
+    token: "kubeconfig-user-tt6jh:xwct5wrqpqdlsd49ttbnmnf6bkkrpwq7k99mscvjg4lbvsnxtmwrz9"
+
+contexts:
+- name: "adapters-aws-frankfurt"
+  context:
+    user: "user-tt6jh"
+    cluster: "adapters-aws-frankfurt"
+
+current-context: "adapters-aws-frankfurt"
+"""

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+if [ ! -z $1 ]; then
+    configfile=$1
+else
+    echo "configfile not specified, falling back to config/config.toml"
+    configfile=./config/config.toml
+fi
+
+if ! test -f "$configfile"; then
+    echo "Error: $configfile does not exist."
+    exit 1
+fi
+
+connection=`cat $configfile | grep connectionString`
+args=( $(xargs -n1 <<<"$connection") )
+
+command="psql"
+for item in "${args[@]}"; do
+    parts=( $item )
+    IFS='='; item=${parts[0]}
+    IFS='='; value=${parts[1]}
+
+    case "$item" in
+        user*)
+            command="$command -U $value" 
+        ;;
+        password*)
+            IFS=' '
+            command="PGPASSWORD=$value $command " 
+        ;;
+        host)
+            command="$command -h $value" 
+    esac
+done
+
+echo $command
+eval "$command"
+
+

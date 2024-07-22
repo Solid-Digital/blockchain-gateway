@@ -1,0 +1,5222 @@
+{
+  "info": {
+    "_postman_id": "5769dc66-2337-4bd5-86f2-fe8b694559c4",
+    "name": "Ares",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "hello",
+      "item": [
+        {
+          "name": "Hello route",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                ""
+              ]
+            },
+            "description": "Hello route"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    ""
+                  ]
+                },
+                "description": "Hello route"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"admin@unchain.io\",\n\t\"password\": \"q\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"email\": \"admin@unchain.io\",\n\t\"password\": \"q\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Logout User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/logout",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "logout"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Change the current users password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/password/change",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "password",
+                "change"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/password/change",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "password",
+                    "change"
+                  ]
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/password/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "password",
+                "reset"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/password/reset",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "password",
+                    "reset"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Confirm the password reset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/password/reset/confirm",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "password",
+                "reset",
+                "confirm"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/password/reset/confirm",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "password",
+                    "reset",
+                    "confirm"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Register New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/registration",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "registration"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/registration",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "registration"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Current User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "user"
+              ]
+            },
+            "description": "Get the current user's profile."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/user",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "user"
+                  ]
+                },
+                "description": "Get the current user's profile."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "user"
+              ]
+            },
+            "description": "Update the profile that is associated with the token used for the API call."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/user",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "user"
+                  ]
+                },
+                "description": "Update the profile that is associated with the token used for the API call."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Delete the current user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "user"
+              ]
+            },
+            "description": "Archive the profile that is associated with the token used for the API call."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/auth/user",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "user"
+                  ]
+                },
+                "description": "Archive the profile that is associated with the token used for the API call."
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "organization",
+      "item": [
+        {
+          "name": "Get all organizations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseURL}}/api/v1/orgs",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create Organization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"displayName\": \"another org\",\n\t\"name\": \"ares-v2-demo\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"displayName\": \"another org\",\n\t\"name\": \"ares-v2-demo\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs"
+                  ]
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "301-gazellechestnut"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update organization",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get all members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/members",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "members"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get all members of an organization"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/members",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "members"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Get all members of an organization"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Invite a user to the organization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"asd@asdf.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/members",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "members"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/members",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "members"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Member Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "members",
+                ":email"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "email",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "members",
+                    ":email"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "email",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Remove member from Organization",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "members",
+                ":email"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "email",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "members",
+                    ":email"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "email",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "204",
+              "code": 204,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Set roles for member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email/roles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "members",
+                ":email",
+                "roles"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "email",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/members/:email/roles",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "members",
+                    ":email",
+                    "roles"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "email",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "component",
+      "item": [
+        {
+          "name": "Get all bases in this organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create new base",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\": \"base-6\",\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"name\": \"base-6\",\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Base Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get a base component with all its versions"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Get a base component with all its versions"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update Base",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "name",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update a base component"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Update a base component"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create base version",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"description\": \"Description\",\n\t\"dockerImageRef\": \"registry.unchain.io/unchainio/janus-v2:latest\",\n\t\"entrypoint\": \"janus\",\n\t\"readme\": \"readme\",\n\t\"version\": \"0.0.1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name/versions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases",
+                ":name",
+                "versions"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "janus-v2"
+                }
+              ]
+            },
+            "description": "If the base that this version belongs to doesn't already exist, it will be created"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"description\": \"Description\",\n\t\"dockerImageRef\": \"registry.unchain.io/unchainio/janus-v2:latest\",\n\t\"entrypoint\": \"janus\",\n\t\"readme\": \"readme\",\n\t\"version\": \"0.0.1\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name/versions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases",
+                    ":name",
+                    "versions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "janus-v2"
+                    }
+                  ]
+                },
+                "description": "If the base that this version belongs to doesn't already exist, it will be created"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Base version",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name/versions/:version",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "bases",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "key": "version",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/bases/:name/versions/:version",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "bases",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get all triggers in this organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create new trigger",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\": \"trigger-6\",\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"name\": \"trigger-6\",\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Trigger Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "trigger-1"
+                }
+              ]
+            },
+            "description": "Get a trigger component with all its versions"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "trigger-1"
+                    }
+                  ]
+                },
+                "description": "Get a trigger component with all its versions"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update Trigger",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1asdasd\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "trigger-1"
+                }
+              ]
+            },
+            "description": "Update a trigger component"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"displayName\": \"trigger 1\",\n\t\"description\": \"trigger-1asdasd\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "trigger-1"
+                    }
+                  ]
+                },
+                "description": "Update a trigger component"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create trigger version",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "version",
+                  "value": "0.0.15",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "HTTP API component",
+                  "type": "text"
+                },
+                {
+                  "key": "configDefinition",
+                  "value": "\napiKeys = [\"foo\", \"bar\"]\nallowedHosts = [\"example.com\"]\n",
+                  "type": "text"
+                },
+                {
+                  "key": "triggerFile",
+                  "type": "file",
+                  "src": "/home/enikolov/go/src/bitbucket.org/unchain/http-api/bin/trigger.so"
+                },
+                {
+                  "key": "inputSchema",
+                  "value": "[]",
+                  "type": "text"
+                },
+                {
+                  "key": "outputSchema",
+                  "value": "[\"header\", \"body\"]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name/versions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers",
+                ":name",
+                "versions"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo",
+                  "type": "string"
+                },
+                {
+                  "key": "name",
+                  "value": "trigger-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "If the trigger that this version belongs to doesn't already exist, it will be created"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "version",
+                      "value": "0.0.15",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "asdasd",
+                      "type": "text"
+                    },
+                    {
+                      "key": "readme",
+                      "value": "??",
+                      "type": "text"
+                    },
+                    {
+                      "key": "configDefinition",
+                      "value": "??",
+                      "type": "text"
+                    },
+                    {
+                      "key": "triggerFile",
+                      "value": null,
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name/versions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers",
+                    ":name",
+                    "versions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "trigger-1"
+                    }
+                  ]
+                },
+                "description": "If the trigger that this version belongs to doesn't already exist, it will be created"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Trigger version",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name/versions/:version",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "triggers",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo",
+                  "type": "string"
+                },
+                {
+                  "key": "name",
+                  "value": "trigger-1",
+                  "type": "string"
+                },
+                {
+                  "key": "version",
+                  "value": "0.0.15",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/triggers/:name/versions/:version",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "triggers",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get all actions in this organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create new action",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Action Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "action-3"
+                }
+              ]
+            },
+            "description": "Get a action component with all its versions"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "action-3"
+                    }
+                  ]
+                },
+                "description": "Get a action component with all its versions"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update Action",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions",
+                ":name"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "qqq"
+                }
+              ]
+            },
+            "description": "Update a action component"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions",
+                    ":name"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Update a action component"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create action version",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "version",
+                  "value": "0.0.1",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "asdasd",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "actionFile",
+                  "value": null,
+                  "type": "file"
+                },
+                {
+                  "key": "readme",
+                  "value": "??",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "configDefinition",
+                  "value": "??",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name/versions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions",
+                ":name",
+                "versions"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "action-3"
+                }
+              ]
+            },
+            "description": "If the action that this version belongs to doesn't already exist, it will be created"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "version",
+                      "value": "0.0.1",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "asdasd",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "actionFile",
+                      "value": null,
+                      "type": "file"
+                    },
+                    {
+                      "key": "readme",
+                      "value": "??",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "configDefinition",
+                      "value": "??",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name/versions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions",
+                    ":name",
+                    "versions"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "action-3"
+                    }
+                  ]
+                },
+                "description": "If the action that this version belongs to doesn't already exist, it will be created"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Action version",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name/versions/:version",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "actions",
+                ":name",
+                "versions",
+                ":version"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "name",
+                  "value": "action-3"
+                },
+                {
+                  "key": "version",
+                  "value": "0.0.1s"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/actions/:name/versions/:version",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "actions",
+                    ":name",
+                    "versions",
+                    ":version"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "name",
+                      "value": "action-3"
+                    },
+                    {
+                      "key": "version",
+                      "value": "0.0.1s"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipeline",
+      "item": [
+        {
+          "name": "Create env var for pipeline",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"key\": \"Aasdf\",\n\t\"value\": \"qwerty\",\n\t\"secret\": false\n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/vars",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "vars"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": ""
+                    },
+                    {
+                      "key": "envName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Delete env var for pipeline",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/vars/:varID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "vars",
+                ":varID"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                },
+                {
+                  "key": "varID",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": ""
+                    },
+                    {
+                      "key": "envName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update env var for pipeline",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"key\": \"Asdf\",\n\t\"value\": \"qwertyzz\"\n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/vars/:varID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "vars",
+                ":varID"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                },
+                {
+                  "key": "varID",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": ""
+                    },
+                    {
+                      "key": "envName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get all env vars for pipeline",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/vars",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "vars"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": ""
+                    },
+                    {
+                      "key": "envName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get deployment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "deployment"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deploy configuration to environment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"replicas\": 1,\n\t\"configurationRevision\": 12\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "deployment"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                }
+              ]
+            },
+            "description": "Deploy an pipeline configuration to a specific environment within the pipeline context"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"replicas\": 1,\n\t\"configurationRevision\": 13\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName",
+                    "deployment"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    },
+                    {
+                      "key": "envName",
+                      "value": "develop"
+                    }
+                  ]
+                },
+                "description": "Deploy an pipeline configuration to a specific environment within the pipeline context"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Delete deployment to environment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "deployment"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "envName",
+                  "value": "develop"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName",
+                    "deployment"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    },
+                    {
+                      "key": "envName",
+                      "value": "develop"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Save draft as new configuration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "configurations"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                }
+              ]
+            },
+            "description": "A new configuration is created by auto-incrementing the latest version by 1."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "configurations"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    }
+                  ]
+                },
+                "description": "A new configuration is created by auto-incrementing the latest version by 1."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get configuration",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/:revision",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "configurations",
+                ":revision"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                },
+                {
+                  "key": "revision",
+                  "value": "12"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/:revision",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "configurations",
+                    ":revision"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update draft configuration",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"base\": {\n\t\t\"baseVersionID\": 4,\n\t\t\"configuration\": \"asdf\"\n\t},\n\t\"trigger\": {\n\t\t\"name\": \"ethereum-trigger\",\n\t\t\"triggerVersionID\": 16,\n\t\t\"configuration\": \"[ethereum]\\r\\n\\thost = \\\"ws:\\/\\/localhost:8545\\\"\\r\\n\\r\\n[[contracts]]\\r\\n\\taddress = \\\"0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad\\\"\\r\\n\\tabi = '[{\\\"anonymous\\\":false,\\\"inputs\\\":[{\\\"indexed\\\":true,\\\"name\\\":\\\"_from\\\",\\\"type\\\":\\\"address\\\"},{\\\"indexed\\\":true,\\\"name\\\":\\\"_to\\\",\\\"type\\\":\\\"address\\\"},{\\\"indexed\\\":false,\\\"name\\\":\\\"_value\\\",\\\"type\\\":\\\"uint256\\\"}],\\\"name\\\":\\\"Transfer\\\",\\\"type\\\":\\\"event\\\"}]'\\r\\n\\r\\n[[contracts]]\\r\\n\\taddress = \\\"0xc67206229c1f20ce80f3e13fbc9199e329dea1e1\\\"\\r\\n\\tabi = '[{\\\"anonymous\\\":false,\\\"inputs\\\":[{\\\"indexed\\\":true,\\\"name\\\":\\\"_from\\\",\\\"type\\\":\\\"address\\\"},{\\\"indexed\\\":true,\\\"name\\\":\\\"_to\\\",\\\"type\\\":\\\"address\\\"},{\\\"indexed\\\":false,\\\"name\\\":\\\"_value\\\",\\\"type\\\":\\\"uint256\\\"}],\\\"name\\\":\\\"Transfer\\\",\\\"type\\\":\\\"event\\\"}]'\\r\\n\\r\\n[[events]]\\r\\n    contractAddress = \\\"0x5d7de81c4a2009e60d4fea85fe88fdc659ae5cad\\\"\\r\\n    name = \\\"Transfer\\\"\\r\\n    filters = []\\r\\n\\r\\n[[events]]\\r\\n    contractAddress = \\\"0xc67206229c1f20ce80f3e13fbc9199e329dea1e1\\\"\\r\\n    name = \\\"Transfer\\\"\\r\\n    filters = [\\r\\n        [\\\"0x57b675c9d3751e94bec2d943e6f47b2dfba73a2d\\\", \\\"0x507d5f3241a9d9cc618473cd706670b45ca3a9ac\\\"]\\r\\n    ]\",\n\t\t\"messageConfiguration\": {\n\t\t}\n\t}\n}\n"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/draft",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "configurations",
+                "draft"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "ethereum-pipeline"
+                }
+              ]
+            },
+            "description": "The latest configuration version is not stored as a numbered version yet and is the only configuration that can be updated."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"base\": {\n\t\t\"baseVersionID\": 3,\n\t\t\"configuration\": \"asdf\"\n\t},\n\t\"trigger\": {\n\t\t\"triggerVersionID\": 12,\n\t\t\"configuration\": \"\"\n\t},\n\t\"actions\": []\n}\n"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/draft",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "configurations",
+                    "draft"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    }
+                  ]
+                },
+                "description": "The latest configuration version is not stored as a numbered version yet and is the only configuration that can be updated."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Create a new Pipeline",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"description\": \"my pipeline description\",\n\t\"displayName\": \"Ethereum Pipeline\",\n\t\"name\": \"ethereum-pipeline\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"description\": \"my pipeline description\",\n\t\"displayName\": \"My pipeline\",\n\t\"name\": \"my-pipeline\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/v1/orgs/:orgName/pipelines",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get Pipeline Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                }
+              ]
+            },
+            "description": "Get the pipeline with all its different configurations and deployments."
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    }
+                  ]
+                },
+                "description": "Get the pipeline with all its different configurations and deployments."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Update Pipeline",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"description\": \"updated description\",\n\t\"displayName\": \"My Pipeline\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\t\"description\": \"updated description\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Logs for pipeline deployment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment/logs?from=now-2d&limit=100&to=now",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "environments",
+                ":envName",
+                "deployment",
+                "logs"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "now-2d"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "key": "to",
+                  "value": "now"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "envName",
+                  "value": "develop",
+                  "type": "text",
+                  "enabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/environments/:envName/deployment/logs?from=now-2d&limit=100&to=now",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "environments",
+                    ":envName",
+                    "deployment",
+                    "logs"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "now-2d"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to",
+                      "value": "now"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    },
+                    {
+                      "key": "envName",
+                      "value": "develop"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Delete Pipeline",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": ""
+                },
+                {
+                  "key": "pipelineName",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": ""
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get all Pipelines",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                }
+              ]
+            },
+            "description": "Get all pipelines for the organization"
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    }
+                  ]
+                },
+                "description": "Get all pipelines for the organization"
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Get draft configuration",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/draft",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":orgName",
+                "pipelines",
+                ":pipelineName",
+                "configurations",
+                "draft"
+              ],
+              "variable": [
+                {
+                  "key": "orgName",
+                  "value": "ares-v2-demo"
+                },
+                {
+                  "key": "pipelineName",
+                  "value": "my-pipeline"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/orgs/:orgName/pipelines/:pipelineName/configurations/draft",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":orgName",
+                    "pipelines",
+                    ":pipelineName",
+                    "configurations",
+                    "draft"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orgName",
+                      "value": "ares-v2-demo"
+                    },
+                    {
+                      "key": "pipelineName",
+                      "value": "my-pipeline"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "javascript",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoxNTU5NjQ3NTM0OTkxMzEzNzM2LCJlbWFpbCI6ImFkbWluQHVuY2hhaW4uaW8iLCJleHAiOjM0OTE3Mzg5MzQsImlkIjoiMSIsImlzcyI6ImxvY2FsaG9zdDo4MDgwIn0.Rjxtb6zBeE8NbWY0ORNRIxVVHEXIUF2jhs20UrC1zqUa3RUGt5ZKK6IXX1IZMp2rClDFhKMrTLKrH7vMxHpEHImg9pCYpZpaU94ZrxTjeHxIazi8WBdVc2yRocqT-USDQuvZee4E0MPjsm3UVCoSiBfl3dZ1hZm0tKJk4b9IFYaLJ5txGK8_HyKUMaLDTTvKVcthzyR0se6kXUiafD_HJQj6rM10FIZuxBejGU7wPi-eT3dhjSHU8SF0B9OVuKvy9DkXVdqOc7MOJDs0dcaY0McEysEkgzQBkF6NDxCvhm4501lJqUC0bwj0JLpn_B_hxOkV-jTwAxacv20xekv9GQ",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "4afdd2ad-1c9b-4a6f-a335-4e275f305e17",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "fe7b665b-8375-4eda-a1e2-055d9c7eb0cb",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "48b12ac2-477c-4080-9650-94ff2fccb5d1",
+      "key": ":orgName",
+      "value": "ares-v2-demo",
+      "type": "string"
+    },
+    {
+      "id": "0e24b650-fb06-492b-b721-cd0c1743e2ce",
+      "key": "local",
+      "value": "http://localhost:8080/",
+      "type": "string"
+    },
+    {
+      "id": "305aaddc-f71e-42a2-a3c2-dd3623c3ff17",
+      "key": "remote",
+      "value": "https://ares-2.unchain.io/",
+      "type": "string"
+    },
+    {
+      "id": "7c763e44-7fdb-4322-b6e4-af4480dbbb66",
+      "key": "baseURL",
+      "value": "{{remote}}",
+      "type": "string"
+    }
+  ]
+}

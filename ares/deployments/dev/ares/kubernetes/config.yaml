@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Config
+clusters:
+- name: "ares-test"
+  cluster:
+    server: "https://rancher.unchain.io/k8s/clusters/c-kcqfc"
+    api-version: v1
+    certificate-authority-data: ""
+
+users:
+- name: "user-qc9tn"
+  user:
+    token: "kubeconfig-user-qc9tn:8fswsljgmwnlm9xwvbbsth4vbrtz5hdgsqsxm8pdh65ftn82tg8bbv"
+
+contexts:
+- name: "ares-test"
+  context:
+    user: "user-qc9tn"
+    cluster: "ares-test"
+
+current-context: "ares-test"

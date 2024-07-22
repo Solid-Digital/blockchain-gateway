@@ -1,0 +1,77 @@
+---
+swagger: "2.0"
+basePath: "/api/v1"
+host: "localhost:8080"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+security:
+  - Token authentication: []
+tags:
+  - name: "hello"
+    description: ""
+  - name: "auth"
+    description: ""
+  - name: "organization"
+    description: ""
+  - name: "pipeline"
+    description: ""
+  - name: "component"
+    description: ""
+
+paths:
+
+securityDefinitions:
+  Token authentication:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      token:
+        $ref: "#/definitions/Token"
+      email:
+        type: "string"
+        format: "email"
+  Token:
+    type: "object"
+    properties:
+      raw:
+        type: "string"
+      expiration:
+        type: "integer"
+  ErrorResponse:
+    type: object
+    properties:
+      status:
+        x-order: 0
+        type: integer
+      statusText:
+        x-order: 1
+        type: string
+      code:
+        x-order: 2
+        type: integer
+      message:
+        x-order: 3
+        type: string
+      namedErrors:
+        x-order: 4
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+      requestID:
+        x-order: 5
+        type: string

@@ -1,0 +1,35 @@
+version: "3.0"
+
+services:
+  ares:
+    image: registry.unchain.io/unchain/ares
+    tty: true
+    ports:
+      - "8181:8080"
+#    network_mode: bridge
+
+    volumes:
+      - ./ares:/app:ro
+
+    working_dir: "/app"
+    command: "ares --cfg=config.toml"
+
+  traefik:
+    image: traefik:1.6-alpine
+    tty: true
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    environment:
+      - DO_AUTH_TOKEN=5a330e2e73c8486371ce3384f668c724f5629e489f1d07c7b3337c160f125ad9
+#    network_mode: bridge
+    volumes:
+        - ./traefik/config.toml:/etc/traefik/traefik.toml
+        - ./traefik/acme.json:/acme.json
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  bridge:
+    driver: bridge
+

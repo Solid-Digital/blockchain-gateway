@@ -1,0 +1,80 @@
+# Docker-compose for ares
+version: "3"
+
+services:
+  ares:
+#    network_mode: bridge
+    image: registry.unchain.io/unchain/ares
+    restart: "unless-stopped"
+    tty: true
+    ports:
+      - "8181:8080"
+    environment:
+      - PORT=8080
+    volumes:
+      - ./ares:/app/:ro
+#    command: "dockerize -wait tcp://redis:6379 -wait tcp://mongodb:27017 -timeout 20s ares --cfg=config.toml"
+    command: "ares --cfg=config.toml"
+    labels:
+      traefik.frontend.rule: Host:ares.unchain.io
+      traefik.enable: "true"
+
+  traefik:
+#    network_mode: bridge
+    image: traefik:1.6-alpine
+    restart: "unless-stopped"
+    tty: true
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    environment:
+      - DO_AUTH_TOKEN=5a330e2e73c8486371ce3384f668c724f5629e489f1d07c7b3337c160f125ad9
+    volumes:
+        - ./traefik/config.toml:/etc/traefik/traefik.toml
+        - ./traefik/acme.json:/acme.json
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+  
+  mongodb:
+#    network_mode: bridge
+    image: mongo
+    restart: "unless-stopped"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "ares_admin"
+      MONGO_INITDB_ROOT_PASSWORD: "sn3kx0ss0s8"
+    ports:
+      - "27017:27017"
+    volumes:
+      - /srv/docker/mongodb:/data/db
+      - ./mongodb/certs:/etc/ssl
+    command: "mongod --dbpath=/data/db --sslMode=requireSSL --sslPEMKeyFile /etc/ssl/mongodb-server.pem --sslCAFile /etc/ssl/mongodb-CA.pem"
+    labels:
+      traefik.frontend.rule: Host:mongo.ares.unchain.io
+      traefik.enable: "true"
+      
+  redis:
+#    network_mode: bridge
+    image: sameersbn/redis:latest
+    restart: "unless-stopped"
+    ports:
+      - "6379:6379"
+    volumes:
+      - /srv/docker/redis:/var/lib/redis
+    environment:
+      - REDIS_PASSWORD=Unchain
+    labels:
+      traefik.frontend.rule: Host:redis.ares.unchain.io
+#      traefik.enable: "true"
+
+  docker-tls:
+#    network_mode: bridge
+    image: unchain/docker-tls
+    restart: "unless-stopped"
+    ports:
+      - "2376:443"
+    volumes:
+      - ./docker/certs:/data/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      traefik.frontend.rule: Host:docker.ares.unchain.io
+      traefik.enable: "true"

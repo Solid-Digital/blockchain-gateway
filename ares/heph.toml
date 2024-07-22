@@ -1,0 +1,101 @@
+BuildPath = "cmd/ares/main.go"
+
+defaultDeployment = "test"
+
+[deployments]
+    [deployments.kube]
+        localCommand = """
+            cd deployments/kube
+            kubectl delete -f .
+            kubectl apply -f .
+        """
+
+    [deployments.image]
+        localCommand = """
+            # exit on error
+            set -e
+
+            scripts/build.sh ./cmd/ares/main.go
+            scripts/push.sh registry.unchain.io/unchain/ares
+        """
+
+    [deployments.image2]
+        localCommand = """
+            # exit on error
+            set -e
+
+            scripts/build.sh ./cmd/ares/main.go
+            scripts/push.sh registry.unchain.io/unchain/ares2
+        """
+
+    [deployments.ares2]
+        localCommand = """
+#           heph build ??
+        """
+
+        hosts = ["core@37.139.19.205"]
+
+        paths = [
+            "deployments/ares2/:~/ares2/",
+        ]
+
+        remoteCommand = """
+            cd ~/ares2
+            sudo touch traefik/acme.json
+            sudo chmod 600 traefik/acme.json
+            mkdir -p ~/acme_backup
+            sudo cp traefik/acme.json ~/acme_backup/acme.json
+            docker-compose rm --stop --force
+            docker rmi registry.unchain.io/unchain/ares2
+            docker-compose pull ares2
+            docker-compose up --force-recreate -d
+        """
+
+    [deployments.test]
+        localCommand = """
+#           heph build ??
+        """
+
+        hosts = ["core@ares.unchain.io"]
+        
+        paths = [
+            "deployments/test/:~/ares/",
+        ]        
+        
+        remoteCommand = """
+            cd ~/ares
+            sudo touch traefik/acme.json
+            mkdir -p ~/acme_backup
+            sudo cp traefik/acme.json ~/acme_backup/acme.json
+            docker-compose rm --stop --force
+            docker rmi registry.unchain.io/unchain/ares
+            docker-compose pull ares
+            docker-compose up --force-recreate -d
+        """
+
+    [deployments.dev]
+        hosts = ["core@ares.unchain.io"]
+       
+        paths = [
+            "deployments/dev/:~/ares-dev/",
+        ]
+        
+        remoteCommand = """
+            cd ~/ares-dev
+            docker-compose pull ares
+            docker-compose up --force-recreate -d
+        """
+
+    [deployments.cognizant]
+        hosts = ["core@cog1"]
+        
+        paths = [
+            "deployments/cognizant/:~/ares/",
+        ]
+                
+        
+        remoteCommand = """
+            cd ~/ares
+            docker-compose pull ares
+            docker-compose up --force-recreate -d
+        """

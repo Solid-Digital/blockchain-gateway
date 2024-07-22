@@ -1,0 +1,130 @@
+version: "3"
+
+services:
+  postgres:
+    restart: "unless-stopped"
+    image: postgres:10.6
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - "./scripts/postgres/:/docker-entrypoint-initdb.d"
+  mail:
+    image: jhillyerd/inbucket
+    restart: unless-stopped
+    ports:
+      - "2500:2500"
+      - "9000:9000"
+      - "1100:1100"
+  k3s-server:
+    image: rancher/k3s:v0.7.0-rc4
+    command: server --disable-agent --no-deploy traefik
+    restart: unless-stopped
+    depends_on:
+      - registry
+    environment:
+      - K3S_CLUSTER_SECRET=somethingtotallyrandom
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.local.yaml
+      - K3S_KUBECONFIG_MODE=666
+    volumes:
+      # This is just so that we get the kubeconfig file out
+      - ./templates/k3s/charts/nginx-ingress-1.6.0.tgz:/var/lib/rancher/k3s/server/static/charts/nginx-ingress-1.6.0.tgz
+      - ./templates/k3s/manifests/whoami.yaml:/var/lib/rancher/k3s/server/manifests/whoami.yaml
+      - ./templates/k3s/manifests/fluentd.yaml:/var/lib/rancher/k3s/server/manifests/fluentd.yaml
+      - ./templates/k3s/manifests/nginx.yaml:/var/lib/rancher/k3s/server/manifests/nginx.yaml
+      - .:/output
+    ports:
+      - 6443:6443
+  k3s-node:
+    image: rancher/k3s:v0.7.0-rc4
+    entrypoint: []
+    command: /bin/sh -c "echo nameserver 8.8.8.8 >> /etc/resolv.conf && /bin/k3s agent --resolv-conf /etc/resolv.conf"
+    restart: unless-stopped
+    tmpfs:
+      - /run
+      - /var/run
+    volumes:
+      - ./templates/k3s/containerd/config.toml.tmpl:/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+    privileged: true
+    expose:
+      - 80
+      - 443
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - k3s-server
+      - registry
+    environment:
+      - K3S_URL=https://k3s-server:6443
+      - K3S_CLUSTER_SECRET=somethingtotallyrandom
+
+  registry:
+    restart: unless-stopped
+    image: registry
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+
+  redis:
+    restart: unless-stopped
+    image: redis
+    ports:
+      - 6379:6379
+
+  s3:
+    restart: unless-stopped
+    image: minio/minio
+    ports:
+      - 9001:9000 # non default port because it clashes with inbucket
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    volumes:
+      - "./scripts/minio/:/usr/bin/init/"
+      - ./testdata/minio:/testdata/
+    #      - ./data/minio:/data/
+    entrypoint: /usr/bin/init/init.sh
+    command: server /data
+
+  elastic:
+    restart: "unless-stopped"
+    image: elasticsearch:6.7.1
+    expose:
+      - 9200
+      - 9300
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  mario:
+    image: registry.unchain.io/unchain/mario:12
+    ports:
+      - "8012:8000"
+    volumes:
+      - components-cache:/usr/local/lib/components
+      - ./config/dev/mario-config.toml:/app/config/mario-config.toml
+      # - ~/.docker/config.json:/root/.docker/config.json
+    command:
+      - "--server"
+      - "-c"
+      - "/app/config/mario-config.toml"
+    restart: unless-stopped
+
+  buildkit:
+    image: moby/buildkit:rootless
+    ports:
+      - "1234:1234"
+    volumes:
+      - buildkit-cache:/var/lib/buildkit
+    command:
+      - "--addr"
+      - "tcp://0.0.0.0:1234"
+    privileged: true
+    restart: unless-stopped
+
+volumes:
+  buildkit-cache:
+  components-cache:

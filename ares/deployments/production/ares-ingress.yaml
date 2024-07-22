@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: ares-production
+  name: ares-ingress
+  annotations:
+    certmanager.k8s.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+spec:
+  tls:
+    - secretName: "ares.prod.unchain.io"
+      hosts:
+        - "ares.prod.unchain.io"
+  rules:
+    - host: "ares.prod.unchain.io"
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: ares-service
+              servicePort: default

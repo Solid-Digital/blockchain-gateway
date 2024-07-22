@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ares
+  namespace: ares-production
+  labels:
+    app: ares
+    app.kubernetes.io/name: ares
+    app.kubernetes.io/version: "{{tag}}"
+    app.kubernetes.io/component: server 
+spec:
+  replicas: 3
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ares
+        app.kubernetes.io/component: server
+      annotations:
+        updated-at: "{{date}}"
+        version: "{{tag}}"
+    spec:
+      containers:
+        - name: ares
+          command:
+            - /app/ares
+          args:
+            - --cfg=config/config.toml
+          volumeMounts:
+            - mountPath: /app/config
+              name: ares-config
+            - mountPath: /kubeconfig
+              name: kubeconfig
+          image: registry.unchain.io/unchain/ares:{{tag}}
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+        # The tools container is meant to give an opportunity to do migrations and such.
+        - name: tools
+          command:
+            - sh
+            - -c
+          args:
+            - "tail -f /dev/null"
+          volumeMounts:
+            - mountPath: /app/config
+              name: ares-config
+            - mountPath: /kubeconfig
+              name: kubeconfig
+          image: registry.unchain.io/unchain/ares:{{tag}}
+          resources:
+            requests:
+              memory: "5Mi"
+              cpu: "0m"
+            limits:
+              memory: "512Mi"
+              cpu: "2000m"
+      restartPolicy: Always
+      volumes:
+        - name: ares-config
+          secret:
+            secretName: ares-config
+            items:
+              - key: config.toml
+                path: config.toml
+        - name: kubeconfig
+          secret:
+            secretName: kubeconfig
+      imagePullSecrets:
+        - name: registry-unchain-io
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ares
+      app.kubernetes.io/component: server

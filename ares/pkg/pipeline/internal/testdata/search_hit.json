@@ -1,0 +1,51 @@
+{
+  "_score": null,
+  "_index": "adapters-aws-frankfurt_adapters-2018-09-24",
+  "_type": "container_log",
+  "_id": "AWYL8M7yJki1SdeSbf6n",
+  "_uid": "",
+  "_routing": "",
+  "_parent": "",
+  "_version": null,
+  "sort": [
+    1537798568000
+  ],
+  "highlight": null,
+  "_source": {
+    "log": " [fabsdk/msp] 2018/09/24 14:16:08 UTC - msp.NewIdentityManager -> WARN Cryptopath not provided for organization [ordererorg], MSP stores not created\n",
+    "stream": "stdout",
+    "docker": {
+      "container_id": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e"
+    },
+    "kubernetes": {
+      "container_name": "adapter",
+      "namespace_name": "adapters",
+      "pod_name": "adapter-4-58c974b8f8-jtf27",
+      "container_image": "registry.unchain.io/qorg/adapter-4:v0.0.0",
+      "container_image_id": "docker-pullable://registry.unchain.io/qorg/adapter-4@sha256:0120034f5f471ebb511281a1717625a2e921ee346d81ae735167d7c0bbcaf93b",
+      "pod_id": "5edbeeba-c004-11e8-972c-02a6e4859310",
+      "labels": {
+        "adapterID": "5ba8f19753bf250001fa7fbc",
+        "pod-template-hash": "1475306494"
+      },
+      "host": "ip-172-31-32-232.eu-central-1.compute.internal",
+      "master_url": "https://10.43.0.1:443/api",
+      "namespace_id": "afc31ba2-9a5b-11e8-972c-02a6e4859310",
+      "namespace_labels": {
+        "field_cattle_io/projectId": "p-nm4vr"
+      }
+    },
+    "tag": "c-zxdj8:p-nm4vr.var.log.containers.adapter-4-58c974b8f8-jtf27_adapters_adapter-f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e.log",
+    "projectID": "c-zxdj8:p-nm4vr",
+    "@timestamp": "2018-09-24T14:16:08.000000000+00:00"
+  },
+  "fields": {
+    "@timestamp": [
+      1537798568000
+    ]
+  },
+  "_explanation": null,
+  "matched_queries": null,
+  "inner_hits": null,
+  "_nested": null
+}

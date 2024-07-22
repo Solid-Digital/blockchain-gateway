@@ -1,0 +1,13 @@
+[downloader]
+access_key_id = "minio"
+secret_access_key = "minio123"
+bucket = "s3test"
+endpoint = "http://s3:9000"
+region = "eu-central-1"
+disable_ssl = true
+s3_force_path_style = true
+
+[builder]
+buildkit_addr = "tcp://buildkit:1234"
+build_context_path = "."
+insecure_registry = true

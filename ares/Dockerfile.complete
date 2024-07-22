@@ -1,0 +1,28 @@
+FROM golang:1.13 as BUILDER
+
+ARG TAG
+ARG BRANCH
+ARG BUILDER
+
+WORKDIR /go/src/bitbucket.org/unchain/ares
+COPY go.mod go.mod
+COPY go.sum go.sum
+COPY cmd cmd
+COPY pkg pkg
+COPY gen gen
+COPY fixtures fixtures
+COPY migrations migrations
+
+COPY Makefile .
+RUN make install
+
+
+
+FROM unchain/alpine-glibc-dockerize
+RUN apk update && apk add postgresql-client
+WORKDIR /app/
+COPY --from=BUILDER /go/bin/ /app/
+RUN ln -s /app/ares* /sbin/
+COPY migrations migrations
+COPY fixtures fixtures
+

@@ -1,0 +1,31 @@
+---
+swagger: "2.0"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+
+paths:
+  /:
+    get:
+      tags:
+      - "hello"
+      summary: "Hello route"
+      description: "Hello route"
+      operationId: "Hello"
+      produces:
+      - "text/plain"
+      consumes:
+      - "text/plain"
+      parameters: []
+      responses:
+        200:
+          description: " "
+          schema:
+            type: "string"
+          headers:
+            Content-Type:
+              type: "string"
+              default: "text/plain; charset=utf-8"
+      security: []

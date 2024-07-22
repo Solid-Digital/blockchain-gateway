@@ -1,0 +1,1026 @@
+---
+swagger: "2.0"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+
+paths:
+  /triggers:
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get all public triggers"
+      operationId: "GetAllPublicTriggers"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /triggers/{name}:
+    parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get Public Trigger Detail"
+      description: "Get a public trigger component with all its versions"
+      operationId: "GetPublicTrigger"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /triggers/{name}/versions/{version}:
+    parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "version"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get Public Trigger version"
+      operationId: "GetPublicTriggerVersion"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /actions:
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get all public actions"
+      operationId: "GetAllPublicActions"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /actions/{name}:
+    parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get Public Action Detail"
+      description: "Get a public action component with all its versions"
+      operationId: "GetPublicAction"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /actions/{name}/versions/{version}:
+    parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "version"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      security: []
+      tags:
+        - "component"
+      summary: "Get Public Action version"
+      operationId: "GetPublicActionVersion"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /orgs/{orgName}/bases:
+    get:
+      tags:
+        - "component"
+      summary: "Get all bases in this organization"
+      operationId: "GetAllBases"
+      parameters:
+        - name: "available"
+          in: "query"
+          required: false
+          type: "boolean"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "component"
+      summary: "Create new base"
+      operationId: "CreateBase"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/bases/{name}:
+    get:
+      tags:
+        - "component"
+      summary: "Get Base Detail"
+      description: "Get a base component with all its versions"
+      operationId: "GetBase"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "component"
+      summary: "Update Base"
+      description: "Update a base component"
+      operationId: "UpdateBase"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/bases/{name}/versions:
+    post:
+      tags:
+        - "component"
+      summary: "Create base version"
+      description: "If the base that this version belongs to doesn't already exist,\
+        \ it will be created"
+      operationId: "CreateBaseVersion"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateBaseVersionRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetBaseVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/bases/{name}/versions/{version}:
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "version"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      tags:
+        - "component"
+      summary: "Get Base version"
+      operationId: "GetBaseVersion"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetBaseVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    patch:
+      tags:
+        - "component"
+      summary: "Update base version"
+      operationId: "UpdateBaseVersion"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateBaseVersionRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetBaseVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /orgs/{orgName}/triggers:
+    get:
+      tags:
+        - "component"
+      summary: "Get all triggers in this organization"
+      operationId: "GetAllTriggers"
+      parameters:
+        - name: "available"
+          in: "query"
+          required: false
+          type: "boolean"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "component"
+      summary: "Create new trigger"
+      operationId: "CreateTrigger"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/triggers/{name}:
+    get:
+      tags:
+        - "component"
+      summary: "Get Trigger Detail"
+      description: "Get a trigger component with all its versions"
+      operationId: "GetTrigger"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "component"
+      summary: "Update Trigger"
+      description: "Update a trigger component"
+      operationId: "UpdateTrigger"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        409:
+          description: "Conflict"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/triggers/{name}/versions:
+    post:
+      tags:
+        - "component"
+      summary: "Create trigger version"
+      description: "If the trigger that this version belongs to doesn't already exist,\
+        \ it will be created"
+      operationId: "CreateTriggerVersion"
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: version
+          in: formData
+          description: version string for this trigger version
+          type: string
+          x-order: 1
+        - name: description
+          type: "string"
+          in: formData
+          x-order: 2
+          description: short description of this trigger version
+        - name: readme
+          in: formData
+          description: readme for this trigger version
+          type: string
+          x-order: 3
+        - name: exampleConfig
+          type: "string"
+          in: formData
+          description: default config for this trigger version
+          x-order: 4
+        - name: triggerFile
+          in: formData
+          description: the trigger version file
+          type: file
+          x-order: 5
+        - name: inputSchema
+          description: "json encoded string containing the input specification of the trigger"
+          in: formData
+          type: string
+        - name: outputSchema
+          description: "json encoded string containing the output specification of the trigger"
+          in: formData
+          type: string
+        - name: public
+          description: "describes whether or not this trigger version is public"
+          in: formData
+          type: boolean
+
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/triggers/{name}/versions/{version}:
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "version"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      tags:
+        - "component"
+      summary: "Get Trigger version"
+      operationId: "GetTriggerVersion"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    patch:
+      tags:
+        - "component"
+      summary: "Update trigger version"
+      operationId: "UpdateTriggerVersion"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateComponentVersionRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /orgs/{orgName}/actions:
+    get:
+      tags:
+        - "component"
+      summary: "Get all actions in this organization"
+      operationId: "GetAllActions"
+      parameters:
+        - name: "available"
+          in: "query"
+          required: false
+          type: "boolean"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "component"
+      summary: "Create new action"
+      operationId: "CreateAction"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        409:
+          description: "Conflict"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/actions/{name}:
+    get:
+      tags:
+        - "component"
+      summary: "Get Action Detail"
+      description: "Get a action component with all its versions"
+      operationId: "GetAction"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "component"
+      summary: "Update Action"
+      description: "Update a action component"
+      operationId: "UpdateAction"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateComponentRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/actions/{name}/versions:
+    post:
+      tags:
+        - "component"
+      summary: "Create action version"
+      description: "If the action that this version belongs to doesn't already exist,\
+        \ it will be created"
+      operationId: "CreateActionVersion"
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: version
+          in: formData
+          description: version string for this action version
+          type: string
+          x-order: 1
+        - name: description
+          type: "string"
+          in: formData
+          x-order: 2
+          description: short description of this action version
+        - name: readme
+          in: formData
+          description: readme for this action version
+          type: string
+          x-order: 3
+        - name: exampleConfig
+          type: "string"
+          in: formData
+          description: default config for this action version
+          x-order: 4
+        - name: actionFile
+          in: formData
+          description: the action version file
+          type: file
+          x-order: 5
+        - name: inputSchema
+          description: "json encoded string containing the input specification of the action"
+          in: formData
+          type: string
+        - name: outputSchema
+          description: "json encoded string containing the output specification of the action"
+          in: formData
+          type: string
+        - name: public
+          description: "describes whether or not this action version is public"
+          in: formData
+          type: boolean
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/actions/{name}/versions/{version}:
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "version"
+        in: "path"
+        required: true
+        type: "string"
+    get:
+      tags:
+        - "component"
+      summary: "Get Action version"
+      operationId: "GetActionVersion"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    patch:
+      tags:
+        - "component"
+      summary: "Update action version"
+      operationId: "UpdateActionVersion"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateComponentVersionRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetComponentVersionResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+definitions:
+  ErrorResponse:
+  GetComponentResponse:
+    type: "object"
+    required:
+      - id
+      - developerID
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - name
+      - displayName
+      - description
+      - public
+      - available
+      - versions
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      developerID:
+        x-order: 2
+        type: "integer"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      createdBy:
+        $ref: "#/definitions/CreatedBy"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        $ref: "#/definitions/UpdatedBy"
+      name:
+        x-order: 3
+        type: "string"
+      displayName:
+        x-order: 4
+        type: "string"
+      description:
+        x-order: 5
+        type: "string"
+      public:
+        x-order: 6
+        type: "boolean"
+      available:
+        x-order: 7
+        type: "boolean"
+      versions:
+        x-order: 8
+        type: "array"
+        items:
+          type: "string"
+  CreateComponentRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      displayName:
+        type: "string"
+      description:
+        type: "string"
+  UpdateComponentRequest:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+      description:
+        type: "string"
+  CreateBaseVersionRequest:
+    type: "object"
+    properties:
+      version:
+        type: "string"
+      description:
+        type: "string"
+      readme:
+        type: "string"
+      dockerImageRef:
+        type: "string"
+      entrypoint:
+        type: "string"
+      public:
+        type: "boolean"
+        x-nullable: true
+
+  UpdateBaseVersionRequest:
+    type: "object"
+    properties:
+      readme:
+        x-nullable: true
+        type: "string"
+      description:
+        x-nullable: true
+        type: "string"
+      public:
+        x-nullable: true
+        description: "Can be updated only by admins"
+        type: "boolean"
+  GetBaseVersionResponse:
+    type: "object"
+    required:
+      - id
+      - version
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - description
+      - readme
+      - dockerImageRef
+      - entrypoint
+      - public
+      - available
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      version:
+        x-order: 2
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      createdBy:
+        $ref: "#/definitions/CreatedBy"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        $ref: "#/definitions/UpdatedBy"
+      description:
+        x-order: 3
+        type: "string"
+      readme:
+        x-order: 4
+        type: "string"
+      dockerImageRef:
+        x-order: 5
+        type: "string"
+      entrypoint:
+        x-order: 6
+        type: "string"
+      public:
+        x-order: 7
+        type: "boolean"
+      available:
+        x-order: 8
+        type: "boolean"
+  UpdateComponentVersionRequest:
+    type: "object"
+    properties:
+      readme:
+        x-nullable: true
+        type: "string"
+      exampleConfig:
+        x-nullable: true
+        type: "string"
+      description:
+        x-nullable: true
+        type: "string"
+      inputSchema:
+        x-nullable: true
+        description: "json encoded string containing the input specification of the trigger"
+        type: array
+        items:
+          type: string
+      outputSchema:
+        x-nullable: true
+        description: "json encoded string containing the output specification of the trigger"
+        type: array
+        items:
+          type: string
+      public:
+        x-nullable: true
+        description: "Can be updated only by admins"
+        type: "boolean"
+  GetComponentVersionResponse:
+    type: "object"
+    required:
+      - id
+      - version
+      - releaseMessage
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - readme
+      - exampleConfig
+      - inputSchema
+      - outputSchema
+      - public
+      - available
+    properties:
+      id:
+        x-order: 0
+        type: integer
+      version:
+        x-order: 1
+        type: "string"
+      releaseMessage:
+        x-order: 2
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      createdBy:
+        $ref: "#/definitions/CreatedBy"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        $ref: "#/definitions/UpdatedBy"
+      description:
+        x-order: 2
+        type: "string"
+      readme:
+        x-order: 3
+        type: "string"
+      exampleConfig:
+        x-order: 4
+        type: "string"
+      inputSchema:
+        x-order: 5
+        type: array
+        items:
+          type: string
+      outputSchema:
+        x-order: 6
+        type: array
+        items:
+          type: string
+      public:
+        x-order: 7
+        type: "boolean"
+      available:
+        x-order: 8
+        type: "boolean"
+
+  IOSchema:
+    #    x-go-type:
+    #      type: IOSchema
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+      items:
+        $ref: '#/definitions/IOSchema'
+      properties:
+        x-omitempty: true
+        type: array
+        items:
+          $ref: '#/definitions/IOSchema'
+
+  CreatedBy:
+    type: "object"
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      fullName:
+        x-order: 2
+        type: "string"
+
+  UpdatedBy:
+    type: "object"
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      fullName:
+        x-order: 2
+        type: "string"

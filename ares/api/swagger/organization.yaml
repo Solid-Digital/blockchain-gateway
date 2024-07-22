@@ -1,0 +1,297 @@
+---
+swagger: "2.0"
+basePath: "/api/v1"
+host: "localhost:8080"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+
+paths:
+  /orgs:
+    get:
+      tags:
+        - "organization"
+      summary: "Get all organizations"
+      operationId: "GetAllOrganizations"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GetOrganizationResponse'
+
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "organization"
+      summary: "Create Organization"
+      operationId: "CreateOrganization"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateOrganizationRequest"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: '#/definitions/GetOrganizationResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+  /orgs/{orgName}:
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+
+    get:
+      tags:
+        - "organization"
+      summary: "Get organization"
+      operationId: "GetOrganization"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetOrganizationResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "organization"
+      summary: "Update organization"
+      operationId: "UpdateOrganization"
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateOrganizationRequest'
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetOrganizationResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+        401:
+          description: "Permission denied"
+          schema:
+            type: "object"
+
+  /orgs/{orgName}/members:
+    get:
+      tags:
+        - "organization"
+      summary: "Get all members"
+      description: "Get all members of an organization"
+      operationId: "GetAllMembers"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GetMemberResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "organization"
+      summary: "Invite a user to the organization"
+      operationId: "InviteMember"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/InviteMemberRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/InviteMemberResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/members/{email}:
+    get:
+      tags:
+        - "organization"
+      summary: "Get Member Detail"
+      operationId: "GetMember"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetMemberResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    delete:
+      tags:
+        - "organization"
+      summary: "Remove member from Organization"
+      operationId: "RemoveMember"
+      parameters: []
+      responses:
+        204:
+          description: "Deleted"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "path"
+        required: true
+        type: "string"
+        format: "email"
+  /orgs/{orgName}/members/{email}/roles:
+    put:
+      tags:
+        - "organization"
+      summary: "Set roles for member"
+      operationId: "SetMemberRoles"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/SetMemberRolesRequest"
+      responses:
+        200:
+          description: "Status 200"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "path"
+        required: true
+        type: "string"
+        format: "email"
+
+definitions:
+  CreateOrganizationRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      displayName:
+        type: "string"
+
+    example:
+      name: "demo-org"
+      displayName: "Demo Org"
+  UpdateOrganizationRequest:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+    example:
+      displayName: "Demo Org"
+
+  GetOrganizationResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      displayName:
+        type: "string"
+
+  GetMemberResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      fullName:
+        type: "string"
+      email:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      roles:
+        type: "object"
+        description: "Roles is map[role]bool"
+        additionalProperties:
+          type: boolean
+    description: "An organization member representation for user profile."
+  InviteMemberRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        format: email
+      roles:
+        type: "object"
+        description: "Roles is map[role]bool"
+        additionalProperties:
+          type: boolean
+  InviteMemberResponse:
+    type: "object"
+    properties:
+      inviteID:
+        type: "string"
+      id:
+        type: "integer"
+      fullName:
+        type: "string"
+      email:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      roles:
+        type: "object"
+        description: "Roles is map[role]bool"
+        additionalProperties:
+          type: boolean
+  SetMemberRolesRequest:
+    type: "object"
+    properties:
+      roles:
+        type: "object"
+        description: "Roles is map[role]bool"
+        additionalProperties:
+          type: boolean

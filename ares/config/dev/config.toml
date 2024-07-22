@@ -1,0 +1,113 @@
+url = ":8080"
+
+[bootstrap]
+    adminEmailAddress = "admin@unchain.io"
+    adminPassword = "q"
+    adminOrganization = "ares-v2-demo"
+
+[logger]
+    level = "debug"
+    format = "text"
+
+[jwt]
+    connectURL = "http://localhost:4200"
+    expirationDelta = 99999999999999
+    issuer = "localhost:8080"
+
+    [jwt.tls.key]
+        pem = """
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA4w5xhil8YFSLptRxzQsiJgQm7DxfVx7nEFAndQDw/7a1VfIf
+hhzZlUYx6u+57kP4+JPhqLMl9hEPnJh2DMPV4wrQAOSe6pDK5UP/xZQx8ygy70lG
+fJ6MVo7mkXKaofKobOhkFIOhqtLU/6CrzFl+KdFIsD7pt+FxV6mMmPbnAvDN+hF5
+NwU6N61WGAZER8z7SSTgayGpuHdUKCdPwfuiUIEX3GxhskzV/ROiS+R/NbQZlsfm
+QqcBJ5FxhOtAVevi9s7x6LLTSQKopuuunSTTtu3ys/hs5m6AqNPPkLKqp6R8iXF1
+Lg0DMeQlFHYwEo3oRweMNhfYRzC3ukioSf+GuwIDAQABAoIBADlemeKLMujoE80Y
+WpSzXnJ6lBcWfgR2Q23EwuN2VG5YDONlZP+u5G8qKEyzO6hvNkYgn2DPuyS8VNR9
+VT6OcMmIHtxK57he01UwZDzY3/IPUydQvWWZbd4lBy7y5Q1MUbAK29avF7cgxD6+
+qwncBtusDJCzpLwYU1oR9ftkTyRXl8WzHUQ+/QILNnSCDsTrP8JsVaVxbd6FhKKn
+5sSyqM+dX7mtvVAOcj0OJSHZiit7fk5QG9Pi/5iP4pCdZf42sImsr++2GFOezfJd
+H5UU+ujTf+b4oGirnqgEDRrSr5IyykagWc07D2KJgyPzrkfFDxoB5C/ZC3C6C9AA
+Xwzd+GECgYEA5SPDfCMVBRFkYBoxKgbWEElquGiPMDSe+p6QSlX24UXFv8gzdtbT
+f33d27v2cpIOWYym3Er5JiSFq6oCr1cg9+mLP/tNc50sHrdHb8vRfn190nawFJHa
+eOe0b3ZePUtAxdd1HaZgq4bNnLYSbi//spdHuu6E1jZrzcmbvIm7PJECgYEA/awp
+rILMDvqHuGNlVr+kdcGfmFxA8y9Z1tZHLgqNjPQQlaOuyJn1cfYbIqghMLjk//Au
+VQ5gfKLc2abHQaVQ2dLqV846eNQvr+cnLQUrUqk41IZuN0HTMbvLHgOLkQNdsUMs
+1TmmPeMxh9X9cLqp7mZoY5CeWeWFOe3EJA1dZIsCgYEAklbf3yUMpJrx7wprQbrx
+9Z7dwH5OjGve6JJh9oemT0LfQ1dZvtj+ZBr/mPkXMR6keX6Bhol/S2Ph1ruSUWck
+0A/gdfFKCr9jUQ6eWgDif5UnyUUxuUFZNQRN0S3Yi+7GpFOxIUmDzagfIqmJZcPT
+2rwQ/IqeXayN9vR+ONABu3ECgYAECn4PdXXytyL6WPsASsU/6vmz36RZO2Pe/ELe
+BOUEXc7100mxgGJckmMURkFhGVDsktLqH/SBh8ak4PdDoHKNRcLd6zcbPaYU00XY
+fcCW7IMvP4T59F586FTwAXZztO4FKODJ9MUlLz1WwJ3s8cxLM+5tx5v+Kp3YsmTx
+fhUCyQKBgDCEkFexrqC2a1rHLh+pwTyvnE4JCVNt72FF8L51aEsG5tGGFvTvgUN6
+IlRCYASNhUK/3+hu337uOSolKXu0W+dFnp1/OLo6sUkuhxWGx3YLwGJygjSrOl5f
+3wIikQ0U/RjRr+/pI0/yw/w3Xcr7iUjei6SBxkiIeZL/749EcLNB
+-----END RSA PRIVATE KEY-----
+"""
+    [jwt.tls.cert]
+        pem = """
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4w5xhil8YFSLptRxzQsi
+JgQm7DxfVx7nEFAndQDw/7a1VfIfhhzZlUYx6u+57kP4+JPhqLMl9hEPnJh2DMPV
+4wrQAOSe6pDK5UP/xZQx8ygy70lGfJ6MVo7mkXKaofKobOhkFIOhqtLU/6CrzFl+
+KdFIsD7pt+FxV6mMmPbnAvDN+hF5NwU6N61WGAZER8z7SSTgayGpuHdUKCdPwfui
+UIEX3GxhskzV/ROiS+R/NbQZlsfmQqcBJ5FxhOtAVevi9s7x6LLTSQKopuuunSTT
+tu3ys/hs5m6AqNPPkLKqp6R8iXF1Lg0DMeQlFHYwEo3oRweMNhfYRzC3ukioSf+G
+uwIDAQAB
+-----END PUBLIC KEY-----
+        """
+
+[pipelines]
+    registryURL = "registry:5000"
+    deploymentRegion = "eu-central-1"
+    deploymentHost = "localhost"
+    index = "adapters-*"
+
+[sql]
+    driver = "postgres"
+    connectionString = "user=postgres host=localhost dbname=ares_dev sslmode=disable password=mysecretpassword"
+
+[mario]
+    url = "http://localhost:8012/"
+
+[docker]
+    host = "unix:///var/run/docker.sock"
+
+[redis]
+    host = "localhost:6379"
+#
+#[harbor]
+#    url = "https://registry.unchain.io/"
+
+[elastic]
+    url = "http://localhost:9200"
+#    user = "ares"
+#    pass = "sE2xDVOU46co"
+
+[s3]
+    url = "localhost:9001"
+    accessKey = "minio"
+    secretAccessKey = "minio123"
+    SSL = false
+    bucketName = "s3dev"
+
+[mail]
+    host = "localhost"
+    port = "2500"
+    from = "bot@unchain.io"
+
+[kubernetes]
+#    tls = true
+    rancherProjectID = "p-nnrts"
+    rancherClusterID = "c-zxdj8"
+    configPath = "kubeconfig.local.yaml"
+
+[aws]
+    marketplaceRegion = "us-east-1"
+    accessKeyID = "AKIAXBNVY5WH2XPBBXGF"
+    secretAccessKey = "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"
+    queueRegion = "eu-central-1"
+    SQSURL = "https://sqs.eu-central-1.amazonaws.com/484101909903/tbg-sns-test"
+
+[subscription]
+    activateHandler = false

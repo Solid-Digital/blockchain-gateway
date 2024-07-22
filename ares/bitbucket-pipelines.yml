@@ -1,0 +1,131 @@
+# This is a sample build configuration for Go.
+# Check our guides at https://confluence.atlassian.com/x/VYk8Lw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: golang:1.13
+
+options:
+  docker: true
+  max-time: 25 # configure default 10 minute timeout
+  # size: 2x
+
+definitions:
+  caches:
+    go-cache: $HOME/.cache/go-build
+    go-mod: $HOME/go/pkg/mod
+    go-mod-sum: $HOME/go/pkg/sumdb
+  steps:
+    - step: &test
+        size: 2x
+        caches:
+          - docker
+          - go-cache
+          - go-mod
+          - go-mod-sum
+        name: Run the tests
+        script:
+          - make docker-login
+          - source scripts/bitbucket-pipelines-go.sh
+          - cd "${IMPORT_PATH}"
+          - make install up-bitbucket wait-more db-migrate
+          - go test ./... --cover --short
+
+    - step: &build
+        name: Build the binary
+        caches:
+          - go-cache
+          - go-mod
+          - go-mod-sum
+        script:
+          - env
+          - source scripts/bitbucket-pipelines-go.sh
+          - cd "${IMPORT_PATH}"
+          - make build
+        artifacts:
+          - bin/**
+
+    - step: &dockerize
+        name: Build and push a Docker image
+        caches:
+          - go-cache
+          - go-mod
+          - go-mod-sum
+        artifacts:
+          - bin/**
+        script:
+          - make docker-login
+          - make image
+          - make push
+
+# we allow manual deploy of this branch to staging
+# this is a temporary situation.
+pipelines:
+  branches:
+    "**":
+      - step: *build
+      - step: *test
+      - step:
+          name: Should we build, push and deploy this?
+          trigger: manual
+          script:
+            - echo "continuing with build and deployment"
+      - step: *dockerize
+      - step:
+          name: Deploy it to kubernetes
+          deployment: branch
+          image: atlassian/pipelines-kubectl
+          script:
+            - apk add make git curl
+            - make -C deployments kubeconfig namespace=ares-branch
+            - make deployment env=branch
+          after-script:
+            - ./scripts/slack_notification.sh
+
+    develop:
+      - step: *build
+      - parallel:
+          - step: *test
+          - step: *dockerize
+      # we automatically push develop to staging
+      - step:
+          name: Deploy it to kubernetes staging
+          deployment: staging
+          image: atlassian/pipelines-kubectl
+          script:
+            - apk add make git
+            - make -C deployments kubeconfig namespace=ares-staging
+            - make deployment env=staging
+          after-script:
+            - ./scripts/slack_notification.sh
+
+      - step: # production
+          name: Deploy it to production
+          image: atlassian/pipelines-kubectl
+          deployment: production
+          trigger: manual
+          script:
+            - apk add make git
+            - make -C deployments kubeconfig namespace=ares-production
+            - make deployment env=production
+          after-script:
+            - ./scripts/slack_notification.sh
+
+    master:
+      - step: *build
+      - parallel:
+          - step: *test
+          - step: *dockerize
+
+      - step:
+          name: Deploy it to Kubernetes production
+          image: atlassian/pipelines-kubectl
+          deployment: production
+          trigger: manual
+          script:
+            - apk add make git
+            - make -C deployments kubeconfig namespace=ares-production
+            - make deployment env=production
+          after-script:
+            - ./scripts/slack_notification.sh

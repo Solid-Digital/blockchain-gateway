@@ -1,0 +1,287 @@
+################################################################
+# Global configuration
+################################################################
+
+# Enable debug mode
+#
+# Optional
+# Default: false
+#
+# debug = true
+
+# Log level
+#
+# Optional
+# Default: "ERROR"
+#
+logLevel = "DEBUG"
+
+# Entrypoints to be used by frontends that do not specify any entrypoint.
+# Each frontend can specify its own entrypoints.
+#
+# Optional
+# Default: ["http"]
+#
+defaultEntryPoints = ["http"]
+
+################################################################
+# Entrypoints configuration
+################################################################
+
+# Entrypoints definition
+#
+# Optional
+# Default:
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+
+#    [entryPoints.http.redirect]
+#      entryPoint = "https"
+
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+  [entryPoints.traefik]
+    address = ":8080"
+
+    [entryPoints.traefik.auth]
+    [entryPoints.traefik.auth.basic]
+      users = [
+        "admin:$apr1$EAhALsrs$d82b0DUcYc7NkKaxScniP/",
+      ]
+
+# Enable ACME (Let's Encrypt): automatic SSL.
+[acme]
+
+# Email address used for registration.
+#
+# Required
+#
+email = "admin@unchain.io"
+
+# File used for certificates storage.
+#
+# Optional (Deprecated)
+#
+#storageFile = "acme.json"
+
+# File or key used for certificates storage.
+#
+# Required
+#
+storage = "acme.json"
+# or `storage = "traefik/acme/account"` if using KV store.
+
+# Entrypoint to proxy acme apply certificates to.
+#
+# Required
+#
+entryPoint = "https"
+
+# Deprecated, replaced by [acme.dnsChallenge].
+#
+# Optional.
+#
+# dnsProvider = "digitalocean"
+
+# Deprecated, replaced by [acme.dnsChallenge.delayBeforeCheck].
+#
+# Optional
+# Default: 0
+#
+# delayDontCheckDNS = 0
+
+# If true, display debug log messages from the acme client library.
+#
+# Optional
+# Default: false
+#
+# acmeLogging = true
+
+# Enable on demand certificate generation.
+#
+# Optional (Deprecated)
+# Default: false
+#
+# onDemand = true
+
+# Enable certificate generation on frontends Host rules.
+#
+# Optional
+# Default: false
+#
+# onHostRule = true
+
+# CA server to use.
+# - Uncomment the line to run on the staging let's encrypt server.
+# - Leave comment to go to prod.
+#
+# Optional
+# Default: "https://acme-v02.api.letsencrypt.org/directory"
+#
+# caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+# Domains list.
+# Only domains defined here can generate wildcard certificates.
+#
+# [[acme.domains]]
+#   main = "local1.com"
+#   sans = ["test1.local1.com", "test2.local1.com"]
+# [[acme.domains]]
+#   main = "local2.com"
+#   sans = ["test1.local2.com", "test2.local2.com"]
+ [[acme.domains]]
+   main = "ares.unchain.io"
+
+# Use a HTTP-01 acme challenge.
+#
+# Optional but recommend
+#
+[acme.httpChallenge]
+
+  # EntryPoint to use for the HTTP-01 challenges.
+  #
+  # Required
+  #
+  entryPoint = "http"
+
+# Use a DNS-01/DNS-02 acme challenge rather than HTTP-01 challenge.
+# Note : Mandatory for wildcard certificates generation.
+#
+# Optional
+#
+ [acme.dnsChallenge]
+
+  # Provider used.
+  #
+  # Required
+  #
+   provider = "digitalocean"
+
+  # By default, the provider will verify the TXT DNS challenge record before letting ACME verify.
+  # If delayBeforeCheck is greater than zero, avoid this & instead just wait so many seconds.
+  # Useful if internal networks block external DNS queries.
+  #
+  # Optional
+  # Default: 0
+  #
+  # delayBeforeCheck = 0
+################################################################
+# Traefik logs configuration
+################################################################
+
+# Traefik logs
+# Enabled by default and log to stdout
+#
+# Optional
+#
+# [traefikLog]
+
+# Sets the filepath for the traefik log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "log/traefik.log"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# Access logs configuration
+################################################################
+
+# Enable access logs
+# By default it will write to stdout and produce logs in the textual
+# Common Log Format (CLF), extended with additional fields.
+#
+# Optional
+#
+# [accessLog]
+
+# Sets the file path for the access log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "/path/to/log/log.txt"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# API and dashboard configuration
+################################################################
+
+# Enable API and dashboard
+[api]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+  # Enabled Dashboard
+  #
+  # Optional
+  # Default: true
+  #
+  # dashboard = false
+
+################################################################
+# Ping configuration
+################################################################
+
+# Enable ping
+[ping]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+################################################################
+# Docker configuration backend
+################################################################
+
+# Enable Docker configuration backend
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+# Default: "unix:///var/run/docker.sock"
+#
+# endpoint = "tcp://10.10.10.10:2375"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a container.
+#
+# Optional
+# Default: ""
+#
+domain = "localhost"
+
+# Expose containers by default in traefik
+#
+# Optional
+# Default: true
+#
+
+exposedbydefault = true

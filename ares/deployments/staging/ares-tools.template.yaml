@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ares-tools
+  namespace: ares-staging
+  labels:
+    app: ares-tools
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ares
+        app.kubernetes.io/component: tools
+    spec:
+      containers:
+        - name: tools
+          command:
+            - sh
+            - -c
+          args:
+            - "tail -f /dev/null"
+          volumeMounts:
+            - mountPath: /app/config
+              name: ares-config
+            - mountPath: /kubeconfig
+              name: kubeconfig
+          image: registry.unchain.io/unchain/ares:{{tag}}
+          resources:
+            requests:
+              memory: "5Mi"
+              cpu: "0m"
+            limits:
+              memory: "512Mi"
+              cpu: "2000m"
+      restartPolicy: Always
+      volumes:
+        - name: ares-config
+          secret:
+            secretName: ares-config
+            items:
+              - key: config.toml
+                path: config.toml
+        - name: kubeconfig
+          secret:
+            secretName: kubeconfig
+      imagePullSecrets:
+        - name: registry-unchain-io
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ares
+      app.kubernetes.io/component: tools

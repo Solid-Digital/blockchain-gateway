@@ -1,0 +1,179 @@
+[
+  {
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "unknown",
+    "text": " [fabsdk/msp] 2018/09/24 14:16:08 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [ordererorg], MSP stores not created\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "unknown",
+    "text": " [fabsdk/msp] 2018/09/24 14:16:08 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [org1], MSP stores not created\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:139",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.(*Service).Listen",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "info",
+    "text": "Listening for input endpoint http..\n",
+    "time": "2018-09-24 14:16:08.628Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:107",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.getInputEndpoint",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "debug",
+    "text": "Initialized inputEndpoint http",
+    "time": "2018-09-24 14:16:08.288Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "unknown",
+    "text": " [fabsdk/fab] 2018/09/24 14:16:08 UTC - fab.detectDeprecatedNetworkConfig -\u003e WARN Getting orderers from endpoint config channels.orderer is deprecated, use entity matchers to override orderer configuration\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "unknown",
+    "text": " [fabsdk/msp] 2018/09/24 14:16:08 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [ordererorg], MSP stores not created\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "unknown",
+    "text": "\u001b[36mINFO\u001b[0m[2018-09-24 14:16:08] Loading config from [config.toml]             \u001b[36mcaller\u001b[0m=\"/go/src/bitbucket.org/unchain/janus-go/vendor/github.com/unchainio/pkg/xconfig/xconfig.go:92\" \u001b[36mfName\u001b[0m=bitbucket.org/unchain/janus-go/vendor/github.com/unchainio/pkg/xconfig.Load\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:129",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.getOutputEndpoint",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "debug",
+    "text": "Initialized outputEndpoint Hyperledger Fabric v1.1 Adapter Component",
+    "time": "2018-09-24 14:16:08.321Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:107",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.getInputEndpoint",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Initialized inputEndpoint http",
+    "time": "2018-09-24 14:16:08.59Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:129",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.getOutputEndpoint",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Initialized outputEndpoint Hyperledger Fabric v1.1 Adapter Component",
+    "time": "2018-09-24 14:16:08.628Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:139",
+    "function": "bitbucket.org/unchain/janus-go/pkg/pipeline.(*Service).Listen",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "info",
+    "text": "Listening for input endpoint http..\n",
+    "time": "2018-09-24 14:16:08.321Z",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "unknown",
+    "text": "\u001b[36mINFO\u001b[0m[2018-09-24 14:16:08] Loading config from [config.toml]             \u001b[36mcaller\u001b[0m=\"/go/src/bitbucket.org/unchain/janus-go/vendor/github.com/unchainio/pkg/xconfig/xconfig.go:92\" \u001b[36mfName\u001b[0m=bitbucket.org/unchain/janus-go/vendor/github.com/unchainio/pkg/xconfig.Load\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "unknown",
+    "text": " [fabsdk/fab] 2018/09/24 14:16:08 UTC - fab.detectDeprecatedNetworkConfig -\u003e WARN Getting orderers from endpoint config channels.orderer is deprecated, use entity matchers to override orderer configuration\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "unknown",
+    "text": " [fabsdk/fab] 2018/09/24 14:16:08 UTC - fab.detectDeprecatedNetworkConfig -\u003e WARN visit https://github.com/hyperledger/fabric-sdk-go/blob/master/test/fixtures/config/overrides/local_entity_matchers.yaml for samples\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "unknown",
+    "text": " [fabsdk/fab] 2018/09/24 14:16:08 UTC - fab.detectDeprecatedNetworkConfig -\u003e WARN visit https://github.com/hyperledger/fabric-sdk-go/blob/master/test/fixtures/config/overrides/local_entity_matchers.yaml for samples\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "unknown",
+    "text": " [fabsdk/msp] 2018/09/24 14:16:08 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [org1], MSP stores not created\n",
+    "timestamp": 1537798568000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:16:12.867Z",
+    "timestamp": 1537798572000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:38:53.44Z",
+    "timestamp": 1537799933000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:39:15.972Z",
+    "timestamp": 1537799955000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:39:15.558Z",
+    "timestamp": 1537799955000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:39:16.382Z",
+    "timestamp": 1537799956000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "f437f685e25be518fb91bebf75b3780d32f748b656cb1534a70a4876c174334e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:39:31.157Z",
+    "timestamp": 1537799971000
+  },
+  {
+    "caller": "/go/src/bitbucket.org/unchain/janus-go/plugins/http.endpoint/main.go:90",
+    "function": "plugin/unnamed-768ba8e0cce727200e1b9c08dcef02570dbf8fcf.(*Endpoint).runHTTPListener.func1",
+    "instanceID": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e",
+    "level": "debug",
+    "text": "Janus HTTP endpoint",
+    "time": "2018-09-24 14:49:10.648Z",
+    "timestamp": 1537800550000
+  }
+]

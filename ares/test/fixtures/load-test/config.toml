@@ -1,0 +1,10 @@
+rate = 500 # frequency calls/sec
+duration = 10 # seconds
+[request]
+    url = "https://ares.unchain.io/api/v1/user"
+    method = "GET"
+    body =  """
+    {}
+    """
+    [header]
+        Authorization = ["Bearer eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJkYXRlIjoxNTQ0NjQ1MTMyNzY4MzA4MDgwLCJleHAiOjE1NDQ5MDQzMzIsImlkIjoiNWMxMTMyOGMxYTEyYzMwYzMyZGJkZDVhIiwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Z-OBNc23FdL7oTiDFyxleVt_LIurxRnu7uB8VHfaEvLm_1TfGy7Ix1EO3CFdQPPz7G5PP8U-yLIK2pBgkWglZ2iLoOZWY6a7USSsjNBVf5PEMdkyM1kx3n7BEELZKSalp_JaPFxo5_eZTTqBP_rrCpBWd8tfaJUjmlRHiYn8GxDqJpkyNmV3I48dc2nDUYVNIAeQu6dwvXZH5WPSvKrOnLZh_P4JqJkvr5_Cr44aKjx4XBkeK7_UBLdqlNvD3zh-0nXIyezSI1wD-pMr1f7ATl2dOGc6ZYu9lUG7BjBxUGMA8aT551RICC0iqZkd6PEefFFCahurvYxVBgq5EFRSzQ"]

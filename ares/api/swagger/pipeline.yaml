@@ -1,0 +1,793 @@
+---
+swagger: "2.0"
+info:
+  description: "No description"
+  version: "1.0.0"
+  title: "Ares"
+  contact: {}
+
+paths:
+  /orgs/{orgName}/pipelines:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get all Pipelines"
+      description: "Get all pipelines for the organization"
+      operationId: "GetAllPipelines"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetAllPipelinesResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "pipeline"
+      summary: "Create a new Pipeline"
+      operationId: "CreatePipeline"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreatePipelineRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetPipelineResponse"
+        409:
+          description: "Pipeline name already exists"
+          schema:
+            type: "object"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get Pipeline Detail"
+      description: "Get the pipeline with all its different configurations and deployments."
+      operationId: "GetPipeline"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetPipelineResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "pipeline"
+      summary: "Update Pipeline"
+      operationId: "UpdatePipeline"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdatePipelineRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetPipelineResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    delete:
+      tags:
+        - "pipeline"
+      summary: "Delete Pipeline"
+      operationId: "DeletePipeline"
+      parameters: []
+      responses:
+        204:
+          description: "Deleted"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}/configurations:
+    post:
+      tags:
+        - "pipeline"
+      summary: "Save draft as new configuration"
+      description: "A new configuration is created by auto-incrementing the latest\
+        \ version by 1."
+      operationId: "SaveDraftConfigurationAsNew"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SaveDraftConfigurationAsNewRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetConfigurationResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}/configurations/{revision}:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get configuration"
+      operationId: "GetConfiguration"
+      parameters: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetConfigurationResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "revision"
+        in: "path"
+        required: true
+        type: "integer"
+  /orgs/{orgName}/pipelines/{pipelineName}/configurations/draft:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get draft configuration"
+      description: ""
+      operationId: "GetDraftConfiguration"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetConfigurationResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "pipeline"
+      summary: "Update draft configuration"
+      description: "The latest configuration version is not stored as a numbered version\
+        \ yet and is the only configuration that can be updated. "
+      operationId: "UpdateDraftConfiguration"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateDraftConfigurationRequest"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: "#/definitions/GetConfigurationResponse"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}/environments/{envName}/vars:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get the variables for a pipeline environment"
+      operationId: "GetAllEnvironmentVariables"
+      consumes: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetAllEnvironmentVariablesResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    post:
+      tags:
+        - "pipeline"
+      summary: "Create a new variable for a pipeline environment"
+      operationId: "CreateEnvironmentVariable"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/CreateEnvironmentVariableRequest'
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetEnvironmentVariableResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "envName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}/environments/{envName}/vars/{varID}:
+    put:
+      tags:
+        - "pipeline"
+      summary: "Update a variable for a pipeline environment"
+      operationId: "UpdateEnvironmentVariable"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateEnvironmentVariablesRequest'
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetEnvironmentVariableResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    delete:
+      tags:
+        - "pipeline"
+      summary: "Delete a variable for a pipeline environment"
+      operationId: "DeleteEnvironmentVariable"
+      consumes: []
+      responses:
+        204:
+          description: "Deleted"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "envName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "varID"
+        in: "path"
+        required: true
+        type: "integer"
+  /orgs/{orgName}/pipelines/{pipelineName}/environments/{envName}/deployment:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Get the pipeline deployment for an environment"
+      operationId: "GetDeployment"
+      consumes: []
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetDeploymentResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    put:
+      tags:
+        - "pipeline"
+      summary: "Deploy configuration to environment"
+      description: "Deploy a pipeline configuration to a specific environment within\
+                                                                                 \ the pipeline context"
+      operationId: "DeployConfiguration"
+      consumes: []
+      parameters:
+        - name: "body"
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/DeployConfigurationRequest'
+
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            $ref: '#/definitions/GetDeploymentResponse'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    delete:
+      tags:
+        - "pipeline"
+      summary: "Delete deployment to environment"
+      description: ""
+      operationId: "RemoveDeployment"
+      consumes: []
+
+      responses:
+        204:
+          description: "Deleted"
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "envName"
+        in: "path"
+        required: true
+        type: "string"
+  /orgs/{orgName}/pipelines/{pipelineName}/environments/{envName}/deployment/logs:
+    get:
+      tags:
+        - "pipeline"
+      summary: "Logs for pipeline deployment"
+      operationId: "GetDeploymentLogs"
+      parameters:
+        - name: "from"
+          in: "query"
+          type: "string"
+        - name: "to"
+          in: "query"
+          type: "string"
+        - name: "limit"
+          in: "query"
+          type: "string"
+      responses:
+        200:
+          description: "Status 200"
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/LogLine'
+        500:
+          description: "Internal server error"
+          schema:
+            type: "object"
+    parameters:
+      - name: "orgName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "pipelineName"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "envName"
+        in: "path"
+        required: true
+        type: "string"
+
+definitions:
+  GetComponentResponse:
+  GetComponentVersionResponse:
+
+  CreatePipelineRequest:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+      name:
+        maxLength: 50
+        type: "string"
+      description:
+        type: "string"
+  UpdatePipelineRequest:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+      description:
+        type: "string"
+  SaveDraftConfigurationAsNewRequest:
+    type: "object"
+    properties:
+      commitMessage:
+        type: "string"
+
+  UpdateComponentConfiguration:
+    type: object
+    required:
+      - id
+      - initConfiguration
+    properties:
+      id:
+        type: "integer"
+        x-order: 0
+      name:
+        type: "string"
+        x-order: 1
+      initConfiguration:
+        type: "string"
+        x-order: 2
+      messageConfiguration:
+        type: "string"
+        x-order: 3
+  UpdateDraftConfigurationRequest:
+    type: "object"
+    properties:
+      base:
+        $ref: '#/definitions/UpdateComponentConfiguration'
+      trigger:
+        $ref: '#/definitions/UpdateComponentConfiguration'
+      actions:
+        type: "array"
+        items:
+          $ref: '#/definitions/UpdateComponentConfiguration'
+  GetAllPipelinesResponse:
+    type: "array"
+    items:
+      $ref: '#/definitions/GetPipelineResponse'
+  PipelineConfigurationRevision:
+    type: object
+    properties:
+      revision:
+        type: integer
+      commitMessage:
+        type: string
+  PipelineEnvironment:
+    type: object
+    properties:
+      name:
+        type: string
+      deployment:
+        $ref: '#/definitions/GetDeploymentResponse'
+      variables:
+        type: array
+        items:
+          $ref: '#/definitions/GetEnvironmentVariableResponse'
+  ComponentConfiguration:
+    type: object
+    required:
+      - component
+      - componentVersion
+      - initConfiguration
+      - messageConfiguration
+    properties:
+      name:
+        type: string
+      component:
+        $ref: '#/definitions/GetComponentResponse'
+      componentVersion:
+        $ref: '#/definitions/GetComponentVersionResponse'
+      initConfiguration:
+        type: string
+      messageConfiguration:
+        type: string
+  GetPipelineResponse:
+    type: "object"
+    required:
+      - id
+      - displayName
+      - name
+      - description
+      - status
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - configurationRevisions
+      - environments
+    properties:
+      id:
+        x-order: 0
+        type: "integer"
+      displayName:
+        x-order: 1
+        type: "string"
+      name:
+        x-order: 2
+        type: "string"
+      description:
+        x-order: 3
+        type: "string"
+      status:
+        x-order: 4
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      createdBy:
+        $ref: "#/definitions/CreatedBy"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        $ref: "#/definitions/UpdatedBy"
+      configurationRevisions:
+        type: array
+        items:
+          $ref: "#/definitions/PipelineConfigurationRevision"
+      environments:
+        x-order: 5
+        type: "array"
+        items:
+          $ref: '#/definitions/PipelineEnvironment'
+
+  LogLine:
+    type: "object"
+    properties:
+      text:
+        type: "string"
+      level:
+        type: "string"
+      caller:
+        type: "string"
+      time:
+        type: "string"
+      function:
+        type: "string"
+      instanceID:
+        type: "string"
+      timestamp:
+        type: "integer"
+  DeployConfigurationRequest:
+    type: "object"
+    required:
+      - configurationRevision
+    default:
+      configurationRevision: -1
+    properties:
+      configurationRevision:
+        x-order: 0
+        type: "integer"
+      replicas:
+        minimum: 0
+        type: "integer"
+  GetConfigurationResponse:
+    required:
+      - id
+      - revision
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - base
+      - trigger
+      - actions
+    type: "object"
+    properties:
+      id:
+        x-order: 0
+        type: "integer"
+      revision:
+        x-order: 1
+        type: "integer"
+      commitMessage:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      createdBy:
+        $ref: "#/definitions/CreatedBy"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        $ref: "#/definitions/UpdatedBy"
+      base:
+        x-order: 2
+        $ref: '#/definitions/ComponentConfiguration'
+      trigger:
+        x-order: 3
+        $ref: '#/definitions/ComponentConfiguration'
+      actions:
+        x-order: 4
+        type: "array"
+        items:
+          $ref: '#/definitions/ComponentConfiguration'
+
+  CreatedBy:
+    type: "object"
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      fullName:
+        x-order: 2
+        type: "string"
+
+  UpdatedBy:
+    type: "object"
+    properties:
+      id:
+        x-order: 1
+        type: "integer"
+      fullName:
+        x-order: 2
+        type: "string"
+  GetEnvironmentVariableResponse:
+    type: object
+    properties:
+      id:
+        x-order: 1
+        type: integer
+      key:
+        x-order: 2
+        x-omitempty: false
+        type: string
+      value:
+        x-order: 3
+        x-omitempty: false
+        type: string
+      secret:
+        x-order: 4
+        x-omitempty: false
+        type: boolean
+      createdAt:
+        x-order: 5
+        type: "string"
+        format: "date-time"
+      createdBy:
+        x-order: 6
+        $ref: '#/definitions/CreatedBy'
+      updatedAt:
+        x-order: 7
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        x-order: 8
+        $ref: "#/definitions/UpdatedBy"
+      deployed:
+        x-order: 9
+        type: "boolean"
+  GetAllEnvironmentVariablesResponse:
+    type: array
+    items:
+      $ref: '#/definitions/GetEnvironmentVariableResponse'
+
+  CreateEnvironmentVariableRequest:
+    type: object
+    properties:
+      key:
+        x-omitempty: false
+        type: string
+        pattern: "^[-._a-zA-Z][-._a-zA-Z0-9]*$"
+      value:
+        x-omitempty: false
+        type: string
+      secret:
+        x-omitempty: false
+        type: boolean
+  UpdateEnvironmentVariablesRequest:
+    type: object
+    properties:
+      key:
+        x-nullable: true
+        type: string
+        pattern: "^[-._a-zA-Z][-._a-zA-Z0-9]*$"
+      value:
+        x-nullable: true
+        type: string
+      index:
+        x-nullable: true
+        type: integer
+
+  GetDeploymentResponse:
+    required:
+      - id
+      - url
+      - host
+      - image
+      - path
+      - configuration
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      - desiredReplicas
+      - availableReplicas
+      - dirty
+    type: object
+    properties:
+      id:
+        x-order: 0
+        type: integer
+      url:
+        type: string
+      host:
+        type: string
+      image:
+        type: string
+      path:
+        type: string
+      configuration:
+        $ref: '#/definitions/PipelineConfigurationRevision'
+      createdAt:
+        x-order: 4
+        type: "string"
+        format: "date-time"
+      createdBy:
+        x-order: 5
+        $ref: '#/definitions/CreatedBy'
+      updatedAt:
+        x-order: 6
+        type: "string"
+        format: "date-time"
+      updatedBy:
+        x-order: 7
+        $ref: "#/definitions/UpdatedBy"
+      desiredReplicas:
+        x-order: 8
+        type: integer
+      availableReplicas:
+        x-order: 9
+        type: integer
+      dirty:
+        type: boolean

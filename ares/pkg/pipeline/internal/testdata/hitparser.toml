@@ -1,0 +1,123 @@
+[test1]
+    hitJSON = '''
+    {
+        "_score": null,
+        "_index": "adapters-aws-frankfurt_adapters-2018-09-24",
+        "_type": "container_log",
+        "_id": "AWYL8D2MJki1SdeSbf4e",
+        "_uid": "",
+        "_routing": "",
+        "_parent": "",
+        "_version": null,
+        "sort": [
+          1537798568000
+        ],
+        "highlight": null,
+        "_source": {
+          "log": "{\"caller\":\"/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:139\",\"fName\":\"bitbucket.org/unchain/janus-go/pkg/pipeline.(*Service).Listen\",\"level\":\"info\",\"msg\":\"Listening for input endpoint http..\\n\",\"time\":\"2018-09-24 14:16:08.628Z\"}\n",
+          "stream": "stdout",
+          "docker": {
+            "container_id": "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e"
+          },
+          "kubernetes": {
+            "container_name": "adapter",
+            "namespace_name": "adapters",
+            "pod_name": "adapter-4-58c974b8f8-29fnf",
+            "container_image": "registry.unchain.io/qorg/adapter-4:v0.0.0",
+            "container_image_id": "docker-pullable://registry.unchain.io/qorg/adapter-4@sha256:0120034f5f471ebb511281a1717625a2e921ee346d81ae735167d7c0bbcaf93b",
+            "pod_id": "5edd0d90-c004-11e8-972c-02a6e4859310",
+            "labels": {
+              "adapterID": "5ba8f19753bf250001fa7fbc",
+              "pod-template-hash": "1475306494"
+            },
+            "host": "ip-172-31-23-203.eu-central-1.compute.internal",
+            "master_url": "https://10.43.0.1:443/api",
+            "namespace_id": "afc31ba2-9a5b-11e8-972c-02a6e4859310",
+            "namespace_labels": {
+              "field_cattle_io/projectId": "p-nm4vr"
+            }
+          },
+          "tag": "c-zxdj8:p-nm4vr.var.log.containers.adapter-4-58c974b8f8-29fnf_adapters_adapter-de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e.log",
+          "projectID": "c-zxdj8:p-nm4vr",
+          "@timestamp": "2018-09-24T14:16:08.000000000+00:00"
+        },
+        "fields": {
+          "@timestamp": [
+            1537798568000
+          ]
+        },
+        "_explanation": null,
+        "matched_queries": null,
+        "inner_hits": null,
+        "_nested": null
+     }
+    '''
+
+   timestamp = 1537798568000
+   instanceID = "de91246bcf2025481537f51037ce6e0eab014c9bd55fc7532e54f8c78d85c65e"
+   text = "Listening for input endpoint http..\n"
+   level = "info"
+   caller = "/go/src/bitbucket.org/unchain/janus-go/pkg/pipeline/service.go:139"
+   function = "bitbucket.org/unchain/janus-go/pkg/pipeline.(*Service).Listen"
+
+[test2]
+    hitJSON = '''
+     {
+         "_score": null,
+         "_index": "adapters-aws-frankfurt_adapters-2018-09-18",
+         "_type": "container_log",
+         "_id": "AWXtdwyLJki1SdeSXz0m",
+         "_uid": "",
+         "_routing": "",
+         "_parent": "",
+         "_version": null,
+         "sort": [
+           1537287287000
+         ],
+         "highlight": null,
+         "_source": {
+           "log": " [fabsdk/msp] 2018/09/18 16:14:47 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [org1], MSP stores not created\n",
+           "stream": "stdout",
+           "docker": {
+             "container_id": "5f418f53657cbc03a45d4b9fb2103162d9c1e810483241096306c754f8fcb577"
+           },
+           "kubernetes": {
+             "container_name": "adapter",
+             "namespace_name": "adapters",
+             "pod_name": "5ba1246ab5399d0001dc9df6-587f5c965f-qqqll",
+             "container_image": "registry.unchain.io/qorg/adapter-2:v0.0.0",
+             "container_image_id": "docker-pullable://registry.unchain.io/qorg/adapter-2@sha256:b4d65846fddc0d5a70d36bd4bf71fe176bd5170182fc4f4a3ba9ce8c3f1bd1ae",
+             "pod_id": "f355b29d-bb5d-11e8-972c-02a6e4859310",
+             "labels": {
+               "adapterID": "5ba1246ab5399d0001dc9df6",
+               "pod-template-hash": "1439175219"
+             },
+             "host": "ip-172-31-23-203.eu-central-1.compute.internal",
+             "master_url": "https://10.43.0.1:443/api",
+             "namespace_id": "afc31ba2-9a5b-11e8-972c-02a6e4859310",
+             "namespace_labels": {
+               "field_cattle_io/projectId": "p-nm4vr"
+             }
+           },
+           "tag": "c-zxdj8:p-nm4vr.var.log.containers.5ba1246ab5399d0001dc9df6-587f5c965f-qqqll_adapters_adapter-5f418f53657cbc03a45d4b9fb2103162d9c1e810483241096306c754f8fcb577.log",
+           "projectID": "c-zxdj8:p-nm4vr",
+           "@timestamp": "2018-09-18T16:14:47.000000000+00:00"
+         },
+         "fields": {
+           "@timestamp": [
+             1537287287000
+           ]
+         },
+         "_explanation": null,
+         "matched_queries": null,
+         "inner_hits": null,
+         "_nested": null
+       }
+    '''
+
+   timestamp = 1537287287000
+   instanceID = "5f418f53657cbc03a45d4b9fb2103162d9c1e810483241096306c754f8fcb577"
+   text = " [fabsdk/msp] 2018/09/18 16:14:47 UTC - msp.NewIdentityManager -\u003e WARN Cryptopath not provided for organization [org1], MSP stores not created\n"
+   level = "unknown"
+
+#[]
