@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <title>Submit your vote!</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <style>
+        .demo-card-wide.mdl-card {
+            width: 512px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+
+        .demo-card-wide>.mdl-card__title {
+            color: #fff;
+            background-color: rgb(2, 91, 123);
+        }
+
+        .demo-card-wide>.mdl-card__menu {
+            color: #fff;
+        }
+
+        #failmsgField {
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+    <script>
+        let facebook_id = 0;
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '483238848834630',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+
+            fbGetLoginStatus();
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function fbGetLoginStatus() {
+            FB.getLoginStatus(function (response) {
+                if (response.status == "connected") {
+                    FB.api('/me', function (response) {
+                        console.log('Good to see you, ' + response.name + '.');
+                        document.getElementById('voteBtn').disabled = false;
+                        document.querySelector('.fb-login-button').hidden = true;
+                        document.querySelector('.youre-in').innerHTML = `You're logged in as ${response.name}`;
+                        facebook_id = response.id;
+                    });
+                } else {
+                    console.log("you're not connected")
+                    console.log(response);
+                }
+            });
+        }
+
+        function fbLogout() {
+            FB.logout(function (response) {
+                console.log("you are now logged out");
+            });
+        }
+
+        function submitVote() {
+            const selectedOption = document.querySelector('input[name="options"]:checked').value;
+            console.log(`option ${selectedOption} was selected`);
+
+            const uri = new URL("vote", window.location).href
+            console.log(uri);
+
+            const requestOptions = {
+                method: "POST",
+                body: JSON.stringify({
+                    "name": "Thatcher Peskens",
+                    "fb_id": facebook_id,
+                    "option": selectedOption
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 248dd60d-63d8-400e-abbc-f75906a909dd"
+                }
+            };
+
+            fetch(uri, requestOptions)
+                .then(response => response.json())
+                .catch((response) => {
+                    console.log("failed to get response")
+                })
+                .then((json) => {
+                    console.log(json);
+                    if (json.result == "success") {
+                        document.querySelector("#thankyou").display = "visible";
+                        document.querySelector("#voteForm").style.display = "none";
+                    } else {
+                        document.querySelector("#failmsgField").innerHTML = json.message;
+                    }
+                })
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+        }
+
+        function cheat() {
+            facebook_id = getRandomInt(0, 10000000000);
+            return ("ok, cheating enabled");
+        }
+
+    </script>
+
+
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Welcome to the polling station</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <p>We're discussing whether we should switch the standard time for The Netherlands to be on summer time or
+                winter time. Because this is a topic which affects many people, we'd like to make a broad poll.
+                You are invited to enter your opinion on which time to switch to.</p>
+            <p>In order to prevent double-voting we will verify your identity though Facebook login.</p>
+            <p>So, in order to vote you'll need to sign in first.</p>
+            <div id="fb-root"></div>
+            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with"
+                data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="fbGetLoginStatus"></div>
+            <em class="youre-in"></em>
+
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <form onsubmit="submitVote();return false" id="voteForm">
+                <ul style="list-style-type:none">
+                    <li>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                            <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="0"
+                                checked>
+                            <span class="mdl-radio__label">Always Summertime</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                            <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="1">
+                            <span class="mdl-radio__label">Always Wintertime</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                            <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="2">
+                            <span class="mdl-radio__label">Keep Summertime and Wintertime different</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <!-- Accent-colored raised button with ripple -->
+                <button id="voteBtn" disabled class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Submit vote
+                </button>
+            </form>
+            <div id="thankyou" style="display: none">
+                <h3>Thank you for voting!</h3>
+            </div>
+            <em id="failmsgField"></em>
+
+        </div>
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">share</i>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+{
+  "function": "vote",
+  "params": {
+    "option": 1,
+    "voterID": 101
+  }
+}

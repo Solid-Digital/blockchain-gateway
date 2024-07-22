@@ -1,0 +1,35 @@
+# ---- adapters
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: polling-station
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: polling-station
+    spec:
+      containers:
+        - name: main
+          image: dhrp/blockchain-polling-station
+          ports:
+            - name: http
+              containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: polling-station
+  name: polling-station
+spec:
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+  selector:
+    app: polling-station
+  type: ClusterIP

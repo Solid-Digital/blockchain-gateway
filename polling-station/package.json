@@ -1,0 +1,15 @@
+{
+  "name": "blockchain-polling-station",
+  "version": "0.0.1",
+  "description": "Simple application to vote on the blockchain",
+  "main": "app.js",
+  "author": "dhrp <thatcher@unchain.io>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "polka": "^0.5.1",
+    "request": "^2.88.0",
+    "serve-static": "^1.13.2"
+  }
+}
