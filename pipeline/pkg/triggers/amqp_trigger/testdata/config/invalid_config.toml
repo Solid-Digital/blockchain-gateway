@@ -1,0 +1,7 @@
+username = "invalid"
+password = "invalid"
+domain = "invalid"
+port = "invalid"
+
+queueName = "invalid"
+consumerName = "invalid"

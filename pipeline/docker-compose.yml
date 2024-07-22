@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  mail:
+    image: "mailhog/mailhog"
+    ports:
+      - "1025:1025" # smtp
+      - "8025:8025" # http
+  mq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672

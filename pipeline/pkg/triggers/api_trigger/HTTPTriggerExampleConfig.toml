@@ -1,0 +1,15 @@
+## One of the following auth methods
+# authMethod = "token"
+# authMethod = "basicauth"
+
+## An array of accepted API keys
+# apiKeys = ["foo", "bar"]
+
+## A collection of basic auth credentials that are accepted.
+# [[basicAuth]]
+# username = "jim"
+# password = "secret"
+
+# [[basicAuth]]
+# username = "jake"
+# password = "super-secret"

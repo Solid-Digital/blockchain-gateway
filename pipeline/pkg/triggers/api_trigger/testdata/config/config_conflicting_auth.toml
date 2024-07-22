@@ -1,0 +1,13 @@
+port = "8888"
+
+[auth]
+apiKeys = ["foo", "bar"]
+
+[[auth.basicAuth]]
+username = "jim"
+password = "secret"
+
+[[auth.basicAuth]]
+username = "jake"
+password = "super-secret"
+

@@ -1,0 +1,26 @@
+name: Test and build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    services:
+      mailhog:
+        image: "mailhog/mailhog"
+        ports: ["1025:1025"]
+
+    steps:
+      - uses: actions/setup-go@v2.1.3
+      - uses: actions/checkout@v2
+      - name: Run tests
+        env:
+          MAIL_DOMAIN: ${secrets.MAIL_DOMAIN}
+          IMAP_PORT: ${secrets.IMAP_PORT}
+          MAIL_USERNAME: ${secrets.MAIL_USERNAME}
+          MAIL_PASSWORD: ${secrets.MAIL_PASSWORD}
+        run: make test
