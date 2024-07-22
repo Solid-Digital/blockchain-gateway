@@ -1,0 +1,23 @@
+{
+  "name": "unchain-tutorials",
+  "version": "1.0.0",
+  "description": "A repository for unchain tutorials",
+  "main": "index.js",
+  "dependencies": {
+    "web3": "^1.2.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unchain/unchain-tutorials.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unchain/unchain-tutorials/issues"
+  },
+  "homepage": "https://github.com/unchain/unchain-tutorials#readme"
+}
