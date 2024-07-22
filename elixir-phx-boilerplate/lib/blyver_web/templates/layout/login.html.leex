@@ -1,0 +1,23 @@
+<header>
+  <div class="entry-pages-navbar">
+    <div class="entry-pages-navbar-content login-navbar">
+      <div><img src="<%= Routes.static_path(@socket, "/images/blyver-white.png") %>" alt="Logo"/></div>
+      <div>Login to your Blyver account.</div>
+    </div>
+    <%= if live_flash(@flash, :info) do  %>
+      <div class="alert alert-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
+        <span class="alert-content"><%= live_flash(@flash, :info) %></span>
+        <span class="close-alert"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </div>
+    <% end %>
+    <%= if live_flash(@flash, :error) do  %>
+      <p class="alert alert-danger" role="alert" phx-click="lv:clear-flash" phx-value-key="error">
+        <%= live_flash(@flash, :error) %>
+        <span class="close-alert"><i class="fa fa-times" aria-hidden="true"></i></span>
+      </p>
+    <% end %>
+  </div>
+</header>
+<section class="container entry-pages-content">
+  <%= @inner_content %>
+</section>

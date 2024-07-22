@@ -1,0 +1,84 @@
+@import "variables";
+
+body {
+  margin: 0;
+}
+
+.navbar {
+  color: $purple;
+  background-color: $teal;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.entry-pages-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.entry-pages-navbar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+
+.register-navbar {
+  color: $purple;
+  background-color: $teal;
+}
+
+.login-navbar {
+  color: white;
+  background-color: $purple;
+}
+
+.reset-password-navbar {
+  color: $pink;
+  background-color: $green;
+}
+
+.entry-pages-content {
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40.0rem;
+}
+
+.entry-pages-content form {
+  flex-basis: 90%
+}
+
+.entry-pages-content p {
+  text-align: left;
+}
+
+@media (max-width: 40.0rem) {
+  .entry-pages-content form {
+    width: 90%;
+  }
+}
+
+.entry-pages-action {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  gap: 15px;
+}
+
+.entry-pages-action > .button, button {
+  width: 100%
+}
+
+.entry-pages-content button {
+  width: 100%
+}

@@ -1,0 +1,14 @@
+[
+  verbose: true,
+  private: false,
+  skip: true,
+  router: "",
+  exit: "medium",
+  format: "txt",
+  out: "",
+  threshold: "low",
+  # CSRF is properly configured for all routes except the pow_assent callback route which requires CSRF to be skipped.
+  # HTTPS configuration is not handled by the application.
+  ignore: ["Config.CSRF", "Config.HTTPS"],
+  ignore_files: [""]
+]

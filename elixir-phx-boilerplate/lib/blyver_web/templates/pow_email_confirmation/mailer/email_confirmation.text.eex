@@ -1,0 +1,14 @@
+Hi,
+
+We are happy to welcome you to the Blyver platform!
+
+Please confirm your e-mail through clicking the button below.
+
+<%= @url %>
+
+Did you not create an account? Please let us know on <%= support_email() %> .
+
+See you,
+
+Team Blyver
+

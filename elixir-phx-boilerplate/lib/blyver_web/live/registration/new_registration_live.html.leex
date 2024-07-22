@@ -1,0 +1,35 @@
+<%= form_for @changeset, Routes.pow_registration_path(@socket, :create), [as: :user, phx_submit: :save, phx_trigger_action: @trigger_submit], fn f -> %>
+
+  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) , id: "email" %>
+  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password, id: "password", value: input_value(f, :password) %>
+  <%= error_tag f, :password %>
+
+  <%= label f, :password_confirmation %>
+  <%= password_input f, :password_confirmation, id: "password-confirmation", value: input_value(f, :password_confirmation) %>
+  <%= error_tag f, :password_confirmation %>
+  <div class="password-check__container" id="password-checker">
+    <meter max="4" id="password-strength-meter"></meter>
+    <p id="password-strength-text"><span>&#8203;</span></p>
+    Your password should contain:
+    <div class="password-check" id="password-check__caps">
+      <i class="fas fa-check" id="uppercase-validation__icon"></i>
+      <p id="uppercase-validation">One capital letter</p>
+    </div>
+    <div class="password-check" id="password-check__length">
+      <i class="fas fa-check" id="length-validation__icon"></i>
+      <p id="length-validation">At least 8 characters</p>
+    </div>
+    <div class="password-check" id="password-check__char">
+      <i class="fas fa-check" id="special-char-validation__icon"></i>
+      <p id="special-char__validation">One special character</p>
+    </div>
+  </div>
+  <div class="entry-pages-action">
+    <%= submit "Sign up", id: "submit-button", class: "button-tertiary" %>
+    <%= link "Back to Login", to: Routes.pow_session_path(@socket, :new)%>
+  </div>
+<% end %>

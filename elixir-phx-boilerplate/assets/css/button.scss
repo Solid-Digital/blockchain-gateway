@@ -1,0 +1,43 @@
+@import "variables";
+
+button {
+  text-transform: none;
+  font-size: medium;
+}
+
+.button-secondary {
+  background-color: white;
+  border-color: transparent;
+  color: $green;
+}
+
+.button-tertiary {
+  background-color: $teal;
+  border-color: transparent;
+  color: $purple;
+}
+
+.button-white {
+  background-color: white;
+  border-color: $purple;
+  color: $purple;
+}
+
+.button-green {
+  background-color: $green;
+  border-color: $green;
+  color: $pink;
+}
+
+.link-pink {
+  color: $pink
+}
+
+a {
+  text-decoration: underline
+}
+
+.close-alert {
+  float: right;
+  cursor: pointer;
+}

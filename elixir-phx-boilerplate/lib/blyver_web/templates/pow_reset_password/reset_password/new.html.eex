@@ -1,0 +1,1 @@
+<%= live_render(@conn, BlyverWeb.ResetPassword.NewResetPasswordLive) %>

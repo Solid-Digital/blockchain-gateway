@@ -1,0 +1,9 @@
+<p>Hi,</p>
+<p>We are happy to welcome you to the Blyver platform!</p>
+<p>Please confirm your e-mail through clicking the button below.</p>
+<p><%= link("Confirm", to: @url, class: "button") %></p>
+<p>Did you not create an account? Please let us know on
+  <%= link("support@blyver.com", to: mail_to_support(), class: "link") %>
+</p>
+<p>See you,</p>
+<p>Team Blyver</p>

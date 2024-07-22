@@ -1,0 +1,54 @@
+meter {
+  /* Reset the default appearance */
+  margin: 1em auto 1em;
+  width: 100%;
+  height: 0.5em;
+
+  /* Applicable only to Firefox */
+  background: none;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+meter::-webkit-meter-bar {
+  background: none;
+  background-color: #E5E5E5;
+}
+
+meter::-webkit-meter-optimum-value {
+  transition: width .4s linear;
+  background: #6FCF97;
+}
+
+#password-strength-text {
+  margin: 0;
+}
+
+/* Webkit based browsers */
+meter[value="1"]::-webkit-meter-optimum-value { background: #FF0000; }
+meter[value="2"]::-webkit-meter-optimum-value { background: #FF9936; }
+meter[value="3"]::-webkit-meter-optimum-value { background: #FFFF00; }
+meter[value="4"]::-webkit-meter-optimum-value { background: #6FCF97; }
+
+/* Gecko based browsers */
+meter[value="1"]::-moz-meter-bar { background: #FF0000; }
+meter[value="2"]::-moz-meter-bar { background: #FF9936; }
+meter[value="3"]::-moz-meter-bar { background: #FFFF00; }
+meter[value="4"]::-moz-meter-bar { background: #6FCF97; }
+
+.password-check {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 30px;
+
+  p {
+    margin: 0;
+    padding-left: 5px;
+  }
+}
+
+.password-check__container {
+  display: flex;
+  flex-direction: column;
+}

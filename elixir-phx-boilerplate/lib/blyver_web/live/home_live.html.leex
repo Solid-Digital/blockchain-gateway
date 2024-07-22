@@ -1,0 +1,21 @@
+<header>
+  <section class="navbar row row-center">
+    <div class="column column-offset-20"><img src="<%= Routes.static_path(@socket, "/images/blyver-purple.png") %>" alt="Logo"/></div>
+    <div class="column column-offset-25">
+      <%= link "Sign in", to: Routes.pow_session_path(@socket, :new), class: "button button-secondary" %>
+      <%= link "Get started!", to: Routes.pow_registration_path(@socket, :new), class: "button" %>
+    </div>
+  </section>
+</header>
+<section class="container">
+  <div class="row caption">
+    <div class="column">
+      <h1>What if investing in property was more equal?</h1>
+      <p><strong>Blyver is the transparent saving proposition <br/>for the consumer by investing in real estate.</strong></p>
+      <%= link "Get started!", to: Routes.pow_registration_path(@socket, :new), class: "button" %>
+    </div>
+    <div class="column column-50">
+      <img src="<%= Routes.static_path(@socket, "/images/mission.png") %>" alt="Mission"/>
+    </div>
+  </div>
+</section>

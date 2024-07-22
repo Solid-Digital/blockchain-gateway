@@ -1,0 +1,14 @@
+<%= form_for @changeset, Routes.pow_session_path(@socket, :create), [as: :user, phx_submit: :save, phx_trigger_action: @trigger_submit], fn f -> %>
+  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <%= label f, :password %>
+  <%= password_input f, :password, value: input_value(f, :password) %>
+  <%= error_tag f, :password %>
+  <div class="entry-pages-action">
+    <%= submit "Sign in" %>
+    <%= link "Forgot your password?", to: Routes.pow_reset_password_reset_password_path(@socket, :new) %>
+    <span>- OR -</span>
+     <%= link "Sign up", to: Routes.pow_registration_path(@socket, :new), class: "button button-white" %>
+  </div>
+<% end %>

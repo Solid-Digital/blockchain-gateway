@@ -1,0 +1,15 @@
+.caption {
+  margin-top: 10%;
+}
+
+.caption h1 {
+  color: #9b4dca;
+  font-size: 6rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 40.0rem) {
+  .caption img {
+    display: none;
+  }
+}

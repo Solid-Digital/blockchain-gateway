@@ -1,0 +1,87 @@
+name: Workflow
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+      - name: Cache mix deps
+        uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-deps161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-deps161-
+      - name: Cache dialyzer plts
+        uses: actions/cache@v1
+        with:
+          path: priv/plts
+          key: ${{ runner.os }}-mix-plts161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-plts161-
+      - name: Cache build files
+        uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.os }}-mix-build161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-build161
+      - name: Setup test dependency
+        run: |
+          docker-compose up -d
+          sleep 30
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: 23.3.1
+          elixir-version: 1.11.4
+      - name: Fetch dependencies
+        run: mix deps.get
+      - name: Perform code quality checks
+        run: mix quality.ci
+      - name: Run tests
+        run: mix test
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-18.04
+    if: success() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v2
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install additional tools
+        run: make install-tools
+
+      - name: Set $DEPLOYMENT_TARGET
+        run: |
+          case ${{ github.ref }} in
+          refs/heads/master)
+           echo "DEPLOYMENT_TARGET=prod" >> $GITHUB_ENV
+           ;;
+          refs/heads/develop)
+           echo "DEPLOYMENT_TARGET=staging" >> $GITHUB_ENV
+           ;;
+          esac
+      - run: echo $DEPLOYMENT_TARGET
+
+      - name: Create build version
+        run: make write-version
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+      
+      - name: Build the image
+        run: make build-image-$DEPLOYMENT_TARGET
+
+      - name: Push the image
+        run: make push-image-$DEPLOYMENT_TARGET
+
+      - name: Update spec and deploy
+        run: make update-deployment-$DEPLOYMENT_TARGET
+
