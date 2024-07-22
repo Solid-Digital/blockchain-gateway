@@ -1,0 +1,9 @@
+<main role="main">
+  <!-- MAIN VIEW CONTAINER -->
+  <div class="login-wrapper">
+    <div class="login">
+      <%= @inner_content %>
+    </div>
+    <div class="auth-image"></div>
+  </div>
+</main>

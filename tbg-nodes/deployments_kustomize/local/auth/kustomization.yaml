@@ -1,0 +1,11 @@
+namespace: tbg-nodes-local
+resources:
+  - ./resources/namespace.yaml
+  - ./resources/auth-deployment-dev.yaml
+  - ./resources/auth-deployment-test.yaml
+secretGenerator:
+  - name: tbg-nodes-auth-config
+    files: 
+      - ./secrets/tbg-nodes-auth-dev.toml
+      - ./secrets/tbg-nodes-auth-test.toml
+    type: Opaque

@@ -1,0 +1,34 @@
+<div class="login-wrapper">
+	<div class="login">
+		<%= form_for @changeset, @action, [as: :user], fn f -> %>
+			<section class="title">
+				Reset password
+				<h5 class="hint">Request a new password to recover your account.</h5>
+			</section>
+			<div class="login-group">
+
+				<div class="clr-form-control">
+					<div class="clr-control-container">
+						<label for="basic" class="clr-control-label">Password</label>
+						<div class="clr-input-wrapper">
+							  <%= password_input f, :password, class: "clr-input" %>
+							  <%= error_tag f, :password %>
+					  	</div>
+						<label for="basic" class="clr-control-label">Repeat Password</label>
+						<div class="clr-input-wrapper">
+							  <%= password_input f, :confirm_password, class: "clr-input" %>
+							  <%= error_tag f, :confirm_password %>
+						</div>
+					</div>
+				</div>
+				<%= if @changeset.action do %>
+					<div>
+						<i class="fas fa-exclamation-triangle icon-error"></i>
+						<span class="invalid-inputs">Something went wrong. Make sure you repeat the same password.</span>
+					</div>
+				<% end %>
+				<%= submit "Submit", class: "btn btn-primary submit" %>
+			</div>
+		<% end %>
+	</div>
+</div>

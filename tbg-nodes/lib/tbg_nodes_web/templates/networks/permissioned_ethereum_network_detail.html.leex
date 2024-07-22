@@ -1,0 +1,170 @@
+<div class="network-detail container p-t-s">
+  <span><%= live_redirect "< Back", to: Routes.live_path(@socket, TbgNodesWeb.NetworkLive), replace: true %></span>
+  <div class="section">
+    <div class="row">
+      <div class="section__header">
+        <h2><%= @network.name %></h2>
+        <div class="actions">
+          <div class="section__header__buttons" x-data="{actionsIsOpen: false}">
+            <div id="network-actions-dropdown" class="dropdown bottom-right" x-bind:class="{ 'open': actionsIsOpen }"  @click.away="actionsIsOpen = false">
+              <button id="actions-btn" @click="actionsIsOpen = !actionsIsOpen" class="btn btn-outline">
+                ACTIONS
+                <i class="fas fa-angle-down"></i>
+              </button>
+              <div class="dropdown-menu">
+                <button class="dropdown-item delete" phx-click="toggle_delete_modal">Delete network</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clr-row p-t-s">
+      <div class="clr-col-3">
+        <div class="clr-row  info-header">Protocol</div>
+        <div class="clr-row info-value">
+          <img src="<%= Routes.static_path(@socket, "/images/besu-icon.svg")%>" alt="" height="24" />&nbsp;&nbsp;Hyperledger
+          Besu
+        </div>
+      </div>
+      <div class="clr-col-3">
+        <div class="clr-row  info-header">Consensus Mechanism</div>
+        <div class="clr-row info-value"><%= @network.consensus %></div>
+      </div>
+      <div class="clr-col-3">
+        <div class="clr-row info-header">Status</div>
+        <div class="clr-row info-value network-status">
+          <%= live_render(@socket, TbgNodesWeb.Networks.PermissionedEthereumNetworkStatusLive, session: %{"network_uuid" => @network.uuid, "current_user_id" => @current_user_id}, id: "network-status") %>
+        </div>
+      </div>
+      <div class="clr-col-3">
+        <div class="clr-row  info-header">Creation date</div>
+        <div class="clr-row info-value"><%= format_date(@network.inserted_at) %></div>
+      </div>
+    </div>
+  </div>
+  <div class="nodes-table section">
+    <h3>Nodes</h3>
+    <table class="table table-noborder">
+      <thead>
+      <tr>
+        <th class="left col-width-30">Name</th>
+        <th class="left col-width-40">Type</th>
+        <th class="left col-width-30">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= for node <- @network.besu_nodes do %>
+      <tr class="node-row">
+        <td class="left"><%= node.name %></td>
+        <td class="left"><%= String.capitalize(node.node_type) %></td>
+        <td class="right node-status">
+          <%= live_render(@socket, TbgNodesWeb.Networks.PermissionedEthereumNodeStatusLive, session: %{"node_uuid" => node.uuid, "current_user_id" => @current_user_id}, id: "node-status-#{node.uuid}") %>
+        </td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="network-interfaces section">
+    <%= for interface <- @external_interfaces do %>
+    <h3 id="<%= url_safe(interface.protocol) %>"><%= format_protocol(interface.protocol) %></h3>
+    <p>The details in the table below can be used to connect to your network's <%= interface.protocol%>.</p>
+    <table class="table table-noborder">
+      <thead>
+      <tr>
+        <th class="left key-column"></th>
+        <th class="left value-column"></th>
+        <th class="right action-column"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="left">Address</td>
+        <td class="left value">
+          <span class="copy-value-<%= interface.id %>"><%= interface.url %></span>
+        </td>
+        <td class="right">
+          <button class="copy-value-btn btn right" data-clipboard-target=".copy-value-<%= interface.id %>">
+            Copy
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="left">Username</td>
+        <td class="left value">
+          <span><%= interface.username %></span>
+        </td>
+        <td class="right">
+          <button class="copy-value-btn btn right" data-clipboard-text="<%= interface.username %>">
+            Copy
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="left">Password</td>
+        <td class="left value">
+          <span><%= String.duplicate("•", 16) %></span>
+        </td>
+        <td class="right">
+          <button class="copy-value-btn btn right" data-clipboard-text="<%= interface.password %>">
+            Copy
+          </button>
+        </td>
+      </tr>
+      <table class="table table-noborder curl__table" id="http-example">
+        <thead>
+        <tr>
+          <th class="left">Example request</th>
+          <th class="right"><a href="https://support.unchain.io/article/43-quick-network-diagnostics">Documentation</a>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="code__block">
+          <td class="left value">
+            <code clr-code-highlight="language-json">
+              <%= assemble_request(interface.protocol, interface.url, interface.username, String.duplicate("•", 16)) %>
+            </code>
+          </td>
+          <td class="right">
+            <button class="copy-value-btn btn right"
+                    data-clipboard-text="<%= assemble_request(interface.protocol, interface.url, interface.username, interface.password) %>">
+              Copy
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      </tbody>
+    </table>
+    <% end %>
+    <h3></h3>
+  </div>
+</div>
+
+<%= if @show_delete_modal == true do %>
+<div class="delete-network-modal modal">
+  <div class="modal-dialog" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete network</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this network?</p>
+        <%= if @delete_network_error != nil do %>
+        <div>
+          <i class="fas fa-exclamation-triangle icon-error"></i>
+          <span class="invalid-inputs">Could not delete the network. Please try again or <a href="https://support.unchain.io" target="_blank">contact support</a>.</span>
+        </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button id="close-delete-network-modal" class="btn btn-outline" type="button" phx-click="toggle_delete_modal">Cancel</button>
+        <button class="btn btn-danger" phx-click="delete_network" phx-value-uuid="<%= @network.uuid %>">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="delete-network-modal modal-backdrop" aria-hidden="true"></div>
+<% end %>

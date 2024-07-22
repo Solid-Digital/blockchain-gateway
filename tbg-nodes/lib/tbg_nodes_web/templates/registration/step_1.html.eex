@@ -1,0 +1,45 @@
+<div class="first-part">
+  <section class="title">
+    You are minutes away from deploying a blockchain network
+    <h5 class="hint">Signup with your email or through your Github account. No creditcard required! </h5>
+  </section>
+  <div class="login-group">
+    <a href="<%= Routes.pow_assent_authorization_path(@conn, :new, :github) %>">
+      <button class="btn btn-outline">
+        <i class="fab fa-github"></i>Sign up with Github
+      </button>
+    </a>
+    <br/>
+    <div class="divider">
+      <span class="divider-text">OR</span>
+    </div>
+
+    <%= form_for @conn, @conn |> Routes.registration_path(:submit_step_1), fn f -> %>
+    <div class="clr-form-control wizard" id="signup">
+      <label for="basic" class="clr-control-label">Email address</label>
+      <div class="clr-control-container">
+        <div class="clr-input-wrapper">
+          <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "clr-input" %>
+          <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+        </div>
+        <%= if length(@changeset.errors) > 0 do %>
+        <div class="p-t-xs">
+          <i class="fas fa-exclamation-triangle icon-error"></i>
+          <span class="invalid-inputs">Email is invalid:
+              <%= for {_field, error} <- @changeset.errors do %>
+              <% { msg, _validations} = error %>
+              <%= msg %>
+              <% end %>
+              </span>
+        </div>
+        <% end %>
+        <br/>
+        <%= submit "Continue", class: "btn btn-primary continue submit" %>
+
+        <br/>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+</div>

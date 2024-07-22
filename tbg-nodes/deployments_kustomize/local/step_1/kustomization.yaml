@@ -1,0 +1,6 @@
+namespace: tbg-nodes-local
+nameSuffix: -local
+resources:
+  - ./resources/namespace.yaml
+bases:
+  - ../../base/step_1/

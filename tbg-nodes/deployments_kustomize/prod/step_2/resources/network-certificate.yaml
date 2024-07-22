@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: permissioned.nodes.unchain.io
+spec:
+  dnsNames:
+  - permissioned.nodes.unchain.io
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: permissioned.nodes.unchain.io

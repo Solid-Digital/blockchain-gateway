@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbg-nodes
+  namespace: kustomize-managed
+  labels:
+    app: tbg-nodes
+    app.kubernetes.io/name: tbg-nodes
+    app.kubernetes.io/version: "{{tag}}"
+    app.kubernetes.io/component: server 
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tbg-nodes
+        app.kubernetes.io/component: server
+      annotations:
+        updated-at: "{{date}}"
+        version: "{{tag}}"
+    spec:
+      serviceAccountName: tbg-nodes-libcluster
+      containers:
+        - name: tbg-nodes
+          command:
+            - /app/bin/tbg_nodes
+          args:
+            - start
+          image: registry.unchain.io/unchain/tbg-nodes:{{tag}}
+          envFrom:
+            - secretRef:
+                name: tbg-nodes-config
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_IP
+              valueFrom:
+                  fieldRef:
+                      fieldPath: status.podIP
+            - name: TBG_NODES_ACCESS_KUBECONFIG
+              value: /app/kubeconfig/tbg_nodes_access.kubeconfig
+          ports:
+            - containerPort: 4000
+            - containerPort: 4369
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+          volumeMounts:
+            - name: tbg-nodes-access
+              mountPath: "/app/kubeconfig"
+              readOnly: true
+        # The tools container is meant to give an opportunity to do migrations and such.
+        - name: tools
+          command:
+            - sh
+            - -c
+          args:
+            - "tail -f /dev/null"
+          image: registry.unchain.io/unchain/tbg-nodes:{{tag}}
+          envFrom:
+            - secretRef:
+                name: tbg-nodes-config
+          env:
+            - name: TBG_NODES_ACCESS_KUBECONFIG
+              value: /app/kubeconfig/tbg_nodes_access.kubeconfig
+          resources:
+            requests:
+              memory: "5Mi"
+              cpu: "0m"
+            limits:
+              memory: "512Mi"
+              cpu: "2000m"
+          volumeMounts:
+            - name: tbg-nodes-access
+              mountPath: "/app/kubeconfig"
+              readOnly: true
+      volumes:
+      - name: tbg-nodes-access
+        secret:
+          secretName: tbg-nodes-access-kubeconfig
+          items:
+          - key: tbg_nodes_access.kubeconfig
+            path: tbg_nodes_access.kubeconfig
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-unchain-io
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tbg-nodes
+      app.kubernetes.io/component: server

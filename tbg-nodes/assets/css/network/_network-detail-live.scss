@@ -1,0 +1,131 @@
+.network-detail {
+  .back-button {
+    margin-bottom: 30px;
+  }
+
+  .section__header__buttons {
+    i {
+      color: #979797;
+    }
+    .btn-outline {
+      border-color: #979797;
+      color: #979797;
+    }
+    .delete {
+      color: darkred;
+    }
+  }
+
+  .getting-started {
+    margin-top: 40px;
+    a:hover {
+      text-decoration: none;
+      .card {
+        box-shadow: 3px 5px #868686;
+      }
+    }
+    .card {
+      margin-right: 24px;
+      width: 240px;
+      height: 180px;
+      padding: 16px;
+      box-shadow: 2px 4px #A7A7A7;
+      h5 {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        color: #F36D21;
+        margin-top: 4px;
+        line-height: 16px;
+      }
+      h4 {
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 21px;
+      }
+      p {
+        margin-top: 6px;
+      }
+    }
+  }
+
+  .nodes-table {
+    margin-top: 40px;
+  }
+
+  .network-interfaces {
+    margin-top: 40px;
+    .btn {
+      height: 0.9rem;
+    }
+    .copy-value-btn {
+      border: none;
+      text-transform: uppercase;
+      color: grey;
+      background-color: transparent;
+      line-height: 0;
+    }
+    .copy-value-btn:hover {
+      color: #F36D21;
+    }
+    .copy-value-btn:active {
+      box-shadow: none;
+    }
+  }
+}
+
+.network-status__icon {
+  height: 16px;
+  width: 16px;
+}
+
+.ready {
+  i {
+    color: $color-green;
+  }
+  color: $color-green;
+}
+
+.live {
+  i {
+    color: $color-warning;
+  }
+  color: $color-warning;
+}
+
+.down {
+  i {
+    color: $color-error;
+  }
+  color: $color-error;
+}
+
+.fetching-status {
+  i {
+    color: $color-darkgrey;
+  }
+  color: $color-darkgrey;
+}
+
+.not-available {
+  i {
+    color: $color-darkgrey;
+  }
+  color: $color-darkgrey;
+}
+
+.code__block {
+  background-color: $color-lightgrey;
+  margin: 2rem;
+  font-size: 10px;
+}
+
+.code__block td.left.value {
+  padding: 1rem;
+}
+
+.curl__table {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}

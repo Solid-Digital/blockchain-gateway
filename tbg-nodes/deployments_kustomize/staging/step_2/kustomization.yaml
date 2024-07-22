@@ -1,0 +1,10 @@
+bases:
+  - ../../base/step_2
+namespace: tbg-nodes-staging
+resources:
+  - ./resources/ingress.yaml
+  - ./resources/network-certificate.yaml
+patchesStrategicMerge:
+  - ./patches_merge/set_deployment_target_env.yaml
+  - ./patches_merge/set_tbg_nodes_deployment_replicas.yaml
+  - ./patches_merge/set_service_account.yaml

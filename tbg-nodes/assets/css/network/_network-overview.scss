@@ -1,0 +1,88 @@
+// Network overview page
+#network-overview {
+  .table {
+    th:first-child, td:first-child {
+      padding-left: 12px !important;
+    }
+
+    th {
+      border-bottom: 0;
+    }
+
+    .name-column {
+      width: 45%
+    }
+
+    .protocol-column {
+      width: 20%
+    }
+
+    .status-column {
+      width: 20%
+    }
+
+    .since-column {
+      width: 15%
+    }
+  }
+
+  .network-header {
+    td {
+      vertical-align: middle;
+      font-size: 0.6rem;
+    }
+
+    background: #F0F2F3;
+    height: 48px;
+  }
+
+  .interface-row {
+    height: 40px;
+
+    a {
+      text-transform: uppercase;
+      padding: 0 0.25em 0 1.25em;
+      text-underline: none;
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    a:hover {
+      text-decoration: none
+    }
+  }
+
+  td {
+    vertical-align: middle;
+    border-bottom: 1px solid #F0F2F3;
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  td:first-child {
+    border-left: 1px solid #F0F2F3;
+  }
+
+  td:last-child {
+    border-right: 1px solid #F0F2F3;
+  }
+
+  .network-link {
+    font-size: 120%;
+  }
+  .network-link:hover {
+    text-decoration: none;
+  }
+
+  .align-center {
+    max-width: 340px;
+    align-content: center;
+    text-align: center;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
+}

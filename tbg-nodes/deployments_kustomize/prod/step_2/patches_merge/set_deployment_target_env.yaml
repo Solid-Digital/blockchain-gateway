@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbg-nodes
+spec:
+  template:
+    spec:
+      containers:
+        - name: tbg-nodes
+          env:
+            - name: DEPLOYMENT_TARGET
+              value: prod

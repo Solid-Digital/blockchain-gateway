@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbg-nodes-auth-test-local
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbg-nodes-auth-test-local
+  template:
+    metadata:
+      labels:
+        app: tbg-nodes-auth-test-local
+      annotations:
+        updated-at: "{{date}}"
+    spec:
+      volumes:
+        - name: tbg-nodes-auth-config
+          secret:
+            secretName: tbg-nodes-auth-config
+            items:
+              - key: tbg-nodes-auth-test.toml
+                path: tbg-nodes-auth-test.toml
+      containers:
+        - name: tbg-nodes-auth-test-local
+          image: registry:5000/tbg-nodes-auth
+          imagePullPolicy: Always
+          command:
+            - /app/tbg-nodes-auth
+          args:
+            - --cfg=config/tbg-nodes-auth-test.toml
+          volumeMounts:
+            - mountPath: /app/config
+              name: tbg-nodes-auth-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tbg-nodes-auth-test-local
+  labels:
+    app: tbg-nodes-auth-test-local
+spec:
+  type: ClusterIP
+  selector:
+    app: tbg-nodes-auth-test-local
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tbg-nodes-auth-test-local
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+spec:
+  rules:
+    - host: "tbg-nodes-auth-test.localhost"
+      http:
+        paths:
+          - path: "/?(.*)"
+            backend:
+              serviceName: tbg-nodes-auth-test-local
+              servicePort: 8080

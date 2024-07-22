@@ -1,0 +1,30 @@
+<div class="section">
+	<div class="clr-row p-t-s">
+		<div class="clr-col-3">
+			<div class="clr-row info-header">Total nodes</div>
+			<div class="clr-row info-value"><%= length(@nodes) %></div>
+		</div>
+	</div>
+</div>
+<table class="table table-noborder">
+	<thead>
+	<tr>
+		<th class="left name-column">Node name</th>
+		<th class="right">Node type</th>
+		<th class="right">Node version</th>
+		<th class="right">Network name</th>
+		<th class="right">User name</th>
+	</tr>
+	</thead>
+	<tbody>
+	<%= for node <- @nodes do %>
+	<tr>
+		<td class="left"><%= node.name %></td>
+		<td class="right"><%= node.node_type %></td>
+		<td class="right">placeholder</td>
+		<td class="right"><%= node.network.name %></td>
+		<td class="right"><%= node.network.user.email %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

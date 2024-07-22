@@ -1,0 +1,80 @@
+version: "3"
+
+services:
+  postgres:
+    restart: "unless-stopped"
+    image: postgres:11
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./scripts/postgres/:/docker-entrypoint-initdb.d"
+  # open in browser on http://localhost:49276/browser/
+  pgadmin:
+    restart: "unless-stopped"
+    image: dpage/pgadmin4:4.17
+    ports:
+      - 49276:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@unchain.io
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    volumes:
+    - "./config/pgadmin/servers.json:/pgadmin4/servers.json"
+  redis:
+    image: 'redis:latest'
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+  k3s-server:
+    image: rancher/k3s:v1.17.4-k3s1
+    entrypoint: []
+    command: /bin/sh -c "(k3s server --no-deploy traefik &) && (sleep 30; kubectl proxy --address 0.0.0.0)"
+    restart: unless-stopped
+    tmpfs:
+      - /run
+      - /var/run
+    environment:
+      - K3S_CLUSTER_SECRET=somethingtotallyrandom
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.local.yaml
+      - K3S_KUBECONFIG_MODE=666
+    privileged: true
+    volumes:
+      # This is just so that we get the kubeconfig file out
+      - ./templates/k3s/charts/nginx-ingress-1.33.0.tgz:/var/lib/rancher/k3s/server/static/charts/nginx-ingress-1.33.0.tgz
+      - ./templates/k3s/manifests/whoami.yaml:/var/lib/rancher/k3s/server/manifests/whoami.yaml
+      - ./templates/k3s/manifests/nginx.yaml:/var/lib/rancher/k3s/server/manifests/nginx.yaml
+      - ./templates/k3s/etc/rancher/k3s/registries.yaml:/etc/rancher/k3s/registries.yaml
+      - .:/output
+    ports:
+      - 8001:8001
+      - 6443:6443
+  k3s-node:
+    image: rancher/k3s:v1.17.4-k3s1
+    entrypoint: []
+    command: /bin/sh -c "/bin/k3s agent"
+    restart: unless-stopped
+    tmpfs:
+      - /run
+      - /var/run
+    volumes:
+      - ./templates/k3s/etc/rancher/k3s/registries.yaml:/etc/rancher/k3s/registries.yaml
+    privileged: true
+    expose:
+      - 80
+      - 443
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - k3s-server
+    environment:
+      - K3S_URL=https://k3s-server:6443
+      - K3S_CLUSTER_SECRET=somethingtotallyrandom
+  registry:
+    image: registry:2
+    restart: unless-stopped
+    ports:
+      - "5000:5000"

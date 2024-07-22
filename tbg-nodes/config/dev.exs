@@ -1,0 +1,239 @@
+import Config
+
+besu_image = System.get_env("BESU_IMAGE") || "hyperledger/besu:1.5.4"
+
+config :tbg_nodes, TbgNodes.Networks, besu_image: besu_image
+
+test_user_email = System.get_env("LIVE_TESTER_USER_EMAIL") || "bot@unchain.io"
+
+test_user_password =
+  System.get_env("LIVE_TESTER_USER_PASSWORD") ||
+    :crypto.strong_rand_bytes(12)
+    |> Base.encode32()
+    |> binary_part(0, 12)
+    |> String.downcase()
+
+config :tbg_nodes, TbgNodes.LiveTester,
+  loop_interval: 3600 * 1000,
+  test_user_email: test_user_email,
+  test_user_password: test_user_password,
+  enabled: false
+
+config :tbg_nodes, TbgNodes.Networks,
+  network_url_templates: %{
+    "ropsten" => %{
+      "http" => "https://ropsten.infura.io/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "websocket" => "wss://ropsten.infura.io/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "liveness" => "",
+      "readiness" => ""
+    },
+    "mainnet" => %{
+      "http" => "https://mainnet.infura.io/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "websocket" => "wss://mainnet.infura.io/ws/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "liveness" => "",
+      "readiness" => ""
+    },
+    "ropsten-archive" => %{
+      "http" => "https://ropsten.infura.io/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "websocket" => "wss://ropsten.infura.io/ws/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "liveness" => "",
+      "readiness" => ""
+    },
+    "mainnet-archive" => %{
+      "http" => "https://mainnet.infura.io/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "websocket" => "wss://mainnet.infura.io/ws/v3/bf6f955a7c314b15ae2e6643f7c1c5c6",
+      "liveness" => "",
+      "readiness" => ""
+    },
+    "permissioned" => %{
+      "http" => "http://permissioned.nodes.localhost/v0/<%= network_uuid %>",
+      "websocket" => "ws://permissioned.nodes.localhost/v0/ws/<%= network_uuid %>",
+      "liveness" =>
+        "http://localhost:8001/api/v1/namespaces/<%= namespace_name %>/services/<%= service_name %>:http/proxy/liveness",
+      "readiness" =>
+        "http://localhost:8001/api/v1/namespaces/<%= namespace_name %>/services/<%= service_name %>:http/proxy/readiness?maxBlocksBehind=5"
+    }
+  }
+
+config :tbg_nodes, TbgNodes.NetworkMonitor, loop_interval: 5 * 1000
+
+postgres_host = System.get_env("POSTGRES_HOST") || "localhost"
+
+# Configure your database
+config :tbg_nodes, TbgNodes.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "tbg_nodes_dev",
+  hostname: postgres_host,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+redis_url = System.get_env("REDIS_URL") || "redis://localhost:6379"
+
+# For development, we disable any cache and enable
+# debugging and code reloading.
+#
+# The watchers configuration can be used to run external
+# watchers to your application. For example, we use it
+# with webpack to recompile .js and .css sources.
+
+host = System.get_env("HOST") || "localhost"
+port = System.get_env("PORT") || 4000
+
+config :tbg_nodes, TbgNodesWeb.Endpoint,
+  url: [
+    scheme: "http",
+    host: host,
+    port: port
+  ],
+  http: [port: 4000],
+  debug_errors: true,
+  check_origin: false,
+  redis_url: redis_url,
+  redis_socket_opts_provider: TbgNodes.Redis.ConfigDefault
+
+github_client_id = System.get_env("GITHUB_CLIENT_ID") || "8c76e5bc0d925d53b905"
+
+github_client_secret =
+  System.get_env("GITHUB_CLIENT_SECRET") || "3f7d5dddebf067f03fa87257b379a7b6fa032b3a"
+
+config :tbg_nodes,
+       :pow_assent,
+       providers: [
+         github: [
+           client_id: github_client_id,
+           client_secret: github_client_secret,
+           strategy: Assent.Strategy.Github
+         ]
+       ]
+
+running_in_k8s =
+  System.get_env("RUNNING_IN_K8S")
+  |> case do
+    "true" -> true
+    _ -> false
+  end
+
+case running_in_k8s do
+  false ->
+    # Set code reloading if not running in k8s.
+    config :tbg_nodes, TbgNodesWeb.Endpoint,
+      live_reload: [
+        patterns: [
+          ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+          ~r"priv/gettext/.*(po)$",
+          ~r"lib/tbg_nodes_web/{live,views}/.*(ex)$",
+          ~r"lib/tbg_nodes_web/templates/.*(eex)$"
+        ]
+      ],
+      code_reloader: true,
+      watchers: [
+        node: [
+          "node_modules/webpack/bin/webpack.js",
+          "--mode",
+          "development",
+          "--watch-stdin",
+          cd: Path.expand("../assets", __DIR__)
+        ]
+      ]
+
+  true ->
+    # If you are doing OTP releases, you need to instruct Phoenix
+    # to start each relevant endpoint:
+
+    config :tbg_nodes, TbgNodesWeb.Endpoint, server: true
+
+    config :libcluster,
+      topologies: [
+        k8s: [
+          strategy: Elixir.Cluster.Strategy.Kubernetes,
+          config: [
+            mode: :ip,
+            kubernetes_node_basename: "tbg_nodes",
+            kubernetes_selector: "app.kubernetes.io/name=tbg-nodes",
+            polling_interval: 10_000,
+            kubernetes_ip_lookup_mode: :pods
+          ]
+        ]
+      ]
+end
+
+# ## SSL Support
+#
+# In order to use HTTPS in development, a self-signed
+# certificate can be generated by running the following
+# Mix task:
+#
+#     mix phx.gen.cert
+#
+# Note that this task requires Erlang/OTP 20 or later.
+# Run `mix help phx.gen.cert` for more information.
+#
+# The `http:` config above can be replaced with:
+#
+#     https: [
+#       port: 4001,
+#       cipher_suite: :strong,
+#       keyfile: "priv/cert/selfsigned_key.pem",
+#       certfile: "priv/cert/selfsigned.pem"
+#     ],
+#
+# If desired, both `http:` and `https:` keys can be
+# configured to run both http and https servers on
+# different ports.
+
+config :tbg_nodes, TbgNodesWeb.Mailer, adapter: Bamboo.LocalAdapter
+
+config :slack, api_token: "xoxb-13655146816-1110260169584-wXuiBdzLOZ3lzVMiDwkbKv28"
+config :tbg_nodes, :env, :dev
+
+# Do not include metadata nor timestamps in development logs
+config :logger, :console,
+  format: "[$level] $message\n",
+  level: :debug
+
+# Set a higher stacktrace during development. Avoid configuring such
+# in production as building large stacktraces may be expensive.
+config :phoenix, :stacktrace_depth, 20
+
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
+
+config :tbg_nodes, TbgNodes.PermissionedEthereumNetworks.InfraAPIK8s, deployment_target: "local"
+
+config :tbg_nodes, :slack_post_message, &Slack.Web.Chat.post_message/3
+config :tbg_nodes, :slack_channel, "#dev-alerts"
+
+tbg_nodes_access_kubeconfig =
+  System.get_env("TBG_NODES_ACCESS_KUBECONFIG") || "kubeconfig.local.yaml"
+
+config :k8s,
+  clusters: %{
+    default: %{
+      conn: tbg_nodes_access_kubeconfig,
+      conn_opts: [cluster: "default", user: "default"]
+    }
+  }
+
+infra_api =
+  case System.get_env("INFRA_API") || "mock" do
+    "mock" -> TbgNodes.PermissionedEthereumNetworks.InfraAPIMock
+    "k8s" -> TbgNodes.PermissionedEthereumNetworks.InfraAPIK8s
+  end
+
+config :tbg_nodes, TbgNodes.PermissionedEthereumNetworks, infra_api: infra_api
+
+# This storage class is specific to k3s: https://rancher.com/docs/k3s/latest/en/storage/
+config :tbg_nodes, TbgNodes.PermissionedEthereumNetworks.InfraAPIK8s,
+  statefulset_storage_class: "local-path"
+
+config :tbg_nodes, TbgNodes.PermissionedEthereumNetworks.InfraAPIK8s,
+  ingress_host: "permissioned.nodes.localhost"
+
+config :tbg_nodes, TbgNodes.PermissionedEthereumNetworks.InfraAPIK8s,
+  ingress_basicauth_host:
+    "http://tbg-nodes-auth-dev-local.tbg-nodes-local.svc.cluster.local:8080/permissioned"
+
+config :tbg_nodes, :rancher,
+  cluster_id: "",
+  project_id: ""

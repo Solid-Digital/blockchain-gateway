@@ -1,0 +1,1 @@
+<img src="<%= Routes.static_path(@conn, "/images/besu-icon.svg")%>" alt="" height="24" />&nbsp;&nbsp;Hyperledger Besu

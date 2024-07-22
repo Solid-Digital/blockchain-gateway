@@ -1,0 +1,28 @@
+namespace: tbg-nodes-local
+resources:
+  - ./resources/ingress.yaml
+bases:
+  - ../../base/step_2
+  - ../auth
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: tbg-nodes
+    path: ./patches_json/remove_image_pull_secrets.yaml # Secrets not used/need in local environment.
+patchesStrategicMerge:
+  - ./patches_merge/set_host_network.yaml  # Needed so the tbg-nodes pod can access docker services via docker ips.
+  - ./patches_merge/set_image_pull_policy_always.yaml # Needed to force pull new image if the tag hasn't changed.
+  - ./patches_merge/set_env_vars.yaml
+  - ./patches_merge/set_service_account.yaml
+secretGenerator:
+  - name: tbg-nodes-config
+    env: ./secrets/local-tbg-nodes-config
+    type: Opaque
+generatorOptions:
+  disableNameSuffixHash: true
+images:
+  - name: registry.unchain.io/unchain/tbg-nodes:{{tag}}
+    newName: registry:5000/tbg-nodes
+    newTag: "{{tag}}"

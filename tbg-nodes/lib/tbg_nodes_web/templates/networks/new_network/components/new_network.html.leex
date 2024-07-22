@@ -1,0 +1,80 @@
+<div class="new-network main-container center p-v-m">
+  <h2>Create network</h2>
+
+  <h3>Choose a technology</h3>
+  <div class="clr-form-control">
+    <p><span>Pick a DLT or blockchain technology. Learn more about different technologies <a class="form__link"
+                                                                                             href="https://support.unchain.io/article/22-about-blockchain-technologies"
+                                                                                             target="_blank">here <i
+        class="fas fa-question-circle question-mark__icon" id="question-mark__icon"></i></a></span>.</p>
+
+    <div class="clr-input-wrapper" id="general-info__name">
+      <div class="protocols">
+        <div class="public">
+          <label class="label--underline">Public</label>
+          <div>
+            <div class="none">
+              <%= ethereum = "ethereum" %>
+            </div>
+            <button class="select-button" type="button"
+                    phx-click="select_network_type" phx-value-network_type="ethereum">
+              <div id="ethereum-card"
+                   class="card clickable card-img <%= if @network_type == ethereum do %>active<% end %>">
+                <img src="/images/ethereum-icon.svg" alt="card image"/>
+                <p>Ethereum</p>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="permissioned">
+          <div class="protocols">
+            <div>
+              <label class="label--underline">Permissioned</label>
+              <div class="cards">
+                <div>
+                  <div class="none">
+                    <%= besu = "besu" %>
+                  </div>
+                  <button class="select-button" type="button" id="besu"
+                          phx-click="select_network_type" phx-value-network_type="besu">
+                    <div class="besu card clickable card-img <%= if @network_type == besu do %>active<% end %>">
+                      <img src="/images/besu-icon.svg" alt="card image"/>
+                      <p>Hyperledger Besu</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <%= if @network_type === "ethereum" do %>
+      <div>
+        <%= live_component(
+        @socket,
+        TbgNodesWeb.Networks.PublicEthereumNetworkCreateFormLiveComponent,
+        id: "1",
+        current_user_id: @current_user_id,
+        network_type: @network_type
+        )
+        %>
+      </div>
+      <% end %>
+      <%= if @network_type === "besu" do %>
+      <div>
+        <%= live_component(
+        @socket,
+        PermissionedEthereumNetworkCreateFormLiveComponent,
+        id: "besu",
+        current_user_id: @current_user_id,
+        network_type: @network_type
+        )
+        %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

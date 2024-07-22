@@ -1,0 +1,19 @@
+#settings-container {
+  .bold {
+    font-weight: 600;
+  }
+  #account-info {
+    .italic {
+      font-style: italic;
+      font-size: 80%;
+    }
+  }
+  #sign-in-method {
+    #sign-in-method-component {
+      margin: 2em 0;
+    }
+    .center {
+      text-align: center;
+    }
+  }
+}

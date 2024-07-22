@@ -1,0 +1,115 @@
+<div id="stateful-<%= @id %>">
+    <%= form_for @changeset, "#", [phx_change: :validate, phx_submit: :create_network, "phx-target":
+    "#stateful-#{@id}"], fn f-> %>
+    <section class="network-configuration">
+        <h2>Network Configuration</h2>
+        <p><span>Select a standard network configuration to connect to a public network. Read more about standard network configurations <a
+                class="form__link" href="https://support.unchain.io/article/41-public-ethereum-networks"
+                target="_blank">here <i
+                class="fas fa-question-circle question-mark__icon"></i></a></span>.</p>
+
+        <div class="clr-form-control">
+            <div class="network-configuration">
+                <div>
+                    <label class="label--underline">Network Configurations</label>
+                    <div class="cards">
+                        <div>
+                            <%= radio_button f, :network_configuration, "mainnet", id: "mainnet" %>
+                            <label for="mainnet">
+                                <div class="mainnet-card card clickable card-img"
+                                     data-value="a1">
+                                    <img src="/images/ethereum-icon.svg" alt="mainnet card"/>
+                                    <p>Mainnet</p>
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <%= radio_button f, :network_configuration, "ropsten", id: "ropsten" %>
+                            <label for="ropsten">
+                                <div class="mainnet-card card clickable card-img">
+                                    <img src="/images/ethereum-icon.svg" alt="ropsten card"/>
+                                    <p>Ropsten</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr-control-container">
+                    <label class="input_group___label">Archive data</label>
+                    <div class="clr-checkbox-wrapper">
+                        <%= checkbox(f, :archive_data, hidden_input: false) %>
+                        <label class="clr-control-label" for="network_create_form_archive_data">Gain access to historical transaction data through a full Ethereum Archive Node.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="deployment">
+        <h2>Deployment</h2>
+        <p><span>Select your preferred deployment option. Learn more about deployment options <a class="form__link"
+                                                                                                 href="https://support.unchain.io/article/42-deployment-options"
+                                                                                                 target="_blank">here <i
+                class="fas fa-question-circle question-mark__icon"></i></a></span>.</p>
+
+        <div class="clr-form-control">
+            <div>
+                <label class="input_group___label">Deployment type</label>
+                <div class="deploy-options">
+                    <div class="deployment-card shared">
+                        <%= radio_button f, :deployment_type, "shared", id: "shared" %>
+                        <label for="shared">
+                            <div class="card clickable card-img">
+                                <div class="input-radio-circle"></div>
+                                <div class="card-text">
+                                    <span class="deployment-card__label">Shared</span>
+                                    <span class="deployment-card__sublabel">Share a node with other  users</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <button class="select-button disabled">
+                        <div class="deployment-card">
+                            <%= radio_button f, :deployment_type, "dedicated", id: "dedicated" %>
+                            <label for="dedicated">
+                                <div class="card clickable card-img disabled">
+                                    <div class="input-radio-circle"></div>
+                                    <div class="card-text">
+                                        <span class="deployment-card__label">Dedicated (coming soon)</span>
+                                        <span class="deployment-card__sublabel">Only you can see this node</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <section class="finalize">
+            <h2>Finalize and create</h2>
+            <p>Give your network a recognizable name</p>
+            <div class="input">
+                <label class="input_group___label">Network name</label>
+                <%= text_input f, :name, class: "form__input", id: "name", placeholder: "Ethereum Network Alpha"%>
+            </div>
+        </section>
+
+    </div>
+    <div class="form__buttons">
+        <%= if @changeset.valid? do %>
+        <div class="tooltip tooltip-sm tooltip-top-right">
+            <%= submit "Create network", class: "btn btn-next", disabled: !@changeset.valid? %>
+        </div>
+        <% end %>
+        <%= if !@changeset.valid? do %>
+        <div role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-right">
+            <%= submit "Create network", class: "btn btn-next", disabled: !@changeset.valid? %>
+            <span class="tooltip-content">All of these fields must be present: Network Name, Protocol, Network Configuration, and Deployment type </span>
+        </div>
+        <% end %>
+    </div>
+    <% end %>
+</div>
+

@@ -1,0 +1,83 @@
+.card {
+  box-shadow: none;
+  border-radius: 0;
+  border-color: #f0f2f3;
+}
+.card.clickable:hover {
+  border-color: #f36d21;
+  box-shadow: none;
+}
+.card-block {
+  border: none;
+  padding: 0.75rem;
+}
+.card-title {
+  padding: 0.5rem 0;
+  text-align: center;
+}
+.card-footer {
+  padding: 0 0.75rem 0.75rem 0.75rem;
+  text-align: right;
+}
+.card-footer .btn {
+  display: inline-block;
+  margin: 0;
+}
+clr-accordion {
+  margin-top: 1rem;
+}
+.clr-accordion-header, .clr-accordion-content {
+  background-color: #fff !important;
+  border-color: #f0f2f3 !important;
+}
+.clr-accordion-title {
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.clr-accordion-status {
+  margin-top: -2px;
+}
+.clr-accordion-header-button {
+  height: 2rem;
+}
+.clr-accordion-header-button, .clr-accordion-error, .clr-accordion-icon-title {
+  display: flex;
+  align-items: center;
+}
+.clr-accordion:not(.clr-stepper-forms) .clr-accordion-panel:last-child .clr-accordion-panel-open .clr-accordion-header {
+  border-bottom: 0;
+}
+.clr-accordion-header {
+  border-radius: 0 !important;
+}
+.clr-accordion-header:hover {
+  background-color: #f8f8f9 !important;
+}
+.clr-accordion-inner-content {
+  padding: 0 !important;
+}
+
+.pencil-input {
+  display: flex;
+  align-items: center;
+}
+.pencil-input .clr-form-control {
+  width: 100%;
+}
+.pencil-input input.clr-input {
+  width: 100%;
+  padding: 0;
+  color: #828282;
+  font-size: 0.6rem;
+}
+.pencil-input.disabled input.clr-input {
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.alert-actions a {
+  text-decoration: underline;
+  color: rgba(26, 37, 52, 0.6);
+}

@@ -1,0 +1,133 @@
+name: Workflow
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache mix deps
+        uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-deps161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-deps161-
+      - name: Cache dialyzer plts
+        uses: actions/cache@v1
+        with:
+          path: priv/plts
+          key: ${{ runner.os }}-mix-plts161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-plts161-
+      - name: Cache build files
+        uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.os }}-mix-build161-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-mix-build161
+      - name: Log into registry
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+        run: make docker-login
+      - name: Initialize containers
+        run: |
+          docker-compose up -d --force-recreate
+          sleep 60
+          make deploy-local-auth
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: 22.2
+          elixir-version: 1.11.3
+      - run: mix deps.get
+      - run: mix quality.ci
+      - run: mix test --include k8s
+          
+  deploy-dry-run:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: git pull --depth=200000 origin $(git rev-parse --abbrev-ref HEAD) --tags
+      - name: Save DigitalOcean kubeconfig
+        uses: digitalocean/action-doctl@master
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show do-pontus > $GITHUB_WORKSPACE/.kubeconfig
+      
+      - name: Check local k8s manifests
+        run: make build-local
+      - name: Check staging k8s manifests
+        run: make build-staging
+      - name: Check prod k8s manifests
+        run: make build-prod
+      - name: Deploy local k8s manifests dry run
+        env:
+          KUBECONFIG: ${{ github.workspace }}/.kubeconfig
+        run: make deploy-local-dry-run
+      - name: Deploy staging k8s manifests dry run
+        env:
+          KUBECONFIG: ${{ github.workspace }}/.kubeconfig
+        run: make deploy-staging-dry-run
+      - name: Deploy prod k8s manifests dry run
+        env:
+          KUBECONFIG: ${{ github.workspace }}/.kubeconfig
+        run: make deploy-prod-dry-run
+
+  # Only runs on branches master and develop
+  deploy:
+    runs-on: ubuntu-18.04
+    needs: [test, deploy-dry-run]
+    if: success() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: git pull --depth=200000 origin $(git rev-parse --abbrev-ref HEAD) --tags
+      # Set the deployment target to prod/staging depending on the current branch
+      - name: Set $DEPLOYMENT_TARGET
+        run: |
+          case ${{ github.ref }} in
+            refs/heads/master)  
+              echo "DEPLOYMENT_TARGET=prod" >> $GITHUB_ENV
+              ;; 
+            refs/heads/develop) 
+              echo "DEPLOYMENT_TARGET=staging" >> $GITHUB_ENV
+              ;;
+          esac
+      - run: echo $DEPLOYMENT_TARGET
+      - run: make write-version
+      - name: Build the Docker image
+        env:
+          MIX_ENV: prod
+        run: make image
+      - name: Log into registry
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+        run: make docker-login
+      - name: Push image
+        run: make push
+
+      - name: Save DigitalOcean kubeconfig
+        uses: digitalocean/action-doctl@master
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show do-pontus > $GITHUB_WORKSPACE/.kubeconfig
+      - name: Deploy to kubernetes
+        env:
+          KUBECONFIG: ${{ github.workspace }}/.kubeconfig
+        run: make deploy-$DEPLOYMENT_TARGET
+
+      - name: Verify deployment
+        env:
+          KUBECONFIG: ${{ github.workspace }}/.kubeconfig
+        run: make deployment-check-rollout-$DEPLOYMENT_TARGET
+

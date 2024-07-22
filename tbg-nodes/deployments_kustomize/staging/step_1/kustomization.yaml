@@ -1,0 +1,4 @@
+namespace: tbg-nodes-staging
+nameSuffix: -staging
+bases:
+  - ../../base/step_1/

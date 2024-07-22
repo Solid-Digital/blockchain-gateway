@@ -1,0 +1,35 @@
+// Colors
+$color-accent: #f36d21;
+$color-accent-light: #ff9936;
+$color-accent-dark: #e55710;
+
+$color-line-dark: #ccced1;
+$color-line-light: #f0f2f3;
+
+$color-black: #1A2534;
+$color-darkblue: #1A2534;
+$color-ocean: #254E58;
+$color-grey: #adb0b5;
+$color-darkgrey: #828282;
+$color-lightgrey: #f8f8f9;
+$color-white: #ffffff;
+
+$color-icon-hover: #0065ab;
+
+$color-error: #c92100;
+$color-warning: #ffcc00;
+$color-green: #27AE60;
+
+$color-skeleton: rgba($color-black, 0.05);
+
+// Transitions
+$transition-default: 50ms linear;
+$transition-slow: 100ms linear;
+
+// Screen size
+$screen-xxs: 480px;
+$screen-xs: 768px;
+$screen-s: 992px;
+$screen-m: 1280px;
+$screen-l: 1440px;
+$screen-xl: 1600px;

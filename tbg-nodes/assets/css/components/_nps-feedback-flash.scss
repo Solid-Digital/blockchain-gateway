@@ -1,0 +1,54 @@
+#nps-feedback-flash {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Firefox */
+  display: -moz-box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  /* Safari and Chrome */
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* W3C */
+  display: box;
+  box-pack: center;
+  box-align: center;
+
+
+  .feedback-container {
+    border: 1px solid #ededed;
+    background: #fff;
+    border-radius: 2px;
+
+    //height: 4em;
+    padding: 0.5em 1em;
+
+    div {
+      display: inline;
+    }
+
+    .feedback-text {
+      line-height: 2.5em;
+      color: #575757;
+    }
+
+    .button-group {
+      height: 1.5em;
+      margin: 0 0.5em;
+      button {
+        border-color: #F36D21;
+        color: #575757;
+        width: 32px;
+        padding: 0;
+      }
+    }
+
+    .close {
+      margin: 0 0.25em;
+      color: #ededed;
+      line-height: 1.5em;
+      cursor: pointer;
+    }
+  }
+}

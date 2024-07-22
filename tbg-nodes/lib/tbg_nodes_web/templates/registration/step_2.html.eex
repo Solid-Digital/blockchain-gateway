@@ -1,0 +1,39 @@
+<%= form_for @changeset, Routes.registration_path(@conn, :submit_step_2), [as: :user], fn f -> %>
+
+<div class="clr-form-control wizard" id="form1">
+  <section class="title">
+    You are seconds away from deploying a blockchain network
+    <h5 class="hint">Secure your account with a well crafted password </h5>
+  </section>
+
+  <div class="login-group">
+    <label for="basic" class="clr-control-label">Password</label>
+    <div class="clr-control-container">
+      <div class="clr-input-wrapper">
+        <%= email_input f, :email, style: "display:none" %>
+        <%= password_input f, :password, class: "clr-input", id: "password" %>
+        <%= error_tag f, :password %>
+        <div class="password-check__container" id="password-checker">
+          <meter max="4" id="password-strength-meter"></meter>
+          <p id="password-strength-text"><span>&#8203;</span></p>
+          Your password should contain:
+          <div class="password-check" id="password-check__caps">
+            <i class="fas fa-check" id="uppercase-validation__icon"></i>
+            <p id="uppercase-validation">One capital letter</p>
+          </div>
+          <div class="password-check" id="password-check__length">
+            <i class="fas fa-check" id="length-validation__icon"></i>
+            <p id="length-validation">At least 12 characters</p>
+          </div>
+          <div class="password-check" id="password-check__char">
+            <i class="fas fa-check" id="special-char-validation__icon"></i>
+            <p id="special-char__validation">One special character</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <%= submit "Complete Sign up", class: "btn btn-primary continue submit", id: "submit-button" %>
+  </div>
+</div>
+<% end %>

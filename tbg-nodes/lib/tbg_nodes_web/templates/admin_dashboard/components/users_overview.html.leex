@@ -1,0 +1,30 @@
+<div class="section">
+	<div class="clr-row p-t-s">
+		<div class="clr-col-3">
+			<div class="clr-row info-header">Total users</div>
+			<div class="clr-row info-value"><%= length(@users) %></div>
+		</div>
+	</div>
+</div>
+<table class="table table-noborder">
+	<thead>
+	<tr>
+		<th class="left name-column">Email</th>
+		<th class="right">Permissioned Ethereum Networks</th>
+		<th class="right">Permissioned Ethereum Nodes</th>
+		<th class="right">Public Ethereum Networks</th>
+		<th class="right">Registration date</th>
+	</tr>
+	</thead>
+	<tbody>
+	<%= for user <- @users do %>
+	<tr>
+		<td class="left"><%= user.email%></td>
+		<td class="right perm-networks-col"><%= length(user.permissioned_ethereum_networks) %></td>
+		<td class="right perm-nodes-col"><%= Enum.reduce(user.permissioned_ethereum_networks, 0, fn network, acc -> length(network.besu_nodes) + acc end) %></td>
+		<td class="right pub-networks-col"><%= length(user.public_ethereum_networks) %></td>
+		<td class="right"><%= format_date(user.inserted_at) %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

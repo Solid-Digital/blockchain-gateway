@@ -1,0 +1,131 @@
+@import '../variables';
+
+/*****************
+ * Buttons
+ * Buttons allow an application to communicate action and direct user intent.
+ * Buttons can be: solid, outlined or flat.
+ * Solid and outline have four types: primary, success, warning, danger.
+ * Buttons can be disabled.
+ *
+ * For each button type, use these variables to change the following button properties:
+ * - background color
+ * - border
+ * - (font) color
+ * - :hover background-color
+ * - :hover (font) color
+ * - box-shadow color
+ *
+ *  NOTE: these variables also affect button groups.
+ *
+ * Usage: ./_maps.clarity.scss
+ */
+
+$clr-btn-success-bg-color: #27ae60;
+
+// Use these to control the disabled appearance for all buttons.
+$clr-btn-disabled-font-color: $color-black;
+$clr-btn-outline-disabled-font-color: $color-white;
+$clr-btn-disabled-bg-color: $color-white;
+$clr-btn-disabled-border-color: $color-white;
+
+// Disabled icon color
+$clr-button-icon-disabled-color: $clr-btn-outline-disabled-font-color;
+
+// Default button
+$clr-btn-default-color: $color-accent; // border-color, color, checked-background-color
+$clr-btn-default-bg-color: transparent; // background-color, disabled-background-color
+$clr-btn-default-hover-bg-color: rgba($color-accent-light, 0.1); // hover-background-color
+$clr-btn-default-hover-color: $color-accent-dark; // hover-color
+$clr-btn-default-box-shadow-color: $color-black; // active-box-shadow-color
+$clr-btn-default-checked-color: $color-white; // checked-color
+$clr-btn-default-disabled-color: $clr-btn-outline-disabled-font-color; // disabled-color
+$clr-btn-default-disabled-border-color: $clr-btn-disabled-border-color; // disabled-border-color
+
+// Default outline button
+$clr-btn-default-outline-color: $color-accent; // border-color, color, checked-background-color
+$clr-btn-default-outline-bg-color: white; // background-color, disabled-background-color
+$clr-btn-default-outline-hover-bg-color: white; // hover-background-color
+$clr-btn-default-outline-hover-color: $color-accent-dark; // hover-color
+$clr-btn-default-outline-box-shadow-color: $color-black; // active-box-shadow-color
+$clr-btn-default-outline-checked-color: $color-white; // checked-color
+$clr-btn-default-outline-disabled-color: $clr-btn-outline-disabled-font-color; // disabled-color
+$clr-btn-default-outline-disabled-border-color: $clr-btn-disabled-border-color; // disabled-border-color
+$clr-btn-default-outline-checked-color: $clr-btn-disabled-bg-color;
+
+// Primary button
+$clr-btn-primary-color: $color-white; // color, checked-background-color
+$clr-btn-primary-bg-color: $color-accent; // background-color, disabled-background-color
+$clr-btn-primary-border-color: $color-accent; // border-color
+$clr-btn-primary-hover-bg-color: $color-accent-dark; // hover-background-color
+$clr-btn-primary-hover-color: $color-white; // hover-color
+$clr-btn-primary-box-shadow-color: #0065ab; // active-box-shadow-color
+$clr-btn-primary-checked-color: $color-white; // checked-color
+$clr-btn-primary-disabled-color: $clr-btn-disabled-font-color; // disabled-color
+$clr-btn-primary-disabled-bg-color: $clr-btn-disabled-bg-color; // disabled-bg-color
+$clr-btn-primary-disabled-border-color: $clr-btn-disabled-border-color; // disabled-border-color
+
+// Link button
+$clr-btn-link-color: $color-accent; // color
+$clr-btn-link-hover-color: $color-accent-dark; // hover-color
+$clr-btn-link-checked-color: #49afd9; // checked-color
+$clr-btn-link-disabled-color: $clr-btn-outline-disabled-font-color; // disabled-color
+
+// Inverse button
+$clr-btn-inverse-border-color: $color-black; // border-color
+$clr-btn-inverse-bg-color: transparent; // background-color
+$clr-btn-inverse-color: $color-black; // color
+$clr-btn-inverse-hover-bg-color: rgba(0, 0, 0, 0.1); // hover-background-color
+$clr-btn-inverse-hover-color: $color-black; // hover-color
+$clr-btn-inverse-box-shadow-color: #a9b6be; // active-box-shadow-color
+$clr-btn-inverse-checked-bg-color: rgba($color-white, 0.15); // checked-background-color
+$clr-btn-inverse-checked-color: $color-white; // checked-color
+$clr-btn-inverse-disabled-color: $clr-btn-outline-disabled-font-color; // disabled-color
+$clr-btn-inverse-disabled-border-color: $clr-btn-disabled-border-color; // disabled-border-color
+// END: Buttons
+
+
+/*********
+ * Stack View
+ * A stack view displays key/value pairs, which users can expand to show more detail.
+ *
+ * Usage: ../data/stack-view/_stack-view.clarity.scss
+ */
+$clr-stack-view-border-color: $color-line-light;
+$clr-stack-view-bg-color: white;
+$clr-stack-view-stack-block-border-bottom: $color-line-light; //border-bottom for stack-view rows (not last)
+$clr-stack-view-border-box-color: $color-line-light;
+$clr-stack-view-stack-block-label-and-content-bg-color: white; // stkvw row bg color when not expanded
+$clr-stack-view-stack-children-stack-block-border-bottom-color: $color-line-light; // children of an expanded row
+$clr-stack-view-stack-children-stack-block-label-and-content-bg-color: white; // children of an expanded row
+$clr-stack-view-stack-block-label-text-color: $color-darkblue;
+$clr-stack-view-stack-block-expanded-bg-color: white;
+$clr-stack-view-stack-block-expandable-hover: $color-lightgrey;
+$clr-stack-view-stack-block-content-text-color: $color-darkblue;
+$clr-stack-view-stack-block-expanded-text-color: $color-darkblue;
+$clr-stack-view-stack-block-caret-color: $color-darkblue;
+// END: Stack View overrides
+
+
+/**********
+ * Tabs
+ * Tabs divide content into separate views which users navigate between.
+ *
+ * Usage: ../layout/nav/_nav.clarity.scss
+ */
+$clr-nav-box-shadow-color: $color-line-dark;
+$clr-nav-active-box-shadow-color: $color-accent;
+// END: Tabs
+
+
+$clr-forms-focused-color: $color-accent; // Vertical no wrapper, no label
+
+$clr-outline-color: $color-grey;
+$clr-checkbox-color: $color-accent; // Changes radio and checkbox bg color
+$clr-datepicker-trigger-color: $color-accent;
+$clr-calendar-btn-color: $color-accent;
+
+
+// Checkbox
+$clr-forms-checkbox-label-color: $color-darkblue;
+$clr-forms-checkbox-background-color: $color-accent; // Use color here
+$clr-forms-checkbox-disabled-background-color: $color-lightgrey;

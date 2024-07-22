@@ -1,0 +1,10 @@
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/service.yaml
+secretGenerator:
+  - name: tbg-nodes-access-kubeconfig
+    files:
+      - ./secrets/tbg_nodes_access.kubeconfig
+    type: Opaque
+generatorOptions:
+  disableNameSuffixHash: true

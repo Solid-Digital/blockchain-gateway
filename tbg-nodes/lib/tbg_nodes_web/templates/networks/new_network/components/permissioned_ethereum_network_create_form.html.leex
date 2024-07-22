@@ -1,0 +1,179 @@
+<div id="stateful-<%= @id %>">
+    <%= form_for @changeset, "#", [phx_change: :validate, phx_submit: :create_network, "phx-target":
+    "#stateful-#{@id}"], fn f-> %>
+
+    <section class="consensus">
+        <h2>
+            Network Configuration
+        </h2>
+        <p>With Hyperledger Besu you can create a permissioned network that runs a consensus algorithm of your choice. You can find more information on picking the right algorithm for your use case <a
+                class="form__link" href="https://support.unchain.io/article/36-consensus-mechanisms"
+                target="_blank">here <i
+                class="fas fa-question-circle question-mark__icon" id="question-mark__icon"></i></a></span>.</p>
+
+        <div class="clr-form-control">
+            <div>
+                <label class="card__label">Consensus mechanism</label>
+                <div class="consensus-options">
+                    <div class="form-card">
+                        <%= radio_button f, :consensus, "IBFT", id: "IBFT"%>
+                        <label for="IBFT">
+                            <div class="card clickable card-img select--active">
+                                <div class="circle"></div>
+                                <div class="card-text">
+                                    <span class="form-card__label">Proof of Authority - IBFT 2.0</span>
+                                    <span class="form-card__sublabel">Fault tolerant</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-disabled disabled">
+                        <div class="form-card">
+                            <%= radio_button f, :consensus, "clique", id: "clique" %>
+                            <label for="clique">
+                                <div class="card card-img disabled">
+                                    <div class="circle"></div>
+                                    <div class="card-text">
+                                        <span class="form-card__label">Proof of Authority - Clique</span>
+                                        <span class="form-card__sublabel">Fast, based on identity as a stake</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <p class="coming-soon">(coming soon)</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%= error_tag f, :consensus %>
+    </section>
+
+    <section class="deployment deployment-options">
+        <h2>Deployment</h2>
+        <p><span>Select where you want to run your network. For more information on deployment options read <a
+                class="form__link"
+                href="https://support.unchain.io/article/37-deployment-options-for-hyperledger-besu"
+                target="_blank">here <i
+                class="fas fa-question-circle question-mark__icon" id="question-mark__icon"></i></a></span>.</p>
+
+        <div class="clr-form-control">
+            <div>
+                <label class="card__label">Deployment options</label>
+                <div class="deploy-options">
+                    <div class="form-card">
+                        <%= radio_button f, :deployment_option, "cloud", id: "cloud" %>
+                        <label for="cloud">
+                            <div class="card clickable card-img select--active">
+                                <div class="circle"></div>
+                                <div class="card-text">
+                                    <span class="form-card__label">Cloud - eu-west-1</span>
+                                    <span class="form-card__sublabel">Utilize our fully managed service</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="select-disabled disabled">
+                    <div class="form-card">
+                            <%= radio_button f, :deployment_option, "premise", id: "premise" %>
+                            <label for="premise">
+                                <div class="card card-img disabled">
+                                    <div class="circle"></div>
+                                    <div class="card-text">
+                                        <span class="form-card__label">On premise</span>
+                                        <span class="form-card__sublabel"><a href="mailto:support@unchain.io" target="_blank" class="link-class">Contact us</a> to for on-premise deployment</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%= error_tag f, :deployment_option %>
+
+        <p class="validators_span"><span>Select the number of validators and node services you wish to run. To learn more about the deployment of your permissioned network click <a
+                class="form__link" href="https://support.unchain.io/article/38-how-many-nodes-should-i-deploy"
+                target="_blank">here <i
+                class="fas fa-question-circle question-mark__icon" id="question-mark__icon"></i></a></span>.</p>
+
+
+        <section class="validation">
+            <%= number_input f, :number_besu_boot_nodes, style: "display:none"%>
+            <label class="new-form__label replication">Replication</label>
+            <div class="node-blocks">
+                <div class="node-block">
+                    <%= number_input f, :number_besu_validators, style: "display:none"%>
+                        <span class="node-block__labels">
+                            <label class="new-form__label">Validators</label>
+                            <label class="new-form__label validator-label">Node that can validate blocks.</label>
+                            <label class="new-form__label validator-label">Maximum number of validators is 5.</label>
+                        </span>
+                    <div class="node-actions">
+                        <div class="node-action">
+                            <button id="decrease-validators" class="pointer" type="button" phx-click="decrease_besu_validators" phx-target="<%= @myself %>">-</button>
+                        </div>
+                        <div class="node-action">
+                            <button id="increase-validators" class="pointer" type="button" phx-click="increase_besu_validators" phx-target="<%= @myself %>">+</button>
+                        </div>
+                    </div>
+                    <span id="validator-nodes" class="node-numbers"><%= @changeset.changes.number_besu_validators %></span>
+                </div>
+                <%= error_tag f, :number_besu_validators %>
+
+                <div class="node-block">
+                    <%= number_input f, :number_besu_normal_nodes, style: "display:none"%>
+                        <span class="node-block__labels">
+                            <label class="new-form__label">Nodes</label>
+                            <label class="new-form__label validator-label">Normal node that can transact on the network.</label>
+                            <label class="new-form__label validator-label">Minimum number of nodes is 1 and the maximum is 5.</label>
+                        </span>
+                    <div class="node-actions">
+                        <div class="node-action">
+                            <button id="decrease-nodes" class="pointer" type="button" phx-click="decrease_besu_nodes" phx-target="<%= @myself %>">-</button>
+                        </div>
+                        <div class="node-action">
+                            <button id="increase-nodes" class="pointer" type="button" phx-click="increase_besu_nodes" phx-target="<%= @myself %>">+</button>
+                        </div>
+                    </div>
+                    <span id="normal-nodes" class="node-numbers"><%= @changeset.changes.number_besu_normal_nodes %></span>
+                    <%= error_tag f, :number_besu_normal_nodes %>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <div>
+        <section class="finalize">
+            <h2>Finalize and create</h2>
+            <p>Give your network a recognizable name</p>
+            <div class="input">
+                <label for="name" class="finalize__label">Network name</label>
+                <%= text_input f, :network_name, class: "form__input", id: "name", placeholder: "besu-network-1", phx_debounce: "500" %>
+                <%= error_tag f, :network_name %>
+            </div>
+            <div class="form__buttons">
+                <%= if @changeset.valid? do %>
+                    <%= if @creating_network == false do %>
+                        <div class="tooltip tooltip-sm tooltip-top-right">
+                            <%= submit "Create network", class: "btn btn-next", disabled: !@changeset.valid? %>
+                        </div>
+                    <% else %>
+                      <button class="btn btn-spinner" type="submit" disabled>
+                          <span class="spinner spinner-inline"></span>
+                      </button>
+                    <% end %>
+                <% end %>
+                <%= if !@changeset.valid? do %>
+                <div role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-right">
+                    <%= submit "Create network", class: "btn btn-next", disabled: !@changeset.valid? %>
+                    <span class="tooltip-content">Complete the form to create a new network.</span>
+                </div>
+                <% end %>
+            </div>
+        </section>
+    </div>
+    <% end %>
+</div>

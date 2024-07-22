@@ -1,0 +1,35 @@
+<% require TbgNodes.NetworkMonitor.Status %>
+<%= if @status === TbgNodes.NetworkMonitor.Status.ready() do %>
+<span class="ready">
+  <i class="far fa-check-circle ready"></i>
+  <%= TbgNodes.NetworkMonitor.Status.to_string(@status) %>
+</span>
+<% end %>
+
+<%= if @status === TbgNodes.NetworkMonitor.Status.live() do %>
+<span class="live">
+  <i class="fas fa-exclamation-triangle live"></i>
+  <%= TbgNodes.NetworkMonitor.Status.to_string(@status) %>
+</span>
+<% end %>
+
+<%= if @status === TbgNodes.NetworkMonitor.Status.down() do %>
+<span class="down">
+  <i class="fas fa-times down"></i>
+  <%= TbgNodes.NetworkMonitor.Status.to_string(@status) %>
+</span>
+<% end %>
+
+<%= if @status === TbgNodes.NetworkMonitor.Status.fetching_status() do %>
+<span class="fetching-status">
+    <i class="fas fa-sync fetching-status"></i>
+    <%= TbgNodes.NetworkMonitor.Status.to_string(@status) %>
+</span>
+<% end %>
+
+<%= if @status === TbgNodes.NetworkMonitor.Status.not_available() do %>
+<span class="not-available">
+  <img src="/images/question-circle.svg" class="network-status__icon not-available" %>
+  <%= TbgNodes.NetworkMonitor.Status.to_string(@status) %>
+</span>
+<% end %>

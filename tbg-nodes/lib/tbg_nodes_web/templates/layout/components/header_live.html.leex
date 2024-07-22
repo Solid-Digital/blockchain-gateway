@@ -1,0 +1,30 @@
+<header class="header">
+	<div class="branding">
+		<img class="logo" src="<%= Routes.static_path(@socket, "/images/unchain_logo_darkbg.png") %>" alt="Unchain"/>
+	</div>
+
+	<nav class="header-nav">
+		<%= link "Networks", to: Routes.live_path(@socket, TbgNodesWeb.NetworkLive), class: "nav-link nav-text #{active_class(@path, Routes.live_path(@socket, TbgNodesWeb.NetworkLive))}" %>
+		<a href="https://support.unchain.io" class="nav-link nav-text" target="_blank" rel="noreferrer">
+			Documentation
+			<i class="fas fa-external-link-alt"></i>
+		</a>
+		<%= if @current_user.role == "admin" do %>
+			<%= link "Admin", to: Routes.live_path(@socket, TbgNodesWeb.AdminDashboardLive), class: "nav-link nav-text #{active_class(@path, Routes.live_path(@socket, TbgNodesWeb.AdminDashboardLive))}" %>
+			<%= link "Phoenix Live Dashboard", to: Routes.live_dashboard_path(@socket, :home), class: "nav-link nav-text #{active_class(@path, Routes.live_dashboard_path(@socket, :home))}" %>
+		<% end %>
+	</nav>
+	<div class="header-actions" x-data="{isOpen: false}">
+		<div id="header-user-dropdown" class="dropdown bottom-right" x-bind:class="{ 'open': isOpen }"  @click.away="isOpen = false">
+			<button id="header-user-dropdown-toggle" @click="isOpen = !isOpen" class="nav-text dropdown-toggle">
+				<%= @current_user.email %>
+
+				<i class="fas fa-angle-down"></i>
+			</button>
+			<div class="dropdown-menu">
+				<%= live_patch("Settings", to: Routes.live_path(@socket, TbgNodesWeb.SettingsLive), class: "dropdown-item") %>
+				<%= button "Log out", to: Routes.pow_session_path(@socket, :delete), method: "delete", class: "dropdown-item" %>
+			</div>
+		</div>
+	</div>
+</header>

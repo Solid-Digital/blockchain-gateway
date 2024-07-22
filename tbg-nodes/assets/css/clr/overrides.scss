@@ -1,0 +1,509 @@
+@import '../variables';
+
+.clr-form {
+  margin-top: 1rem;
+  padding: 0;
+}
+.section__header__buttons .clr-form {
+  margin-top: 0;
+}
+.clr-form-control {
+  margin-top: 0.5rem;
+}
+.clr-input-wrapper, .clr-select-wrapper {
+  max-height: none;
+}
+.clr-select-wrapper::after {
+  top: 0.55rem;
+  right: 0.2rem;
+}
+.clr-select-wrapper select, .clr-multiselect-wrapper select {
+  border-color: #ccced1;
+  height: auto;
+  padding-bottom: 0.2rem;
+  padding-left: 0.1rem;
+  padding-top: 0.27rem;
+}
+.clr-control-container {
+  width: 100%;
+}
+
+.clr-control-label {
+  margin-top: 0.5rem;
+}
+.clr-dropdown-wrapper {
+  font-size: 0.55rem;
+  border-bottom: 1px solid;
+  border-color: #ccced1;
+  padding: 0;
+}
+.clr-dropdown-wrapper .dropdown {
+  display: inherit;
+}
+.clr-dropdown-wrapper .dropdown .dropdown-toggle:not(.btn), .clr-dropdown-wrapper .dropdown button.dropdown-toggle:not(.btn) {
+  color: rgba(26, 37, 52, 0.8);
+  height: auto;
+  padding-bottom: 0.2rem;
+  padding-left: 0.1rem;
+  padding-top: 0.27rem;
+}
+.clr-dropdown-wrapper .dropdown-menu {
+  max-height: 20em;
+  max-width: 32em;
+  overflow-y: scroll;
+}
+.dropdown-item:not(.active):not(:hover) {
+  background-color: transparent !important;
+}
+.clr-dropdown-wrapper::after {
+  top: 0.55rem;
+  right: 0.2rem;
+}
+
+.clr-form-control-disabled {
+  color: #1a2534;
+  opacity: 1;
+}
+
+.clr-form-control-disabled:hover {
+  border: none;
+}
+
+i.fas.fa-external-link-alt {
+  margin-left: 0.25rem;
+}
+
+.clr-textarea, .clr-control-container textarea {
+  border-color: #ccced1;
+  height: auto;
+  padding: 0.27rem 0.2rem 0.2rem 0.2rem;
+  width: 100%;
+}
+
+.nav .nav-link,
+.nav .nav-link.active,
+.clr-select-wrapper select,
+.clr-multiselect-wrapper select,
+.clr-control-label {
+  color: rgba($color-darkblue, 0.8);
+}
+
+// ------------------- NAVIGATION -------------------
+
+.header {
+  background: $color-darkblue;
+  background: linear-gradient(to right, $color-darkblue 0%, $color-ocean 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1A2534', endColorstr='#254E58', GradientType=1);
+}
+
+header .branding,
+.header .branding {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+header .header-nav .nav-link:first-of-type::before,
+header .header-nav .nav-link:last-of-type::after,
+.header .header-nav .nav-link:first-of-type::before,
+.header .header-nav .nav-link:last-of-type::after {
+  content: none;
+}
+
+header .header-nav .nav-link,
+.header .header-nav .nav-link {
+  box-shadow: none;
+  color: white;
+  opacity: 1;
+  transition: box-shadow 0.2s ease-in;
+}
+
+header .header-nav .nav-link.active,
+.header .header-nav .nav-link.active {
+  background: none;
+  box-shadow: 0 -3px 0 $color-accent inset;
+}
+
+.header .header-nav .nav-link:enabled:hover,
+.header .header-nav .nav-link:enabled:hover {
+  box-shadow: 0 -3px 0 $color-accent inset;
+}
+
+header .header-nav .nav-text,
+.header .header-nav .nav-text {
+  margin: 0 1rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+header .settings > .dropdown > .dropdown-toggle,
+header .header-actions > .dropdown > .dropdown-toggle,
+.header .settings > .dropdown > .dropdown-toggle,
+.header .header-actions > .dropdown > .dropdown-toggle {
+  color: white;
+}
+
+.nav {
+  margin-top: 1rem;
+}
+
+.nav .nav-link {
+  padding: 0;
+}
+
+.logo {
+  height: 32px;
+}
+
+.header-nav {
+  a {
+    clr-icon {
+      position: unset !important;
+      transform: translate(0, -15%) !important;
+      margin-left: 0.2rem;
+    }
+  }
+}
+
+.header-actions {
+  align-items: center;
+  margin-right: 1rem;
+}
+
+clr-dropdown {
+  height: 100%;
+}
+
+.dropdown-toggle {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown button.dropdown-toggle:not(.btn) {
+  color: white;
+}
+
+// ------------------- CARDS -------------------
+
+.card {
+  box-shadow: none;
+  border-radius: 0;
+  border-color: $color-line-light;
+}
+
+.card.clickable:hover {
+  border-color: $color-accent;
+  box-shadow: none;
+}
+
+.card-block {
+  border: none;
+  padding: 0.75rem;
+}
+
+.card-title {
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.card-footer {
+  padding: 0 0.75rem 0.75rem 0.75rem;
+  text-align: right;
+}
+
+.card-footer .btn {
+  display: inline-block;
+  margin: 0;
+}
+
+// ------------------- ACCORDION -------------------
+
+clr-accordion {
+  margin-top: 1rem;
+}
+
+.clr-accordion-header,
+.clr-accordion-content {
+  background-color: $color-white !important;
+  border-color: $color-line-light !important;
+}
+
+.clr-accordion-title {
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clr-accordion-status {
+  margin-top: -2px;
+}
+
+.clr-accordion-header-button {
+  height: 2rem;
+}
+
+.clr-accordion-header-button,
+.clr-accordion-error,
+.clr-accordion-icon-title {
+  display: flex;
+  align-items: center;
+}
+
+.clr-accordion:not(.clr-stepper-forms) .clr-accordion-panel:last-child .clr-accordion-panel-open .clr-accordion-header {
+  border-bottom: 0;
+}
+
+.clr-accordion-header {
+  border-radius: 0 !important;
+
+  &:hover {
+    background-color: $color-lightgrey !important;
+  }
+}
+
+.clr-accordion-inner-content {
+  padding: 0 !important;
+}
+
+// ------------------- FORMS -------------------
+
+.clr-form {
+  margin-top: 1rem;
+  padding: 0;
+}
+
+.section__header__buttons .clr-form {
+  margin-top: 0;
+}
+
+.clr-form-control {
+  margin-top: 0.5rem;
+}
+
+.clr-input-wrapper,
+.clr-select-wrapper {
+  max-height: none;
+}
+
+.clr-select-wrapper::after {
+  top: 0.55rem;
+  right: 0.2rem;
+}
+
+.clr-select-wrapper select,
+.clr-multiselect-wrapper select {
+  border-color: $color-line-dark;
+  height: auto;
+  padding-bottom: 0.2rem;
+  padding-left: 0.1rem;
+  padding-top: 0.27rem;
+}
+
+.clr-control-container {
+  width: 100%;
+}
+
+.clr-dropdown-wrapper {
+  font-size: 0.55rem;
+  border-bottom: 1px solid;
+  border-color: $color-line-dark;
+  padding: 0;
+
+  .dropdown {
+    display: inherit;
+  }
+
+  .dropdown .dropdown-toggle:not(.btn),
+  .dropdown button.dropdown-toggle:not(.btn) {
+    color: rgba($color-darkblue, 0.8);
+    height: auto;
+    padding-bottom: 0.2rem;
+    padding-left: 0.1rem;
+    padding-top: 0.27rem;
+  }
+
+  .dropdown-menu {
+    max-height: 20em;
+    max-width: 32em;
+    overflow-y: scroll;
+  }
+}
+
+// fix for auto-selected first-item in the dropdown-menus.
+.dropdown-item {
+  &:not(.active):not(:hover) {
+    background-color: transparent !important;
+  }
+}
+
+.clr-dropdown-wrapper::after {
+  top: 0.55rem;
+  right: 0.2rem;
+}
+
+input[type="text"]:not([readonly]),
+input[type="password"]:not([readonly]),
+input[type="number"]:not([readonly]),
+input[type="email"]:not([readonly]),
+input[type="url"]:not([readonly]),
+input[type="tel"]:not([readonly]),
+input[type="date"]:not([readonly]),
+input[type="time"]:not([readonly]),
+input[type="datetime-local"]:not([readonly]),
+input[type="text"][readonly],
+input[type="password"][readonly],
+input[type="number"][readonly],
+input[type="email"][readonly],
+input[type="url"][readonly],
+input[type="tel"][readonly],
+input[type="date"][readonly],
+input[type="time"][readonly],
+input[type="datetime-local"][readonly] {
+  background: linear-gradient(to bottom, transparent 95%, $color-accent 95%) no-repeat;
+  background-size: 0% 100%;
+  border-bottom: 1px solid $color-line-dark;
+  height: auto;
+  max-height: none;
+  padding: 0.27rem 0 0.2rem 0;
+  width: 100%;
+}
+
+.clr-textarea,
+.clr-control-container textarea {
+  border-color: $color-line-dark;
+  height: auto;
+  padding: 0.27rem 0.2rem 0.2rem 0.2rem;
+  width: 100%;
+}
+
+input[type="text"]:not([readonly]):focus,
+input[type="password"]:not([readonly]):focus,
+input[type="number"]:not([readonly]):focus,
+input[type="email"]:not([readonly]):focus,
+input[type="url"]:not([readonly]):focus,
+input[type="datetime-local"]:not([readonly]):focus {
+  border-color: $color-accent;
+  background-size: 100% 100%;
+}
+
+input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="email"]:disabled,
+input[type="url"]:disabled,
+input[type="tel"]:disabled,
+input[type="date"]:disabled,
+input[type="time"]:disabled,
+input[type="datetime-local"]:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+.clr-textarea:disabled,
+input[readonly],
+.clr-textarea[readonly] {
+  color: $color-grey;
+  opacity: 1;
+}
+
+.clr-form-control-disabled {
+  color: $color-black;
+  opacity: 1;
+}
+
+.pencil-input {
+  display: flex;
+  align-items: center;
+
+  .clr-form-control {
+    width: 100%;
+  }
+
+  input.clr-input {
+    width: 100%;
+    padding: 0;
+    color: $color-darkgrey;
+    font-size: 0.6rem;
+  }
+
+  &.disabled {
+    input.clr-input {
+      border-color: transparent;
+      pointer-events: none;
+    }
+  }
+}
+
+// ------------------- BUTTONS -------------------
+button.btn.btn-primary {
+  background: #f36d21;
+  border: 1px #f36d21;
+}
+
+
+.btn-small {
+  min-width: 2.25em;
+  height: 1.25rem;
+  line-height: 1.25rem;
+}
+
+.btn.btn-primary:hover {
+  background-color: #e55710;
+  color: #fff;
+}
+
+button.btn.btn-secondary:disabled {
+  border-color: #adb0b5;
+  color: #adb0b5;
+}
+
+button.btn.btn-primary:disabled {
+  border-color: #adb0b5;
+}
+
+button.btn {
+  &.btn-secondary:disabled {
+    border-color: $color-grey;
+    color: $color-grey;
+  }
+
+  &.btn-primary:disabled {
+    border-color: $color-grey;
+  }
+}
+
+button.btn-link.btn-danger {
+  color: $color-error;
+
+  &:hover {
+    color: rgba($color-error, 0.8);
+  }
+}
+
+button.btn-icon {
+  background-color: transparent;
+  border: transparent;
+  color: $color-accent;
+  cursor: pointer;
+  padding: 0.25rem;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    color: $color-accent-dark;
+  }
+}
+
+// Clr alert
+
+.alert-actions {
+  a {
+    text-decoration: underline;
+    color: rgba($color-black, 0.6);
+  }
+}
+
+

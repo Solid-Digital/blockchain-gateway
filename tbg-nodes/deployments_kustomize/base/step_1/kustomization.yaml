@@ -1,0 +1,7 @@
+resources:
+  - ./resources/service_account.yaml
+  - ./resources/edit_cluster_role_binding.yaml
+  - ./resources/namespace_create_delete_cluster_role.yaml
+  - ./resources/namespace_create_delete_cluster_role_binding.yaml
+  - ./resources/libcluster_role.yaml
+  - ./resources/libcluster_service_account.yaml

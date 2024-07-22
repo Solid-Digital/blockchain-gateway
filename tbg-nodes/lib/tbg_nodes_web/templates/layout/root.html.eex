@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  	<meta version="<%= version() %>"/>
+    <title>The Blockchain Gateway</title>
+  	<link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  	<%= csrf_meta_tag() %>
+  </head>
+  <body>
+	<%= if @current_user do %>
+		<%= live_render(@conn, TbgNodesWeb.HeaderComponentLive, id: "header", session: %{"current_user_id" => @current_user.id, "path" => @conn.path_info}) %>
+	<% end %>
+	<%= @inner_content %>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

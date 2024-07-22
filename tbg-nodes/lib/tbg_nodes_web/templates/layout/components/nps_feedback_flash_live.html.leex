@@ -1,0 +1,27 @@
+<%= if @visible do %>
+<div id="nps-feedback-flash">
+  <div class="feedback-container">
+    <%= if @form_state == "open" do %>
+    <div id="nps-form">
+      <div class="feedback-text">How likely are you to recommend the Blockchain Gateway to a friend or colleague?</div>
+      <div class="button-group">
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="1">1</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="2">2</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="3">3</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="4">4</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="5">5</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="6">6</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="7">7</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="8">8</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="9">9</button>
+        <button class="btn btn-small" phx-click="select_nps" phx-value-nps="10">10</button>
+      </div>
+    </div>
+    <% end %>
+    <%= if @form_state == "submitted" do %>
+    <div class="feedback-text"><%= @msg %></div>
+    <% end %>
+    <div phx-click="close_feedback"><i class="fas fa-times fa-2x close"></i></div>
+  </div>
+</div>
+<% end %>

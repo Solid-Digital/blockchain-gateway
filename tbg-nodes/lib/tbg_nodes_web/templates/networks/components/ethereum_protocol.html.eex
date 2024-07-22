@@ -1,0 +1,1 @@
+<img src="<%= Routes.static_path(@conn, "/images/ethereum-icon.svg")%>" alt="" height="24" />&nbsp;&nbsp;Ethereum

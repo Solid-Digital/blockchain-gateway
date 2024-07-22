@@ -1,0 +1,111 @@
+<div id="network-overview">
+  <div class="container">
+    <%= if (length @public_ethereum_networks) + (length @permissioned_ethereum_networks) > 0 do %>
+    <div class="row">
+      <div class="section">
+        <div class="section__header">
+          <h2>Networks</h2>
+          <div class="actions">
+            <div class="section__header__buttons">
+              <a href="<%= Routes.live_path(@socket, TbgNodesWeb.NewNetworkLive) %>">
+                <button class="btn btn-primary">
+                  <i class="fas fa-plus"></i>
+                  Create new
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <!-- Ethereum networks -->
+        <%= for network <- @public_ethereum_networks do %>
+        <table class="table table-noborder">
+          <thead>
+          <tr>
+            <th class="left name-column">Name</th>
+            <th class="left protocol-column">Protocol</th>
+            <th class="left status-column">Status</th>
+            <th class="right since-column">Since</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="network-header">
+            <td class="left">
+              <%= live_redirect network.name, to: Routes.live_path(@socket, TbgNodesWeb.Networks.PublicEthereumNetworkDetailLive, network.uuid), class: "network-link" %>
+            </td>
+            <td class="left">
+              <%= render "components/ethereum_protocol.html", conn: @socket %>
+            </td>
+            <td class="left"><%= live_render(@socket, TbgNodesWeb.Networks.PublicEthereumNetworkStatusLive, id: "network_detail_status", session: %{"network_uuid" => network.uuid, "current_user_id" => @current_user_id}) %></td>
+            <td class="right"><%= since(network.inserted_at) %></td>
+          </tr>
+          <%= for interface <- network.network_external_interfaces do %>
+          <tr class="interface-row">
+            <td class="left"><%= format_protocol(interface.protocol) %></td>
+            <td colspan="3" class="right no-wrap"><%= get_url(network.network_configuration, interface.protocol,
+              network.uuid, network.network_configuration) %>
+              <a href="<%= assemble_config_link(network, interface) %>">configuration</a><a
+                  href="<%= interface.doc_link%>">example</a>
+            </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <% end %>
+
+        <!-- Besu networks -->
+        <%= for network <- @permissioned_ethereum_networks do %>
+        <table class="table table-noborder">
+          <thead>
+          <tr>
+            <th class="left name-column">Name</th>
+            <th class="left protocol-column">Protocol</th>
+            <th class="left status-column">Status</th>
+            <th class="right since-column">Since</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="network-header">
+            <td class="left">
+              <%= live_redirect network.name, to: Routes.live_path(@socket, TbgNodesWeb.Networks.PermissionedBesuNetworkDetailLive, network.uuid), class: "network-link" %>
+            </td>
+            <td class="left">
+              <%= render "components/besu_protocol.html", conn: @socket %>
+            </td>
+            <td class="left"><%= live_render(@socket, TbgNodesWeb.Networks.PermissionedEthereumNetworkStatusLive, id: "permissioned_network_detail_status", session: %{"network_uuid" => network.uuid, "current_user_id" => @current_user_id}) %></td>
+            <td class="right"><%= since(network.inserted_at) %></td>
+          </tr>
+          <%= for interface <- network.external_interfaces do %>
+          <tr class="interface-row">
+            <td class="left"><%= format_protocol(interface.protocol) %></td>
+            <td colspan="3" class="right no-wrap">
+                <%= interface.url %>
+            </td>
+          </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <% end %>
+
+
+      </div>
+    </div>
+
+    <!-- No networks available, prompt to create one  -->
+    <% else %>
+    <div class="row">
+      <div class="center align-center p-t-xl">
+        <h2>Setup your first network</h2>
+        <h5>Pick a protocol and deploy <br>your node.</h5>
+        <a href="<%= Routes.live_path(@socket, TbgNodesWeb.NewNetworkLive) %>">
+          <button class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Create network
+          </button>
+        </a>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

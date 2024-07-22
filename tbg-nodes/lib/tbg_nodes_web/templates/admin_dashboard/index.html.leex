@@ -1,0 +1,17 @@
+<div id="admin-dashboard">
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+		<ul class="nav" role="tablist">
+			<li role="presentation" class="nav-item">
+				<button id="users-tab" phx-click="select_tab" phx-value-active_tab="users" class="btn btn-link nav-link <%= if @active_tab == "users" do %>active<% end %>" type="button">Users</button>
+			</li>
+			<li role="presentation" class="nav-item">
+				<button id="nodes-tab" phx-click="select_tab" phx-value-active_tab="nodes" class="btn btn-link nav-link <%= if @active_tab == "nodes" do %>active<% end %>" type="button">Nodes</button>
+			</li>
+		</ul>
+		<%= case @active_tab do %>
+    <% "users" -> %><%= live_render(@socket, TbgNodesWeb.AdminUsersComponentLive, id: "users-overview") %>
+    <% "nodes" -> %><%= live_render(@socket, TbgNodesWeb.AdminNodesComponentLive, id: "nodes-overview") %>
+		<% end %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div id="settings-container" class="container">
+  <h1>Settings</h1>
+  <div id="account-info" class="section">
+    <div class="bold">Contact email</div>
+    <div><%= @current_user.email %></div>
+    <div class="italic">Since <%= since(@current_user.inserted_at) %></div>
+  </div>
+  <div id="sign-in-method" class="section">
+    <h2>Sign-in method</h2>
+    <div id="sign-in-method-component">
+      <%= live_component(@socket, TbgNodesWeb.SignInMethodComponentLive, user: @current_user) %>
+    </div>
+<!--    <button class="btn btn-primary" phx-click="change_method">CHANGE METHOD</button>-->
+  </div>
+
+<!--  <div id="deactivate-account" class="section">-->
+<!--    <h2>Deactivate account</h2>-->
+<!--    <button class="btn btn-danger" phx-click="deactivate_account">DEACTIVATE ACCOUNT</button>-->
+<!--  </div>-->
+
+</div>

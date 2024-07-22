@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "tbg-nodes",
+      "Group": "tbg-nodes",
+      "Port": 5432,
+      "Username": "postgres",
+      "Host": "postgres",
+      "Password": "postgres",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.login-wrapper {
+  .auth-image {
+    width: 100%;
+    background: url('/images/auth_background.jpg') right top / cover no-repeat;
+  }
+  .error-msg {
+    color: #c72100;
+  }
+  .green {
+    color: #27ae60;
+  }
+}
+
+.login {
+  background: $color-white !important;
+  width: 24rem !important;
+}
+
+.login-wrapper .login .login-group {
+  .btn {
+    margin: 1.5rem 0 0 0;
+    min-width: 100%;
+    color: #000;
+    background: #fff;
+    border: 1px solid #737373;
+    width: 100%;
+    //padding: 0 !important;
+  }
+}
+
+.login-wrapper .login .login-group {
+  padding: 0 !important;
+}
+
+.fa-github {
+  width: 30px;
+  height: 30px;
+  color: #000;
+}
+
+.divider {
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid #626262;
+  text-align: center;
+  line-height:1.5rem
+}
+.divider-text {
+  background-color:#FFF;
+  padding: 0 10px;
+}
+
+.invalid-inputs {
+  font-size: 15px;
+  line-height: 12px;
+  color: #EB5757;
+}
+
+.helper-text {
+  font-size: 14px;
+}
+
+.submit {
+  background: #F36D21 !important;
+  color: #fff !important;
+  border: 1px solid #F36D21 !important;
+}
+
+.login-group {
+  width: 100%;
+}
+
+i.fas.icon-error {
+  width: 24px;
+  height: 24px;
+  color: #e02200;
+}

@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbg-nodes
+spec:
+  template:
+    spec:
+      containers:
+        - name: tbg-nodes
+          env:
+            - name: INFRA_API
+              value: k8s
+            - name: RUNNING_IN_K8S
+              value: 'true'

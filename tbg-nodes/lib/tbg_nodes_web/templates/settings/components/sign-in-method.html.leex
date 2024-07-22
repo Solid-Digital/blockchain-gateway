@@ -1,0 +1,26 @@
+<div class="sign-in-method-card clr-row">
+  <%= if @provider == "github" do %>
+  <div class="clr-col-1">
+    <div class="center m-t-s">
+      <i class="fab fa-github fa-3x"></i>
+    </div>
+  </div>
+  <div class="clr-col-4">
+    <div class="bold">Github</div>
+    <div>Username: <%= @user.username %></div>
+    <div>Primary email address: <%= @user.email%></div>
+  </div>
+  <% end %>
+  <%= if @provider == "email" do %>
+  <div class="clr-col-1">
+    <div class="center m-t-s">
+      <i class="far fa-envelope fa-3x"></i>
+    </div>
+  </div>
+  <div class="clr-col-4">
+    <div class="bold">Email and password</div>
+    <div>Email address: <%= @user.email %></div>
+  </div>
+  <% end %>
+</div>
+

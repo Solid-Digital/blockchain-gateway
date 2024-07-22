@@ -1,0 +1,4 @@
+namespace: tbg-nodes-prod
+nameSuffix: -prod
+bases:
+  - ../../base/step_1/

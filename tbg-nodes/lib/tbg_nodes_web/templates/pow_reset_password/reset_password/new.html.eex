@@ -1,0 +1,30 @@
+<div class="login-wrapper">
+  <div class="login">
+    <%= form_for @changeset, @action, [as: :user], fn f -> %>
+    <section class="title">
+      Reset password
+      <h5 class="hint">Request a new password to recover your account.</h5>
+    </section>
+    <div class="login-group">
+
+      <div class="clr-form-control">
+        <label for="basic" class="clr-control-label">Email address</label>
+        <div class="clr-control-container">
+          <div class="clr-input-wrapper">
+            <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "clr-input" %>
+            <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+            <i class="fas fa-exclamation-triangle icon-error"></i>
+          </div>
+        </div>
+      </div>
+      <%= if @changeset.action do %>
+      <div>
+        <i class="fas fa-exclamation-triangle icon-error"></i>
+        <span class="invalid-inputs">Something went wrong, please check for errors</span>
+      </div>
+      <% end %>
+      <%= submit "Submit", class: "btn btn-primary submit" %>
+    </div>
+    <% end %>
+  </div>
+</div>
