@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whoami
+  template:
+    metadata:
+      labels:
+        app: whoami
+    spec:
+      containers:
+        - name: whoami-container
+          image: unchain/whoami
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-service
+  namespace: default
+spec:
+  ports:
+    -   name: http
+        targetPort: 80
+        port: 80
+  selector:
+    app: whoami
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: whoami-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$2
+#spec:
+#  rules:
+#    -   host: w.h.o.localhost
+#        http:
+#          paths:
+#            -   path: /ami(/|$)(.*)
+#                backend:
+#                  serviceName: whoami-service
+#                  servicePort: http
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /testpath
+            backend:
+              serviceName: whoami-service
+              servicePort: 80
