@@ -1,0 +1,42 @@
+output = "gen/orm"
+pkgname = "orm"
+#templates = [
+#    "/home/enikolov/go/src/github.com/volatiletech/sqlboiler/templates",
+###    "/home/enikolov/go/src/github.com/volatiletech/sqlboiler/templates_test",
+#    "./templates"
+#]
+
+[psql]
+  dbname = "tbg_nodes_dev"
+  host   = "localhost"
+  port   = 5432
+  user   = "postgres"
+  pass   = "postgres"
+  schema = "public"
+  blacklist = ["goose_db_version", "goose_fixture_version", "casbin_rule"]
+  sslmode = "disable"
+
+[imports.all]
+third_party = [
+    '"github.com/unchainio/pkg/errors"',
+	'"github.com/volatiletech/sqlboiler/boil"',
+	'"github.com/volatiletech/sqlboiler/queries"',
+	'"github.com/volatiletech/sqlboiler/queries/qm"',
+	'"github.com/volatiletech/sqlboiler/queries/qmhelper"',
+	'"github.com/volatiletech/sqlboiler/strmangle"',
+]
+
+[imports.singleton."boil_types"]
+standard = ['"strconv"']
+third_party = [
+	'"github.com/unchainio/pkg/errors"',
+	'"github.com/volatiletech/sqlboiler/boil"',
+	'"github.com/volatiletech/sqlboiler/strmangle"',
+]
+
+[imports.singleton."boil_queries"]
+third_party = [
+	'"github.com/volatiletech/sqlboiler/drivers"',
+	'"github.com/volatiletech/sqlboiler/queries"',
+	'"github.com/volatiletech/sqlboiler/queries/qm"',
+	]

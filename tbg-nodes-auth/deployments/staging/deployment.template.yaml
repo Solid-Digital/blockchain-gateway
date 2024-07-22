@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbg-nodes-auth-staging
+  namespace: tbg-nodes-staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbg-nodes-auth-staging
+  template:
+    metadata:
+      labels:
+        app: tbg-nodes-auth-staging
+      annotations:
+        updated-at: "{{date}}"
+        version: "{{tag}}"
+    spec:
+      volumes:
+        - name: tbg-nodes-auth-staging-config
+          secret:
+            secretName: tbg-nodes-auth-staging-config
+            items:
+              - key: config.toml
+                path: config.toml
+      containers:
+        - name: tbg-nodes-auth-staging
+          image: registry.unchain.io/unchain/tbg-nodes-auth:{{tag}}
+          command:
+            - /app/tbg-nodes-auth
+          args:
+            - --cfg=config/config.toml
+          volumeMounts:
+            - mountPath: /app/config
+              name: tbg-nodes-auth-staging-config
+      imagePullSecrets:
+        - name: registry-unchain-io
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tbg-nodes-auth-staging
+  labels:
+    app: tbg-nodes-auth-staging
+  namespace: tbg-nodes-staging
+spec:
+  type: ClusterIP
+  selector:
+    app: tbg-nodes-auth-staging
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: tbg-nodes-staging
+  name: tbg-nodes-auth-staging
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+spec:
+  tls:
+    - secretName: "tbg-nodes-auth.staging.dgo.unchain.io"
+      hosts:
+        - "tbg-nodes-auth.staging.dgo.unchain.io"
+  rules:
+    - host: "tbg-nodes-auth.staging.dgo.unchain.io"
+      http:
+        paths:
+          - path: "/?(.*)"
+            backend:
+              serviceName: tbg-nodes-auth-staging
+              servicePort: 8080

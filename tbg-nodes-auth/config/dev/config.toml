@@ -1,0 +1,9 @@
+url = ":8080"
+
+[logger]
+    level = "debug"
+    format = "text"
+
+[sql]
+    driver = "postgres"
+    connectionString = "user=postgres host=localhost dbname=tbg_nodes_dev sslmode=disable password=postgres"
