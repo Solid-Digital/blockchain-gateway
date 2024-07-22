@@ -1,0 +1,38 @@
+name: CI/CD - Main
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - run: git pull --depth=200000 origin $(git rev-parse --abbrev-ref HEAD) --tags
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Install required action tools
+        run: make install-tools
+
+      - name: Create build version
+        run: make write-version
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Build the image
+        run: make image
+
+      - name: Push the image
+        run: make push
+
+      - name: Update spec and deploy
+        run: make update-deployment-prod
+
