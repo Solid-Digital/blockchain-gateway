@@ -3,7 +3,9 @@ We (www.soliddigital.nl) acquired the source code of the bankrupt company Unchai
 We have decided not to continue developing this blockchain gateway and instead are releasing all the source code under an open-source license.
 We hope that by making this source code publicly available, someone can use it to further improve real world solution with the help of blockchain technology.
 Figma design of the application can be found here: https://www.figma.com/design/72MLk88iXuVmx8P9JoDD86/Connect-V3?node-id=0-1&t=w1BJ1KfrWr0domfO-1
+
 ** Note:** We are not responsible for any damages when using these public sourcecodes.
+
 ## About the Blockchain Gateway
 Unchain developed a set of web applications and tooling that allows organisations to create permissioned blockchain networks, connect to public networks and create and manage integrations of business applications to various blockchain networks.
 ### Features
