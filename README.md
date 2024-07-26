@@ -2,6 +2,7 @@
 We (www.soliddigital.nl) acquired the source code of the bankrupt company Unchain B.V., located in the Netherlands, at the beginning of 2024. One of the applications this company was developing is a blockchain gateway designed to facilitate the connection between enterprise software and blockchain technology.
 We have decided not to continue developing this blockchain gateway and instead are releasing all the source code under an open-source license.
 We hope that by making this source code publicly available, someone can use it to further improve real world solution with the help of blockchain technology.
+
 Figma design of the application can be found here: https://www.figma.com/design/72MLk88iXuVmx8P9JoDD86/Connect-V3?node-id=0-1&t=w1BJ1KfrWr0domfO-1
 
 ** Note:** We are not responsible for any damages when using these public sourcecodes.
